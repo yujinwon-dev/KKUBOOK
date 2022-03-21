@@ -1,5 +1,8 @@
+import os
 from django.db import models
 from django.conf import settings
+from uuid import uuid4
+from django.utils import timezone
 
 
 class Book(models.Model):
@@ -24,18 +27,22 @@ class KkubookMode(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+def img_path(instance, filename):
+    username = instance.username
+    ymd = timezone.now().strftime('%Y/%m/%d')
+    uuid_name = uuid4().hex
+    extension = os.path.splitext(filename)[-1].lower()
+    return '/'.join([username, ymd, uuid_name[:2], uuid_name + extension])
+
+
 class Memo(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
-    # TODO: content/memo_img blank or null 설정 및 이미지 upload 경로 
-    content = models.TextField(max_length=500)
-    memo_img = models.ImageField()
+    content = models.TextField(max_length=500, blank=True)
+    memo_img = models.ImageField(blank=True, upload_to=img_path)
     memo_mark = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def img_path(instance, filename):
-        pass
 
 
 class Commit(models.Model):
@@ -56,24 +63,31 @@ class Bookshelf(models.Model):
     book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
     book_status = models.IntegerField(default=2)
     curr_page = models.IntegerField(default=0)
-    # TODO: *_date blank or null 설정
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(blank=True)
+    end_date = models.DateField(blank=True)
     rating = models.IntegerField(default=5)
 
 
 class Survey(models.Model):
-    # TODO: ForeignKey(unique=Ture) or OneToOneField?
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    feeling = models.IntegerField()
+    category = models.IntegerField()
+    amount = models.IntegerField()
+    job = models.IntegerField()
+
+
+class Interest(models.Model):
+    survey_id = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    keyword = models.CharField(max_length=30)
 
 
 class Category(models.Model):
-    # TODO: ForeignKey(unique=Ture) or OneToOneField?
-    book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
+    book_id = models.OneToOneField(Book, on_delete=models.CASCADE)
     main = models.CharField(max_length=50)
     sub = models.CharField(max_length=50)
+    survey_category = models.IntegerField()
 
 
 class Keyword(models.Model):
-    book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
+    book_id = models.ForeignKey(Book, on_delete=models.CASCADE)
     word = models.CharField(max_length=30)
