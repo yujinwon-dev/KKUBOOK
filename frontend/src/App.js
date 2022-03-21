@@ -9,16 +9,13 @@ import MyInfo from './routes/MyInfo';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        Kkubook
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/memo" element={<Memo />} />
-          <Route path="/recommendation" element={<Recommendation />} />
-          <Route path="/myinfo" element={<MyInfo />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/library" element={<Library />} />
+        <Route path="/memo" element={<Memo />} />
+        <Route path="/recommendation" element={<Recommendation />} />
+        <Route path="/myinfo" element={<MyInfo />} />
+      </Routes>
     </BrowserRouter>
   );
 }
