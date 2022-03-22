@@ -5,6 +5,7 @@ import Library from './routes/Library';
 import Memo from './routes/Memo';
 import Recommendation from './routes/Recommendation';
 import MyInfo from './routes/MyInfo';
+import Reading from './routes/Reading';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/memo" element={<Memo />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/myinfo" element={<MyInfo />} />
+        <Route path="/reading" element={<Reading />} />
       </Routes>
     </BrowserRouter>
   );
