@@ -6,6 +6,7 @@ import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import books from '../data/books';
 import MainBook from '../components/main/MainBook';
+import SearchBook from '../components/main/SearchBook';
 
 const StyledSlide = styled(Slider)`
   width: 85%;
@@ -41,6 +42,7 @@ function Main() {
       <button type="button" onClick={() => navigate('reading')}>
         책 읽기
       </button>
+      <SearchBook />
     </>
   );
 }
