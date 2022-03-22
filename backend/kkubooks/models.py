@@ -19,7 +19,7 @@ class Book(models.Model):
 
 
 class KkubookMode(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     level = models.IntegerField()
     kkubook_days = models.IntegerField()
     notcommit_days = models.IntegerField()
@@ -36,8 +36,8 @@ def img_path(instance, filename):
 
 
 class Memo(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.PROTECT)
     content = models.TextField(max_length=500, blank=True)
     memo_img = models.ImageField(blank=True, upload_to=img_path)
     memo_mark = models.BooleanField(default=False)
@@ -46,8 +46,8 @@ class Memo(models.Model):
 
 
 class Commit(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.PROTECT)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
@@ -59,8 +59,8 @@ class Bookshelf(models.Model):
         1(읽는중): 0 으로 변경
         0(완독): 평점 받기
     '''
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.PROTECT)
     book_status = models.IntegerField(default=2)
     curr_page = models.IntegerField(default=0)
     start_date = models.DateField(blank=True)
@@ -69,7 +69,7 @@ class Bookshelf(models.Model):
 
 
 class Survey(models.Model):
-    user_id = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     feeling = models.IntegerField()
     category = models.IntegerField()
     amount = models.IntegerField()
@@ -77,17 +77,17 @@ class Survey(models.Model):
 
 
 class Interest(models.Model):
-    survey_id = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
     keyword = models.CharField(max_length=30)
 
 
 class Category(models.Model):
-    book_id = models.OneToOneField(Book, on_delete=models.CASCADE)
+    book = models.OneToOneField(Book, on_delete=models.CASCADE)
     main = models.CharField(max_length=50)
     sub = models.CharField(max_length=50)
     survey_category = models.IntegerField()
 
 
 class Keyword(models.Model):
-    book_id = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     word = models.CharField(max_length=30)
