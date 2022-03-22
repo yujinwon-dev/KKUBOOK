@@ -16,8 +16,8 @@ const bookList = [
     author: '생택쥐페리',
     image: 'https://image.yes24.com/goods/49855699/XL',
     startFrom: '',
-    totalPage: 350,
-    page: 10,
+    totalPage: 180,
+    page: 50,
     status: 1,
   },
   {
@@ -36,8 +36,8 @@ const bookList = [
     author: '나동빈',
     image: 'https://image.yes24.com/goods/91433923/XL',
     startFrom: '',
-    totalPage: 350,
-    page: 10,
+    totalPage: 300,
+    page: 60,
     status: 1,
   },
 ];
