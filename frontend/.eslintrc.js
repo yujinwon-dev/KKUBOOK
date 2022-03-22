@@ -19,5 +19,13 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'react/prop-types': [
+      0,
+      {
+        ignore: ['ignore'],
+        customValidators: ['customValidator'],
+        skipUndeclared: true,
+      },
+    ],
   },
 };
