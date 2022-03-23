@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
-import './BottomSheetBase.css';
+import 'react-spring-bottom-sheet/dist/style.css';
+import styled from 'styled-components';
+
+const StyledBottomSheet = styled(BottomSheet)`
+  [data-rsbs-overlay],
+  [data-rsbs-backdrop] {
+    max-width: 500px;
+    margin: 0px auto;
+  }
+`;
 
 function BottomSheetBase(props) {
   const [open, setOpen] = useState(false);
@@ -11,13 +20,13 @@ function BottomSheetBase(props) {
       <button type="button" onClick={() => setOpen(!open)}>
         {btnname}
       </button>
-      <BottomSheet
+      <StyledBottomSheet
         open={open}
         onDismiss={() => setOpen(false)}
         header={<p className="sheetHeader">{header}</p>}
       >
         {body}
-      </BottomSheet>
+      </StyledBottomSheet>
     </>
   );
 }
