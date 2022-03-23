@@ -3,13 +3,13 @@ from ..models import Bookshelf
 
 class BookshelfSerializer(serializers.ModelSerializer):
 
-  class Meta:
-    model = Bookshelf
-    fields = '__all__'
+    class Meta:
+        model = Bookshelf
+        fields = '__all__'
 
   
 class BookshelfRatingSerializer(serializers.ModelSerializer):
 
-  class Meta:
-    model = Bookshelf
-    fields = ('rating', )
+    class Meta:
+        model = Bookshelf
+        fields = ('rating', )
