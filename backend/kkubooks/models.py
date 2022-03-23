@@ -63,8 +63,8 @@ class Bookshelf(models.Model):
     book = models.ForeignKey(Book, on_delete=models.PROTECT)
     book_status = models.IntegerField(default=2)
     curr_page = models.IntegerField(default=0)
-    start_date = models.DateField(blank=True)
-    end_date = models.DateField(blank=True)
+    start_date = models.DateField(null=True,blank=True)
+    end_date = models.DateField(null=True,blank=True)
     rating = models.IntegerField(default=5)
 
 
