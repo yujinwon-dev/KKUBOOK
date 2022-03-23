@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 
 const Nav = styled.nav`
-  ${tw`fixed bottom-0 bg-[#fff] rounded-t-[10px] z-[10]`}
+  ${tw`fixed bottom-0 bg-[#fff] rounded-t-[10px] z-[3]`}
   width: 100%;
   max-width: 500px;
   height: 62px;
