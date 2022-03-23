@@ -7,17 +7,18 @@ import books from '../data/books';
 import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
 
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  draggable: true,
+  arrows: false,
+};
+
 function Main() {
   const navigate = useNavigate();
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    draggable: true,
-    arrows: false,
-  };
 
   return (
     <>
