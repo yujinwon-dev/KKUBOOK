@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from django.shortcuts import get_object_or_404
 from ..models import (
   Book,
   Bookshelf,
@@ -17,18 +17,15 @@ def create_book(request):
     # 서재에 책을 등록한다.
     if request.method == 'POST':
         serializer = BookshelfSerializer(data=request.data)
-        # start_time = datatime.datetime.now()
         if serializer.is_valid(): # 유효한 값이 들어가는지 검사
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])
-def bookshelf_detail(request, book_id):
-    try:
-        book = Bookshelf.objects.get(book_id=book_id)
-    except book.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+def bookshelf_detail(request, bookshelf_id):
+
+    book = get_object_or_404(Bookshelf, pk=bookshelf_id)
 
     # 서재에 등록된 책의 상태 및 페이지를 변경한다.
     if request.method == 'PUT':
@@ -40,15 +37,8 @@ def bookshelf_detail(request, book_id):
 
     # 서재에서 책을 삭제한다.
     elif request.method == 'DELETE':
-        # 책을 삭제하면 해당 책에 작성한 메모도 함께 삭제된다.
-        try:
-            memo = Memo.objects.get(book_id=book_id)
-            memo.delete()
-        except memo.DoesNotExist:
-            pass
-        
         book.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(data='정상적으로 삭제되었습니다.', status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def bookshelf_list(request):
