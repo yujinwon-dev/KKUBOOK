@@ -2,17 +2,13 @@ import PropTypes from 'prop-types';
 import tw, { styled } from 'twin.macro';
 
 const BookContainer = styled.div`
+  background-color: beige;
   width: 100%;
-  background-color: azure;
-  border-radius: 30px;
-  padding: 2rem;
 
   .title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
-    height: 20px;
   }
 
   .contents {
