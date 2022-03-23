@@ -1,4 +1,6 @@
 from django.http import JsonResponse
+import jwt
+from django.conf import settings
 import requests
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import get_user_model
@@ -6,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_204_NO_CONTENT
 )
-from .serializers import UserSerializer
+from kkubooks.models import KkubookMode
 
 
 User = get_user_model()
@@ -25,7 +27,7 @@ def kakao_login(request):
     )
 
 
-def kakao_callback(request):
+def kakao_login_callback(request):
     '''
     token 발급
     DB에 없는 사용자일 경우, DB에 저장
@@ -54,25 +56,46 @@ def kakao_callback(request):
     
     email = user_info['kakao_account']['email']
     nickname = user_info['kakao_account']['profile']['nickname']
+
     if not User.objects.filter(kakao_email=email).exists():
         User.objects.create(
             kakao_email = email,
             nickname = nickname
             )
-        print(f'SignIn {email}')
+        print(f'SignIn {nickname}')
     else:
         print('존재하는 회원입니다.')
     
-    return JsonResponse({"token": token_response})
+    user = get_object_or_404(User, kakao_email=email)
+
+    is_kkubook = KkubookMode.objects.filter(user_id=user.pk).exists()
+
+    jwt_data = {
+        'user_id': user.pk,
+        'nickname': user.nickname,
+        'is_kkubook': is_kkubook,
+    }
+
+    jwt_token = jwt.encode(jwt_data, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+
+
+    login_user = {
+        'user_id': user.pk,
+        'nickname': user.nickname,
+        'is_kkubook': is_kkubook,
+        'token': jwt_token,
+    }
+
+    return JsonResponse(login_user)
 
 
 def kakao_logout(request):
     '''
     TODO:
-        프론트에서 바로 요청하기..?
+        확인 후 진행
     '''
     kakao_logout_api = 'https://kapi.kakao.com/v1/user/logout'
-    access_token = 'x7aSuoaMp5xXyrpak3-YvByuEOXVWng1uPcARwo9dVoAAAF_sEO5pA'
+    access_token = ''
     requests.post(
         kakao_logout_api, 
         headers={"Authorization": f'Bearer ${access_token}'}
@@ -81,28 +104,10 @@ def kakao_logout(request):
 
 def signout(request):
     '''
-    DELETE: 사용자 정보를 DB에서 삭제
+    DELETE: 사용자 정보 DB에서 삭제
+    TODO:
+        request.user로 변경
     '''
-    user = User.objects.filter(user=request.user)
+    user = User.objects.filter(id=1)
     user.delete()
     return Response(status=HTTP_204_NO_CONTENT)
-
-
-def get_or_delete_user(request):
-    '''
-    GET: 사용자 정보 조회
-    DELETE: 사용자 정보 DB에서 삭제
-    '''
-    print('여기?')
-    print(request.user)
-    user = User.objects.filter(id=2)
-    print('err?')
-    print(user)
-    print(request.method)
-    if request.method == 'GET':
-        serializer = UserSerializer(User)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        user.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
