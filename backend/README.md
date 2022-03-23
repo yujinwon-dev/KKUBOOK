@@ -17,12 +17,10 @@
    ```bash
    # 패키지 설치
    pip install -r requirements.txt
-
+   
    # 패키지 저장 (패키지 변경시 실행)
    pip freeze > requirements.txt
    ```
-
-​
 
 3. mariadb 설치
 
