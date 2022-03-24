@@ -18,7 +18,7 @@ function App() {
         <Route path="/memo" element={<Memo />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/myinfo" element={<MyInfo />} />
-        <Route path="/reading" element={<Reading />} />
+        <Route path="/reading/:bookId" element={<Reading />} />
       </Routes>
     </BrowserRouter>
   );
