@@ -13,3 +13,10 @@ class BookshelfRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookshelf
         fields = ('rating', )
+
+
+class BookshelfCurrpageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Bookshelf
+        fields = ('curr_page', )
