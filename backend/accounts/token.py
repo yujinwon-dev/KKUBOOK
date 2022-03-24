@@ -2,7 +2,6 @@ import jwt
 import datetime
 from django.conf import settings
 
-# jwt_token = jwt.encode(jwt_data, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 def create_token(payload, type):
     if type == 'access':
@@ -16,3 +15,5 @@ def create_token(payload, type):
     payload['exp'] = exp
     payload['iat'] = datetime.datetime.utcnow()
     encoded = jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+
+    return encoded

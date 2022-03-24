@@ -17,7 +17,7 @@
    ```bash
    # 패키지 설치
    pip install -r requirements.txt
-   
+
    # 패키지 저장 (패키지 변경시 실행)
    pip freeze > requirements.txt
    ```
@@ -27,6 +27,11 @@
    > [참고 링크](https://ministar.tistory.com/4)
    >
    > kkubook db 설정 - backend/settings.py DATABASES 참고
+
+   ```bash
+   # PORT 확인 (mariadb cmd)
+   SHOW GLOBAL VARIABLES LIKE 'PORT';
+   ```
 
 4. Migration
 

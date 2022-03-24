@@ -9,12 +9,17 @@ import Reading from './routes/Reading';
 import SearchBook from './components/main/SearchBook';
 import BookDetail from './components/main/BookDetail';
 import Intro from './routes/Intro';
+import KakaoRedirectHandler from './routes/KakaoRedirectHandler';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/intro" element={<Intro />} />
+        <Route
+          path="/oauth/callback/kakao"
+          element={<KakaoRedirectHandler />}
+        />
         <Route path="/" element={<Main />} />
         <Route path="/library" element={<Library />} />
         <Route path="/memo" element={<Memo />} />
