@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Time from '../components/main/Time';
 import useStore from '../stores/book';
@@ -7,17 +7,35 @@ import useStore from '../stores/book';
 const ReadingPage = styled.div`
   min-height: 100vh;
   background-color: #2a4753;
-`;
 
-const TimeContainer = styled.div`
-  min-height: 100px;
-  background-color: azure;
+  .time-container {
+    width: 90%;
+    margin: 0px auto;
+    min-height: 71vh;
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button-container {
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      width: 48%;
+      height: 50px;
+    }
+  }
 `;
 
 const BookReading = styled.div`
   background-color: white;
-  margin: 0px auto;
-  height: 8rem;
+  margin: 1rem auto;
+  height: 15vh;
   width: 90%;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -41,6 +59,7 @@ const BookReading = styled.div`
 function Reading() {
   const [isActive, setIsActive] = useState(true);
   const [isTimeVisible, setIsTimeVisible] = useState(true);
+  const navigate = useNavigate();
   const { bookId } = useParams();
   const book = useStore(
     useCallback(
@@ -55,12 +74,16 @@ function Reading() {
 
   return (
     <ReadingPage>
-      <TimeContainer>
+      <button type="button" onClick={() => navigate(-1)}>
+        Back
+      </button>
+
+      <div className="time-container">
         <h1>{isActive ? '독서 중' : '쉬는 중'}</h1>
         {isTimeVisible && (
           <Time isActive={isActive} setIsTimeVisible={setIsTimeVisible} />
         )}
-      </TimeContainer>
+      </div>
 
       <BookReading>
         <img src={book.image} alt={book.title} />
@@ -73,8 +96,10 @@ function Reading() {
         </button>
       </BookReading>
 
-      <button type="button">메모하기</button>
-      <button type="button">독서완료</button>
+      <div className="button-container">
+        <button type="button">메모하기</button>
+        <button type="button">독서완료</button>
+      </div>
     </ReadingPage>
   );
 }
