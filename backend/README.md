@@ -12,19 +12,15 @@
    source venv/scripts/activate
    ```
 
-   
-
 2. 패키지 설치하기
 
    ```bash
    # 패키지 설치
    pip install -r requirements.txt
-   
+
    # 패키지 저장 (패키지 변경시 실행)
    pip freeze > requirements.txt
    ```
-
-   
 
 3. mariadb 설치
 
@@ -37,8 +33,6 @@
    SHOW GLOBAL VARIABLES LIKE 'PORT';
    ```
 
-   
-
 4. Migration
 
    > 모델 클래스의 수정 (및 생성 )을 DB에 적용하는 과정
@@ -49,15 +43,13 @@
 
    # DB에 적용
    python manage.py migrate
-   
+
    # default_character_set_name 설정 확인 (mariadb cmd)
    SELECT schema_name, default_character_set_name FROM information_schema.schemata;
-   
+
    # default_character_set_name이 utf8이 아닐 경우 변경하기
    ALTER DATABASE kkubook DEFAULT CHARACTER SET utf8;
    ```
-
-   
 
 5. 실행
 

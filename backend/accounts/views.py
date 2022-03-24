@@ -1,4 +1,3 @@
-from os import access
 from django.http import JsonResponse
 import requests
 from django.shortcuts import get_object_or_404
