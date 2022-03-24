@@ -1,18 +1,16 @@
 import PropTypes from 'prop-types';
 import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
+import useStore from '../../stores/book';
 
 const BookContainer = styled.div`
+  background-color: beige;
   width: 100%;
-  background-color: azure;
-  border-radius: 30px;
-  padding: 2rem;
 
   .title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
-    height: 20px;
   }
 
   .contents {
@@ -50,7 +48,9 @@ const Bar = styled.div(({ progressRate }) => [
 ]);
 
 function MainBook({ book }) {
-  const { title, author, image, startFrom, totalPage, page, status } = book;
+  const { id, title, author, image, startFrom, totalPage, page } = book;
+  const navigate = useNavigate();
+  const updateOrder = useStore(state => state.updateOrder);
 
   return (
     <BookContainer>
@@ -70,7 +70,15 @@ function MainBook({ book }) {
           </div>
         </div>
       </div>
-      <button type="button">책 읽기</button>
+      <button
+        type="button"
+        onClick={() => {
+          updateOrder(id);
+          navigate(`reading/${id}`);
+        }}
+      >
+        책 읽기
+      </button>
       <button type="button">메모 하기</button>
     </BookContainer>
   );
