@@ -1,3 +1,4 @@
+from operator import le
 from django.http import JsonResponse
 import requests
 from django.shortcuts import get_object_or_404
@@ -41,7 +42,13 @@ def login_signup(request):
     
     # Login
     user = get_object_or_404(User, kakao_email=email)
+
     is_kkubook = KkubookMode.objects.filter(user_id=user.pk).exists()
+    if is_kkubook:
+        level = KkubookMode.objects.filter(user_id=1).values()[0]['level']
+        kkubook_days = level = KkubookMode.objects.filter(user_id=1).values()[0]['kkubook_days']
+    else:
+        level = kkubook_days = -1
 
     payload = {'email': user.email}
 
@@ -53,6 +60,8 @@ def login_signup(request):
         'nickname': user.nickname,
         'is_kkubook': is_kkubook,
         'kkubook_complete': user.kkubook_complete,
+        'level': level,
+        'kkubook_days': kkubook_days,
         'access_token': jwt_access_token,
     }
 
