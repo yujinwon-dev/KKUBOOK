@@ -18,7 +18,10 @@ from ..serializers.book import (
     BookSerializer,
     BookSearchSerializer,
 )
-from ..serializers.commit import CommitSerializer
+from ..serializers.commit import (
+    CommitSerializer,
+    CommitListSerializer,
+)
 from ..serializers.bookshelf import (
     BookshelfRatingSerializer,
     BookshelfCurrpageSerializer,
@@ -53,18 +56,12 @@ def search(request):
         word = request.GET.get('word')
         if not int(request.GET.get('index')):
             book_list = Book.objects.filter(title__icontains=word)
-            books = []
-            for book in book_list:
-                serializer = BookSearchSerializer(book)
-                books.append(serializer.data)
-            return Response(books)
+            serializer = BookSearchSerializer(book_list, many=True)
+            return Response(serializer.data)
         else:
             book_list = Book.objects.filter(author__icontains=word)
-            books = []
-            for book in book_list:
-                serializer = BookSearchSerializer(book)
-                books.append(serializer.data)
-            return Response(books)
+            serializer = BookSearchSerializer(book_list, many=True)
+            return Response(serializer.data)
         
 
 
@@ -109,13 +106,12 @@ def commit(request, book_id):
 
 
 @api_view(['PUT'])
-def page(request, book_id):
+def page(request, bookshelf_id):
     '''
     PUT: 현재 페이지 수를 수정한다.
     '''
     if request.method == 'PUT':
-        bookshelf_id = Bookshelf.objects.filter(book_id=book_id).filter(user_id=1)
-        bookshelf = get_object_or_404(Bookshelf, pk=bookshelf_id.values()[0]['id'])
+        bookshelf = get_object_or_404(Bookshelf, pk=bookshelf_id)
         serializer = BookshelfCurrpageSerializer(instance=bookshelf, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -129,22 +125,16 @@ def commit_list(request):
     '''
     if request.method == 'GET':
         commit_list = Commit.objects.filter(user_id=1)
-        commits = []
-        for commit in commit_list:
-            serializer = CommitSerializer(commit)
-            tmp = serializer.data['start_time'][:10]
-            if tmp not in commits:
-                commits.append(tmp)
-        return Response(commits)
+        serializer = CommitListSerializer(commit_list, many=True)
+        return Response(serializer.data)
 
 
 @api_view(['PUT'])
-def rating(request, book_id):
+def rating(request, bookshelf_id):
     '''
     PUT: 다 읽은 책의 평점 등록하기
     '''
-    bookshelf_id = Bookshelf.objects.filter(book_id=book_id).filter(user_id=1)
-    bookshelf = get_object_or_404(Bookshelf, pk=bookshelf_id.values()[0]['id'])
+    bookshelf = get_object_or_404(Bookshelf, pk=bookshelf_id)
     if request.method == 'PUT':
       serializer = BookshelfRatingSerializer(instance=bookshelf, data=request.data)
       if serializer.is_valid(raise_exception=True):
