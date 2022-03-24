@@ -7,7 +7,7 @@ import Recommendation from './routes/Recommendation';
 import MyInfo from './routes/MyInfo';
 import Reading from './routes/Reading';
 import SearchBook from './components/main/SearchBook';
-import RegisterBook from './components/main/RegisterBook';
+import BookDetail from './components/main/BookDetail';
 import Intro from './routes/Intro';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Route path="/myinfo" element={<MyInfo />} />
         <Route path="/reading" element={<Reading />} />
         <Route path="/searchbook" element={<SearchBook />} />
-        <Route path="/searchbook/registerbook" element={<RegisterBook />} />
+        <Route path="/bookDetail/:bookId" element={<BookDetail />} />
         <Route path="/reading/:bookId" element={<Reading />} />
       </Routes>
     </BrowserRouter>

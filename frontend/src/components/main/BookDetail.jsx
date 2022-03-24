@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import GoBackBar from '../common/GoBackBar';
 import books from '../../data/books';
@@ -52,16 +53,22 @@ const Button = styled.button`
   background-color: ${props => (props.left ? '#ffffff' : '#8DCD84')};
 `;
 
-function RegisterBook() {
+function BookDetail() {
+  const { bookId } = useParams();
+
   return (
     <div>
       <GoBackBar title="책 검색하기" />
       <BookInfo>
-        <p className="book-title">{books[0].title}</p>
-        <img className="book-img" src={books[0].image} alt={books[0].title} />
-        <Content title="책 소개" content={books[0].title} />
-        <Content title="출판사" content={books[0].title} />
-        <Content title="페이지" content={books[0].title} />
+        <p className="book-title">{books[bookId - 1].title}</p>
+        <img
+          className="book-img"
+          src={books[bookId - 1].image}
+          alt={books[bookId - 1].title}
+        />
+        <Content title="책 소개" content={books[bookId - 1].title} />
+        <Content title="출판사" content={books[bookId - 1].title} />
+        <Content title="페이지" content={books[bookId - 1].title} />
       </BookInfo>
       <Buttons>
         <Button left>
@@ -75,4 +82,4 @@ function RegisterBook() {
   );
 }
 
-export default RegisterBook;
+export default BookDetail;

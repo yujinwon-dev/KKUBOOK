@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'twin.macro';
 import GoBackBar from '../common/GoBackBar';
-import SearchResults from './SearchResults';
+import SearchResult from './SearchResult';
 import books from '../../data/books';
 import happyKkubook from '../../assets/happy-kkubook.png';
 
@@ -81,7 +81,7 @@ function SearchBook() {
       {books.length ? (
         <>
           {books.map(book => (
-            <SearchResults key={book.id} book={book} />
+            <SearchResult key={book.id} book={book} />
           ))}
         </>
       ) : (
