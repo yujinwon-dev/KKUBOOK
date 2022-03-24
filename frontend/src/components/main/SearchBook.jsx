@@ -1,44 +1,96 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
-import BottomSheetBase from '../common/BottomSheetBase';
+import GoBackBar from '../common/GoBackBar';
+import SearchResults from './SearchResults';
+import books from '../../data/books';
+import happyKkubook from '../../assets/happy-kkubook.png';
 
-const Body = styled.div`
+const SearchBox = styled.div`
+  margin: 2rem;
+
+  p {
+    color: #848282;
+    margin-bottom: 1rem;
+  }
+
+  .search-bar {
+    width: 100%;
+    height: 2rem;
+    border: 1px solid #848282;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input {
+    width: 100%;
+    border: none;
+  }
+`;
+
+const NoResult = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
-  padding: 2vh;
-`;
+  align-items: center;
 
-const ListEle = styled.div`
-  padding: 2vh;
+  img {
+    max-width: 100%;
+    height: 150px;
+    margin: 2rem;
+  }
 `;
-
-function SearchList() {
-  return (
-    <Body>
-      <ListEle onClick={() => console.log('1')}>
-        <p>검색해서 등록하기</p>
-      </ListEle>
-      <ListEle onClick={() => console.log('2')}>
-        <p>바코드로 등록하기</p>
-      </ListEle>
-      <ListEle onClick={() => useNavigate('recommendation')}>
-        <p>책 추천받기</p>
-      </ListEle>
-    </Body>
-  );
-}
 
 function SearchBook() {
-  const btnname = '책등록하기 버튼';
-  const header = '책 등록하기';
-
   return (
-    <div>
-      <BottomSheetBase btnname={btnname} header={header} body={SearchList()} />
-    </div>
+    <>
+      <GoBackBar title="책 검색하기" />
+      <SearchBox>
+        <p>읽고 싶은 책을 검색해 보세요!</p>
+        <form>
+          <div className="search-bar">
+            <svg
+              width="50"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="#848282"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <input placeholder="책 이름 / 저자 검색하기" />
+            <svg
+              width="50"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="#848282"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        </form>
+      </SearchBox>
+      {books.length ? (
+        <>
+          {books.map(book => (
+            <SearchResults key={book.id} book={book} />
+          ))}
+        </>
+      ) : (
+        <NoResult>
+          <img src={happyKkubook} alt="kkubook character" />
+          <p>찾으시는 책이 없으면 관리자에게 문의하세요</p>
+        </NoResult>
+      )}
+    </>
   );
 }
-
 export default SearchBook;

@@ -6,6 +6,8 @@ import Memo from './routes/Memo';
 import Recommendation from './routes/Recommendation';
 import MyInfo from './routes/MyInfo';
 import Reading from './routes/Reading';
+import SearchBook from './components/main/SearchBook';
+import RegisterBook from './components/main/RegisterBook';
 import Intro from './routes/Intro';
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/myinfo" element={<MyInfo />} />
         <Route path="/reading" element={<Reading />} />
+        <Route path="/searchbook" element={<SearchBook />} />
+        <Route path="/searchbook/registerbook" element={<RegisterBook />} />
       </Routes>
     </BrowserRouter>
   );

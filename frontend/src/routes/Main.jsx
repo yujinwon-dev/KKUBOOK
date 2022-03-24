@@ -6,7 +6,7 @@ import FabButton from '../components/common/FabButton';
 import books from '../data/books';
 import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
-import SearchBook from '../components/main/SearchBook';
+import SearchModal from '../components/main/SearchModal';
 
 const settings = {
   dots: false,
@@ -43,7 +43,7 @@ function Main() {
       <button type="button" onClick={() => navigate('reading')}>
         책 읽기
       </button>
-      <SearchBook />
+      <SearchModal />
     </>
   );
 }
