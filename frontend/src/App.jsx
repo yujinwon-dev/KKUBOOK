@@ -23,6 +23,7 @@ function App() {
         <Route path="/reading" element={<Reading />} />
         <Route path="/searchbook" element={<SearchBook />} />
         <Route path="/searchbook/registerbook" element={<RegisterBook />} />
+        <Route path="/reading/:bookId" element={<Reading />} />
       </Routes>
     </BrowserRouter>
   );
