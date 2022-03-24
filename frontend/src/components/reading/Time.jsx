@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import formatTime from '../../utils/formatTime';
 
 function Time({ isActive, setIsTimeVisible }) {
-  const [time, setTime] = useState(118);
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     if (time === 120) {
