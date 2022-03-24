@@ -15,4 +15,4 @@ class BookSearchSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Book
-        fields = ('title', 'img_url', )
+        fields = ('id', 'title', 'author', 'img_url', )
