@@ -7,12 +7,17 @@ import Recommendation from './routes/Recommendation';
 import MyInfo from './routes/MyInfo';
 import Reading from './routes/Reading';
 import Intro from './routes/Intro';
+import KakaoRedirectHandler from './routes/KakaoRedirectHandler';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/intro" element={<Intro />} />
+        <Route
+          path="/oauth/callback/kakao"
+          element={<KakaoRedirectHandler />}
+        />
         <Route path="/" element={<Main />} />
         <Route path="/library" element={<Library />} />
         <Route path="/memo" element={<Memo />} />

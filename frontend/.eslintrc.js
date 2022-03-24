@@ -27,5 +27,6 @@ module.exports = {
         skipUndeclared: true,
       },
     ],
+    camelcase: 'off',
   },
 };
