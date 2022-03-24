@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Time from './Time';
 import Book from './Book';
+import BottomSheetBase from '../common/BottomSheetBase';
 
 const StyledReadingPage = styled.div`
   background-color: #2a4753;
@@ -9,7 +10,7 @@ const StyledReadingPage = styled.div`
   .time-container {
     width: 90%;
     margin: 0px auto;
-    min-height: 71vh;
+    min-height: 70vh;
     background-color: azure;
     display: flex;
     flex-direction: column;
@@ -39,6 +40,16 @@ function ReadingPage({
   setIsReadingPage,
 }) {
   const navigate = useNavigate();
+  const finishReading = openModal => {
+    setIsTimerActive(false);
+
+    if (time < 120) {
+      openModal();
+      return;
+    }
+
+    setIsReadingPage(false);
+  };
 
   return (
     <StyledReadingPage>
@@ -68,6 +79,12 @@ function ReadingPage({
         >
           독서완료
         </button>
+        <BottomSheetBase
+          btnname="독서완료"
+          header="독서 시간이 너무 적어요"
+          body={<h1>독서 시간이 너무 적어요</h1>}
+          onClickHandler={finishReading}
+        />
       </div>
     </StyledReadingPage>
   );

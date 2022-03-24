@@ -13,11 +13,16 @@ const StyledBottomSheet = styled(BottomSheet)`
 
 function BottomSheetBase(props) {
   const [open, setOpen] = useState(false);
-  const { btnname, header, body } = props;
+  const { btnname, header, body, onClickHandler } = props;
+  const basicClickHandler = () => setOpen(!open);
+  const customClickHandler = () => onClickHandler(basicClickHandler);
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(!open)}>
+      <button
+        type="button"
+        onClick={onClickHandler ? customClickHandler : basicClickHandler}
+      >
         {btnname}
       </button>
       <StyledBottomSheet
