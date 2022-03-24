@@ -8,8 +8,9 @@ urlpatterns = [
     path('main/booklist/', main.booklist),
     path('main/book/<int:book_id>/', main.book_detail),
     path('main/<int:book_id>/commit/', main.commit),
+    path('main/<int:bookshelf_id>/page/', main.page),
     path('main/commits/', main.commit_list),
-    path('main/<int:book_id>/rating/', main.rating),
+    path('main/<int:bookshelf_id>/rating/', main.rating),
 
     path('bookshelf/', bookshelf.create_book),
     path('bookshelf/<int:bookshelf_id>/', bookshelf.bookshelf_detail),
