@@ -9,11 +9,13 @@ from rest_framework.status import (
 )
 from kkubooks.models import KkubookMode
 from .token import create_token
+from rest_framework.decorators import api_view
 
 
 User = get_user_model()
 
 
+@api_view(['POST'])
 def login_signup(request):
     '''
     token 발급
@@ -66,6 +68,7 @@ def login_signup(request):
     return JsonResponse(login_user)
 
 
+@api_view(['DELETE'])
 def signout(request):
     '''
     DELETE: 사용자 정보 DB에서 삭제
