@@ -1,7 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import useStore from '../../stores/book';
 import Time from './Time';
 
 const StyledReadingPage = styled.div`
@@ -55,21 +53,15 @@ const BookReading = styled.div`
   }
 `;
 
-function ReadingPage() {
-  const [isActive, setIsActive] = useState(true);
-  const [isTimeVisible, setIsTimeVisible] = useState(true);
+function ReadingPage({
+  time,
+  isTimerActive,
+  setIsTimerActive,
+  isTimeVisible,
+  book,
+  setIsReadingPage,
+}) {
   const navigate = useNavigate();
-  const { bookId } = useParams();
-  const book = useStore(
-    useCallback(
-      state => {
-        return state.books.find(item => {
-          return item.id === Number(bookId);
-        });
-      },
-      [bookId],
-    ),
-  );
 
   return (
     <StyledReadingPage>
@@ -78,10 +70,8 @@ function ReadingPage() {
       </button>
 
       <div className="time-container">
-        <h1>{isActive ? '독서 중' : '쉬는 중'}</h1>
-        {isTimeVisible && (
-          <Time isActive={isActive} setIsTimeVisible={setIsTimeVisible} />
-        )}
+        <h1>{isTimerActive ? '독서 중' : '쉬는 중'}</h1>
+        {isTimeVisible && <Time time={time} />}
       </div>
 
       <BookReading>
@@ -90,14 +80,22 @@ function ReadingPage() {
           <h3>{book.title}</h3>
           <p>{book.author}</p>
         </div>
-        <button type="button" onClick={() => setIsActive(!isActive)}>
-          {isActive ? '일시정지' : '재생'}
+        <button type="button" onClick={() => setIsTimerActive(!isTimerActive)}>
+          {isTimerActive ? '일시정지' : '재생'}
         </button>
       </BookReading>
 
       <div className="button-container">
         <button type="button">메모하기</button>
-        <button type="button">독서완료</button>
+        <button
+          type="button"
+          onClick={() => {
+            setIsReadingPage(false);
+            setIsTimerActive(false);
+          }}
+        >
+          독서완료
+        </button>
       </div>
     </StyledReadingPage>
   );
