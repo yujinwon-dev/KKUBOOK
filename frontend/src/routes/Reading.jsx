@@ -67,7 +67,7 @@ function Reading() {
         </Page>
       ) : (
         <Page>
-          <RecordPage time={time} />
+          <RecordPage time={time} setIsReadingPage={setIsReadingPage} />
         </Page>
       )}
     </div>
