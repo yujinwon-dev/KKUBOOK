@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -20,7 +19,6 @@ const settings = {
 
 function Main() {
   const books = useStore(state => state.books);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -40,9 +38,6 @@ function Main() {
           <h5>아직 읽고 있는 책이 없어요. 책 추가하기</h5>
         </Card>
       )}
-      <button type="button" onClick={() => navigate('reading')}>
-        책 읽기
-      </button>
       <SearchModal />
     </>
   );
