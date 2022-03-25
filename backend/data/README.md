@@ -74,6 +74,7 @@
 
 3. `backend/data/categories.py`, `backend/data/keywords.py`로 이동하여 코드 실행
    - `books.py` 실행 종료 후, 진행
+   - `books_table.csv`파일을 메모장으로 열어, encoding `utf-8`으로 변경
    - 두 파일의 경우 실행 순서 무관
 
 
