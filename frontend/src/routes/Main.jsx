@@ -4,7 +4,8 @@ import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
-import SearchBook from '../components/main/SearchBook';
+import SearchModal from '../components/main/SearchModal';
+import BookCommit from '../components/main/BookCommit';
 import useStore from '../stores/book';
 
 const settings = {
@@ -38,7 +39,8 @@ function Main() {
           <h5>아직 읽고 있는 책이 없어요. 책 추가하기</h5>
         </Card>
       )}
-      <SearchBook />
+      <BookCommit />
+      <SearchModal />
     </>
   );
 }

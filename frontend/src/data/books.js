@@ -9,6 +9,7 @@ const bookList = [
     totalPage: 350,
     page: 10,
     status: 1,
+    isbn: 9791162540640,
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const bookList = [
     totalPage: 180,
     page: 50,
     status: 1,
+    isbn: 9788931021295,
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ const bookList = [
     totalPage: 137,
     page: 100,
     status: 1,
+    isbn: 9788937460050,
   },
   {
     id: 4,
@@ -39,6 +42,7 @@ const bookList = [
     totalPage: 300,
     page: 60,
     status: 1,
+    isbn: 9791162243077,
   },
 ];
 
