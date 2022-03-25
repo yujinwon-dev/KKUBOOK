@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
+import Svg from './Svg';
 
 const Nav = styled.nav`
   ${tw`fixed bottom-0 bg-[#fff] rounded-t-[10px] z-[2]`}
@@ -59,21 +60,14 @@ function Navbar() {
         {links.map(link => (
           <li key={link.path}>
             <StyledLink to={link.path} selected={pathname === link.path}>
-              <svg
-                width="24"
-                height="24"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <Svg stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d={link.d}
                 />
-              </svg>
+              </Svg>
               {link.name}
             </StyledLink>
           </li>

@@ -24,8 +24,10 @@ function KakaoRedirectHandler() {
           const {
             user_id,
             nickname,
-            kkubook_complete,
             is_kkubook,
+            kkubook_complete,
+            level,
+            kkubook_days,
             access_token,
           } = res.data;
           axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
@@ -33,7 +35,9 @@ function KakaoRedirectHandler() {
             userId: user_id,
             kkubookComplete: kkubook_complete,
             isKkubook: is_kkubook,
+            kkubookDays: kkubook_days,
             nickname,
+            level,
           });
           navigate('/');
         });

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../stores/book';
+import ProgressBar from '../common/ProgressBar';
 
 const BookContainer = styled.div`
   background-color: beige;
@@ -29,24 +30,6 @@ const BookContainer = styled.div`
   }
 `;
 
-const ProgressBar = styled.div`
-  ${tw`
-    w-full
-    bg-gray-200
-    rounded-full
-    h-2.5
-    dark:bg-gray-700`}
-`;
-
-const Bar = styled.div(({ progressRate }) => [
-  tw`
-    bg-blue-600
-    h-2.5 
-    rounded-full
-  `,
-  `width: ${progressRate}%`,
-]);
-
 function MainBook({ book }) {
   const { id, title, author, image, startFrom, totalPage, page } = book;
   const navigate = useNavigate();
@@ -61,9 +44,7 @@ function MainBook({ book }) {
         <div className="progress">
           <div className="progress-items">
             <p>시작일 {startFrom}</p>
-            <ProgressBar>
-              <Bar progressRate={(page / totalPage) * 100} />
-            </ProgressBar>
+            <ProgressBar value={page} totalValue={totalPage} />
             <p>
               {totalPage} 중에 {page} 페이지
             </p>

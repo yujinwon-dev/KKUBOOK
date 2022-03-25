@@ -3,6 +3,7 @@ import tw, { styled, css } from 'twin.macro';
 const ModalBackdrop = styled.div`
   display: none;
   position: fixed;
+  top: 0;
   z-index: 100;
   width: 100%;
   max-width: 500px;
