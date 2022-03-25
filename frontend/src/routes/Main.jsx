@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import Slider from 'react-slick';
+import { useCallback } from 'react';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
-import SearchModal from '../components/main/SearchModal';
 import BookCommit from '../components/main/BookCommit';
+import SearchList from '../components/main/SearchList';
 import useStore from '../stores/book';
+import useBottomSheetStore from '../stores/bottomSheet';
 
 const settings = {
   dots: false,
@@ -20,6 +22,9 @@ const settings = {
 
 function Main() {
   const books = useStore(state => state.books);
+  const openBottomSheet = useBottomSheetStore(
+    useCallback(state => state.openSheet),
+  );
 
   return (
     <>
@@ -36,11 +41,16 @@ function Main() {
         </Slider>
       ) : (
         <Card>
-          <h5>아직 읽고 있는 책이 없어요. 책 추가하기</h5>
+          <button type="button">아직 읽고 있는 책이 없어요. 책 추가하기</button>
         </Card>
       )}
       <BookCommit />
-      <SearchModal />
+      <button
+        type="button"
+        onClick={() => openBottomSheet(SearchList, '책 등록하기')}
+      >
+        책 추가하기
+      </button>
     </>
   );
 }
