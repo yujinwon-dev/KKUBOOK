@@ -1,4 +1,3 @@
-import pandas as pd
 import glob
 import os
 
@@ -8,7 +7,7 @@ output_path = r'./dec_book.csv' #최종 파일명
 file_list=glob.glob(input_path)
 
 with open(output_path,'w') as f:
-  for i, file in enumerate (file_list): #첫 번째 파일은 그대로 불러오기
+  for i, file in enumerate(file_list): #첫 번째 파일은 그대로 불러오기
     if i==0: #첫 번째 파일은 그대로 불러오기
       with open(file,'r', -1, 'utf-8-sig') as f2:
         while True:

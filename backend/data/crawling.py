@@ -36,6 +36,11 @@ def category_crawling(book_isbn):
 
     category_tmp = soup.select_one('ul.list_detail_category > li')
     category = category_tmp.find_all('a')
+    # DEBUG
+    # ttt = []
+    # for c in category:
+    #     ttt.append(c.get_text().strip().strip('>').strip())
+    # return ttt
     return category
     
 
@@ -49,3 +54,8 @@ def keyword_crawling(book_isbn):
     keyword_tmp = soup.select_one('div.tag_list')
     keyword = keyword_tmp.find_all('a')
     return keyword
+
+# isbn = '9788979710045'
+# print(category_crawling(isbn))
+# isbn2 = '9791168120846'
+# print(category_crawling(isbn2))
