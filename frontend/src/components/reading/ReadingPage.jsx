@@ -1,8 +1,10 @@
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Time from './Time';
 import Book from './Book';
-import BottomSheetBase from '../common/BottomSheetBase';
+import useStore from '../../stores/bottomSheet';
+import Warning from './Warning';
 
 const StyledReadingPage = styled.div`
   background-color: #2a4753;
@@ -39,12 +41,13 @@ function ReadingPage({
   book,
   setIsReadingPage,
 }) {
+  const openBottomSheet = useStore(useCallback(state => state.openSheet));
   const navigate = useNavigate();
-  const finishReading = openModal => {
+  const finishReading = () => {
     setIsTimerActive(false);
 
     if (time < 120) {
-      openModal();
+      openBottomSheet(Warning, '독서 시간이 너무 적어요', setIsReadingPage);
       return;
     }
 
@@ -70,21 +73,9 @@ function ReadingPage({
 
       <div className="button-container">
         <button type="button">메모하기</button>
-        <button
-          type="button"
-          onClick={() => {
-            setIsReadingPage(false);
-            setIsTimerActive(false);
-          }}
-        >
+        <button type="button" onClick={finishReading}>
           독서완료
         </button>
-        <BottomSheetBase
-          btnname="독서완료"
-          header="독서 시간이 너무 적어요"
-          body={<h1>독서 시간이 너무 적어요</h1>}
-          onClickHandler={finishReading}
-        />
       </div>
     </StyledReadingPage>
   );
