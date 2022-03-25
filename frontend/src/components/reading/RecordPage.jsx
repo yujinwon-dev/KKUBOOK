@@ -7,10 +7,12 @@ const StyledRecordPage = styled.div`
   left: 0px;
 `;
 
-function RecordPage() {
+function RecordPage({ time, setIsReadingPage }) {
   return (
     <StyledRecordPage>
-      <button type="button">Back</button>
+      <button type="button" onClick={() => setIsReadingPage(true)}>
+        Back
+      </button>
 
       <p>time</p>
       <p>page</p>
