@@ -3,6 +3,7 @@ import tw, { styled } from 'twin.macro';
 import Time from './Time';
 import useStore from '../../stores/bottomSheet';
 import PageInput from './PageInput';
+import GiveUpReading from './GiveupReading';
 
 const StyledRecordPage = styled.div`
   .record {
@@ -54,7 +55,7 @@ function RecordPage({ time, setIsReadingPage }) {
     }
 
     if (submittedPage === 'stop') {
-      openBottomSheet();
+      openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
       return;
     }
 

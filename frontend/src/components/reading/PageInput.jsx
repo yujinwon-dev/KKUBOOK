@@ -106,10 +106,7 @@ function PageInput() {
         <button
           type="button"
           className="option-button"
-          onClick={() => {
-            submitPage('stop');
-            hideBottomSheet();
-          }}
+          onClick={() => submitPage('stop')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
