@@ -3,12 +3,17 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadingPage from '../components/reading/ReadingPage';
 import RecordPage from '../components/reading/RecordPage';
-import useStore from '../stores/book';
+import useBookStore from '../stores/book';
 
 const Page = styled.div`
   min-width: 100%;
   min-height: 100vh;
   background-color: azure;
+
+  button {
+    border: 0;
+    outline: 0;
+  }
 `;
 
 function Reading() {
@@ -17,7 +22,7 @@ function Reading() {
   const [isTimeVisible, setIsTimeVisible] = useState(true);
   const [time, setTime] = useState(0);
   const { bookId } = useParams();
-  const book = useStore(
+  const book = useBookStore(
     useCallback(
       state => {
         return state.books.find(item => {
@@ -51,26 +56,22 @@ function Reading() {
     };
   }, [isTimerActive]);
 
-  return (
-    <div>
-      {isReadingPage ? (
-        <Page>
-          <ReadingPage
-            time={time}
-            book={book}
-            isTimerActive={isTimerActive}
-            setIsTimerActive={setIsTimerActive}
-            isTimeVisible={isTimeVisible}
-            setIsTimeVisible={setIsTimeVisible}
-            setIsReadingPage={setIsReadingPage}
-          />
-        </Page>
-      ) : (
-        <Page>
-          <RecordPage time={time} setIsReadingPage={setIsReadingPage} />
-        </Page>
-      )}
-    </div>
+  return isReadingPage ? (
+    <Page>
+      <ReadingPage
+        time={time}
+        book={book}
+        isTimerActive={isTimerActive}
+        setIsTimerActive={setIsTimerActive}
+        isTimeVisible={isTimeVisible}
+        setIsTimeVisible={setIsTimeVisible}
+        setIsReadingPage={setIsReadingPage}
+      />
+    </Page>
+  ) : (
+    <Page>
+      <RecordPage time={time} setIsReadingPage={setIsReadingPage} />
+    </Page>
   );
 }
 

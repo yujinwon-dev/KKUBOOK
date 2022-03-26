@@ -29,6 +29,7 @@ const WarningSheet = styled.div`
       margin: 5px;
       border-radius: 10px;
       border: none;
+      font-size: 15px;
     }
   }
 

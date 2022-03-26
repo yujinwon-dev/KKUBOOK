@@ -6,24 +6,26 @@ import PageInput from './PageInput';
 import GiveUpReading from './GiveupReading';
 
 const StyledRecordPage = styled.div`
-  .record {
+  .content {
+    width: 90%;
+    margin: 0 auto;
     position: relative;
     top: 5rem;
   }
 
   .record-box {
     ${tw`bg-light-gray`}
+    width: 100%;
     display: flex;
     align-items: center;
     height: 6rem;
-    width: 90%;
     margin: 2rem auto;
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0px 2px 5px 1px gray;
   }
 
-  .content {
+  .record {
     margin: 10px;
     text-align: left;
   }
@@ -37,9 +39,15 @@ const StyledRecordPage = styled.div`
     font-size: 20px;
   }
 
-  button {
-    border: 0;
-    outline: 0;
+  .save-button {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90%;
+    height: 3rem;
+    bottom: 15px;
+    border-radius: 10px;
+    ${tw`bg-main-green`}
   }
 `;
 
@@ -68,13 +76,14 @@ function RecordPage({ time, setIsReadingPage }) {
 
   return (
     <StyledRecordPage>
-      <button type="button" onClick={() => setIsReadingPage(true)}>
-        Back
-      </button>
+      <header>
+        <button type="button" onClick={() => setIsReadingPage(true)}>
+          Back
+        </button>
+        <h3>오늘의 독서기록</h3>
+      </header>
 
-      <h3>오늘의 독서기록</h3>
-
-      <div className="record">
+      <div className="content">
         <button type="button" className="record-box">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +101,7 @@ function RecordPage({ time, setIsReadingPage }) {
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <div className="content">
+          <div className="record">
             <p className="title">읽은 시간</p>
             <Time time={time} />
           </div>
@@ -121,7 +130,7 @@ function RecordPage({ time, setIsReadingPage }) {
               d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
             />
           </svg>
-          <div className="content">
+          <div className="record">
             <p className="title">읽은 페이지</p>
             <p>
               <span className="page">P. {page}</span> / {totalPage}
@@ -129,6 +138,9 @@ function RecordPage({ time, setIsReadingPage }) {
           </div>
         </button>
       </div>
+      <button type="button" className="save-button">
+        저장하기
+      </button>
     </StyledRecordPage>
   );
 }
