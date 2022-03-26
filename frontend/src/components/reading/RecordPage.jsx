@@ -47,9 +47,22 @@ function RecordPage({ time, setIsReadingPage }) {
   const totalPage = 100;
   const initialPage = 1;
   const [page, setPage] = useState(initialPage);
+  const submitPage = submittedPage => {
+    if (submittedPage === 'done') {
+      setPage(totalPage);
+      return;
+    }
+
+    if (submittedPage === 'stop') {
+      openBottomSheet();
+      return;
+    }
+
+    setPage(Number(submittedPage));
+  };
 
   useEffect(() => {
-    openBottomSheet(PageInput, '페이지 기록하기', setPage);
+    openBottomSheet(PageInput, '페이지 기록하기', submitPage);
   }, []);
 
   return (
@@ -87,7 +100,9 @@ function RecordPage({ time, setIsReadingPage }) {
         <button
           type="button"
           className="record-box"
-          onClick={() => openBottomSheet(PageInput, '페이지 기록하기', setPage)}
+          onClick={() =>
+            openBottomSheet(PageInput, '페이지 기록하기', submitPage)
+          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
