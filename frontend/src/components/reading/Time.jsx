@@ -1,7 +1,7 @@
 import formatTime from '../../utils/formatTime';
 
 function Time({ time }) {
-  return <h1>{formatTime(time)}</h1>;
+  return <p>{formatTime(time)}</p>;
 }
 
 export default Time;
