@@ -34,10 +34,6 @@ const GenreListItem = styled.li`
     counter-reset: custom;
   }
 
-  &:last-child {
-    flex-grow: 1;
-  }
-
   div span:first-child {
     margin-right: 10px;
   }
