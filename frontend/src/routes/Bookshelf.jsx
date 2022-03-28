@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -32,9 +33,11 @@ const BookshelfPage = styled.div`
 `;
 
 function BookShelf() {
+  const navigate = useNavigate();
   const { selectedCategory, setSelectedCategory } = useBookshelfStore(
     state => state,
   );
+
   const books = useBookStore(
     useCallback(
       state => {
@@ -50,6 +53,10 @@ function BookShelf() {
     if (category.name !== selectedCategory.name) {
       setSelectedCategory(category);
     }
+  };
+
+  const selectBook = bookId => {
+    navigate(`/bookshelf/book/${bookId}`);
   };
 
   return (
@@ -72,7 +79,7 @@ function BookShelf() {
 
         <ul>
           {books.map(book => (
-            <Book key={book.id} book={book} />
+            <Book key={book.id} book={book} handleClick={selectBook} />
           ))}
         </ul>
       </BookshelfPage>
