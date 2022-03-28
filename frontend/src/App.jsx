@@ -8,6 +8,7 @@ import Reading from './routes/Reading';
 import BookShelf from './routes/Bookshelf';
 import Recommendation from './routes/Recommendation';
 import SearchBook from './components/main/SearchBook';
+import ScanBook from './components/main/ScanBook';
 import BookDetail from './components/main/BookDetail';
 import KakaoRedirectHandler from './routes/KakaoRedirectHandler';
 import BottomSheetBase from './components/common/BottomSheetBase';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/myinfo" element={<MyInfo />} />
         <Route path="/reading" element={<Reading />} />
         <Route path="/searchbook" element={<SearchBook />} />
+        <Route path="/scanbook" element={<ScanBook />} />
         <Route path="/bookDetail/:bookId" element={<BookDetail />} />
         <Route path="/reading/:bookId" element={<Reading />} />
       </Routes>
