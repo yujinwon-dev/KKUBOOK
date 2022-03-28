@@ -1,3 +1,4 @@
+from re import T
 import requests
 from bs4 import BeautifulSoup
 
@@ -8,7 +9,7 @@ def auth_crawling(book_isbn):
     '''
     저자 가져오기
     '''
-    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}')
+    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}', timeout=3)
     soup = BeautifulSoup(res.content, 'html.parser')
 
     author = soup.select_one('span.name > a.detail_author').get_text()
@@ -19,7 +20,7 @@ def page_crawling(book_isbn):
     '''
     페이지수 가져오기
     '''
-    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}')
+    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}', timeout=3)
     soup = BeautifulSoup(res.content, 'html.parser')
     
     page_tmp = soup.find('table', 'margin_top10')
@@ -31,7 +32,7 @@ def category_crawling(book_isbn):
     '''
     카테고리 가져오기
     '''
-    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}')
+    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}', timeout=3)
     soup = BeautifulSoup(res.content, 'html.parser')
 
     category_tmp = soup.select_one('ul.list_detail_category > li')
@@ -48,7 +49,7 @@ def keyword_crawling(book_isbn):
     '''
     키워드 가져오기
     '''
-    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}')
+    res = requests.get(f'{KYOBO_URL}?barcode={book_isbn}', timeout=3)
     soup = BeautifulSoup(res.content, 'html.parser')
 
     keyword_tmp = soup.select_one('div.tag_list')

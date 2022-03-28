@@ -5,7 +5,7 @@ import Main from './routes/Main';
 import Memo from './routes/Memo';
 import MyInfo from './routes/MyInfo';
 import Reading from './routes/Reading';
-import Library from './routes/Library';
+import BookShelf from './routes/Bookshelf';
 import Recommendation from './routes/Recommendation';
 import SearchBook from './components/main/SearchBook';
 import BookDetail from './components/main/BookDetail';
@@ -22,7 +22,7 @@ function App() {
           element={<KakaoRedirectHandler />}
         />
         <Route path="/" element={<Main />} />
-        <Route path="/library" element={<Library />} />
+        <Route path="/bookShelf" element={<BookShelf />} />
         <Route path="/memo" element={<Memo />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/myinfo" element={<MyInfo />} />
