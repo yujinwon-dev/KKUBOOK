@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import bookshelfCategories from '../constants/bookShelf';
 import BookshelfCategory from '../components/bookshelf/BookshelfCategory';
 import useBookStore from '../stores/book';
+import useBookshelfStore from '../stores/bookshelf';
 import Book from '../components/bookshelf/Book';
 
 const BookshelfPage = styled.div`
@@ -31,8 +32,8 @@ const BookshelfPage = styled.div`
 `;
 
 function BookShelf() {
-  const [selectedCategory, setSelectedCategory] = useState(
-    bookshelfCategories[0],
+  const { selectedCategory, setSelectedCategory } = useBookshelfStore(
+    state => state,
   );
   const books = useBookStore(
     useCallback(
