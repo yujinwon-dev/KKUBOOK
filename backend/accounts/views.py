@@ -62,6 +62,7 @@ def login_signup(request):
         'kkubook_complete': user.kkubook_complete,
         'level': level,
         'kkubook_days': kkubook_days,
+        'created_at': user.created_at,
         'access_token': jwt_access_token,
     }
 
