@@ -63,10 +63,6 @@ const StyledPageInput = styled.div`
   .button-content {
     display: flex;
   }
-
-  p {
-    margin: 0px;
-  }
 `;
 
 function PageInput() {
