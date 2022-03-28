@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 import 'react-spring-bottom-sheet/dist/style.css';
 import styled from 'styled-components';
+import useStore from '../../stores/bottomSheet';
 
 const StyledBottomSheet = styled(BottomSheet)`
   [data-rsbs-overlay],
@@ -11,23 +12,20 @@ const StyledBottomSheet = styled(BottomSheet)`
   }
 `;
 
-function BottomSheetBase(props) {
-  const [open, setOpen] = useState(false);
-  const { btnname, header, body } = props;
+function BottomSheetBase() {
+  const open = useStore(useCallback(state => state.open));
+  const { onDismiss, header, Component } = useStore(
+    useCallback(state => state, [open]),
+  );
 
   return (
-    <>
-      <button type="button" onClick={() => setOpen(!open)}>
-        {btnname}
-      </button>
-      <StyledBottomSheet
-        open={open}
-        onDismiss={() => setOpen(false)}
-        header={<p className="sheetHeader">{header}</p>}
-      >
-        {body}
-      </StyledBottomSheet>
-    </>
+    <StyledBottomSheet
+      open={open}
+      onDismiss={onDismiss}
+      header={<p className="sheetHeader">{header}</p>}
+    >
+      {Component && <Component />}
+    </StyledBottomSheet>
   );
 }
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import tw, { styled } from 'twin.macro';
 import happyKkubook from '../assets/happy-kkubook.png';
 import kakaologin from '../assets/kakaologin.png';
@@ -14,23 +13,17 @@ const Img = styled.img`
   height: auto;
 `;
 
-const LoginBtn = styled.button`
-  ${tw`border-none bg-transparent cursor-pointer`}
-`;
-
-const { Kakao } = window;
+const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
+const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 function Intro() {
-  function handleLogin() {
-    console.log('login');
-  }
   return (
     <Page>
       <Img src={happyKkubook} alt="Kkubook character" />
       <h1>꾸북</h1>
-      <LoginBtn type="button" onClick={() => handleLogin()}>
+      <a href={KAKAO_URL}>
         <img src={kakaologin} alt="kakao login" />
-      </LoginBtn>
+      </a>
     </Page>
   );
 }
