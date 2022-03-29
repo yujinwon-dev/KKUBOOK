@@ -40,10 +40,10 @@ def feeling(request):
     '''
     PUT: 기분을 DB에 반영
     '''
-    user = get_object_or_404(User, pk=4)
-    # user = get_request_user(request)
-    # if not user:
-    #     return Response(status=HTTP_401_UNAUTHORIZED)
+    # user = get_object_or_404(User, pk=4)
+    user = get_request_user(request)
+    if not user:
+        return Response(status=HTTP_401_UNAUTHORIZED)
 
     if request.method == 'PUT':
         try:
