@@ -5,6 +5,8 @@ import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import BookDetail from '../components/bookshelf/BookDetail';
 import Button from '../components/common/Button';
+import useBottomSheetStore from '../stores/bottomSheet';
+import Warning from '../components/bookshelf/Warning';
 
 function BookshelfBook() {
   const navigate = useNavigate();
@@ -54,6 +56,12 @@ function BookshelfBook() {
     ),
   };
 
+  const openBottomSheet = useBottomSheetStore(
+    useCallback(state => state.openSheet),
+  );
+  const warningDelete = useCallback(() => <Warning status={book.status} />, []);
+  const deleteBook = useBookStore(state => state.deleteBook);
+
   const getHeaderButton = status => {
     if (status === 2 || status === 3) {
       return (
@@ -64,6 +72,11 @@ function BookshelfBook() {
           width="initial"
           size="15px"
           padding="14px"
+          onClick={() =>
+            openBottomSheet(warningDelete, '책을 삭제하시겠습니까?', () =>
+              deleteBook(Number(bookId)),
+            )
+          }
         />
       );
     }
@@ -71,13 +84,17 @@ function BookshelfBook() {
     return null;
   };
 
-  return (
-    <>
-      <Header>{getHeaderButton(book.status)}</Header>
-      {book && <BookDetail book={book} />}
-      {book.status !== 0 && <Footer>{getButtonByStatus[book.status]}</Footer>}
-    </>
-  );
+  if (book) {
+    return (
+      <>
+        <Header>{getHeaderButton(book.status)}</Header>
+        <BookDetail book={book} />
+        {book.status !== 0 && <Footer>{getButtonByStatus[book.status]}</Footer>}
+      </>
+    );
+  }
+
+  return null;
 }
 
 export default BookshelfBook;
