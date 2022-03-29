@@ -8,7 +8,7 @@ const BookDetailPage = styled.div`
   padding: 3rem 10px;
   margin: 0px auto;
   text-align: center;
-  min-height: 100vh;
+  min-height: 110vh;
 
   img {
     height: 30%;
@@ -63,7 +63,7 @@ function BookDetail({ book }) {
             status={book.status}
             page={book.page}
             totalPage={book.totalPage}
-            padding="10px"
+            padding="10px 5px 5px"
           />
         </>
       )}

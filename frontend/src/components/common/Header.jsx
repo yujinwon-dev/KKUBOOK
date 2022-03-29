@@ -2,7 +2,7 @@ import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 
 const StyledHeader = styled.header`
-  ${tw`text-main-gray`}
+  ${tw`text-main-gray bg-white`}
   position: fixed;
   max-width: 500px;
   width: 100%;
@@ -15,6 +15,10 @@ const StyledHeader = styled.header`
 
   .m-5 {
     margin: 8px;
+  }
+
+  button {
+    margin-left: auto;
   }
 `;
 
