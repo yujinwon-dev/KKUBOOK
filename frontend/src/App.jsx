@@ -4,6 +4,8 @@ import Intro from './routes/Intro';
 import Main from './routes/Main';
 import Memo from './routes/Memo';
 import MyInfo from './routes/MyInfo';
+import Settings from './routes/Settings';
+import Signout from './routes/Signout';
 import Reading from './routes/Reading';
 import BookShelf from './routes/Bookshelf';
 import Recommendation from './routes/Recommendation';
@@ -26,6 +28,8 @@ function App() {
         <Route path="/memo" element={<Memo />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/myinfo" element={<MyInfo />} />
+        <Route path="/myinfo/settings" element={<Settings />} />
+        <Route path="/myinfo/settings/signout" element={<Signout />} />
         <Route path="/reading" element={<Reading />} />
         <Route path="/searchbook" element={<SearchBook />} />
         <Route path="/bookDetail/:bookId" element={<BookDetail />} />
