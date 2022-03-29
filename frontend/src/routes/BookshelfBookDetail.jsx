@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import useBookStore from '../stores/book';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import BookDetail from '../components/bookshelf/BookDetail';
 
-function BookDetail() {
+function BookshelfBook() {
   const navigate = useNavigate();
   const { bookId } = useParams();
   const book = useBookStore(
@@ -31,11 +32,14 @@ function BookDetail() {
           Back
         </button>
       </Header>
-      <Footer>
-        <button type="button">책 읽기</button>
-      </Footer>
+      {book && <BookDetail book={book} />}
+      {book.status !== 0 && (
+        <Footer>
+          <button type="button">책 읽기</button>
+        </Footer>
+      )}
     </>
   );
 }
 
-export default BookDetail;
+export default BookshelfBook;

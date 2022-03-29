@@ -12,7 +12,7 @@ import ScanBook from './components/main/ScanBook';
 import BookDetail from './components/main/BookDetail';
 import KakaoRedirectHandler from './routes/KakaoRedirectHandler';
 import BottomSheetBase from './components/common/BottomSheetBase';
-import BookshelfBook from './routes/BookshelfBook';
+import BookshelfBook from './routes/BookshelfBookDetail';
 import Page404 from './routes/NotFound';
 
 function App() {
