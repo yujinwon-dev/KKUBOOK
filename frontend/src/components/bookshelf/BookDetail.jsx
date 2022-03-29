@@ -1,6 +1,6 @@
 import tw, { styled } from 'twin.macro';
 import StarRatings from 'react-star-ratings';
-import Period from './Period';
+import Period from './Progress';
 import Memo from './Memo';
 import mock_memos from '../../data/memos';
 
@@ -55,13 +55,16 @@ function BookDetail({ book }) {
       <br />
       <p className="tag">선택된 카테고리</p>
       {book.status !== 2 && (
-        <Period
-          startFrom={book.startFrom}
-          end={book.end}
-          status={book.status}
-          page={book.page}
-          totalPage={book.totalPage}
-        />
+        <>
+          <p className="subject">독서기간</p>
+          <Period
+            startFrom={book.startFrom}
+            end={book.end}
+            status={book.status}
+            page={book.page}
+            totalPage={book.totalPage}
+          />
+        </>
       )}
       <p className="subject">내 메모</p>
       {mock_memos.map(memo => (
