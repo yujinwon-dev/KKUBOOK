@@ -1,9 +1,10 @@
 import tw, { styled } from 'twin.macro';
 import ProgressBar from '../common/ProgressBar';
 
-const StyledPeriod = styled.div`
-  ${tw`bg-light-gray`}
-  padding: 8px 2px;
+const StyledProgress = styled.div(({ padding }) => [
+  tw`bg-light-gray`,
+  `
+  padding: ${padding};
   font-size: 12px;
   border-radius: 5px;
 
@@ -32,12 +33,12 @@ const StyledPeriod = styled.div`
     justify-content: space-between;
     margin-top: 8px;
     font-size: 10px;
-  }
-`;
+  }`,
+]);
 
-function Period({ startFrom, end, status, page, totalPage }) {
+function Pregress({ startFrom, end, status, page, totalPage, padding }) {
   return (
-    <StyledPeriod>
+    <StyledProgress padding={padding || '0px'}>
       <p className="date">
         시작일: <span>{startFrom || '-'}</span>
       </p>
@@ -55,8 +56,8 @@ function Period({ startFrom, end, status, page, totalPage }) {
           </div>
         </div>
       )}
-    </StyledPeriod>
+    </StyledProgress>
   );
 }
 
-export default Period;
+export default Pregress;

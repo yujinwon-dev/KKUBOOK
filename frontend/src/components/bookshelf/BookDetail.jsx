@@ -1,14 +1,14 @@
 import tw, { styled } from 'twin.macro';
 import StarRatings from 'react-star-ratings';
-import Period from './Progress';
+import Pregress from './Progress';
 import Memo from './Memo';
 import mock_memos from '../../data/memos';
 
 const BookDetailPage = styled.div`
-  padding: 3rem 10px 0px;
+  padding: 0px 10px;
   margin: 0px auto;
   text-align: center;
-  min-height: 110vh;
+  min-height: 100vh;
 
   img {
     height: 30%;
@@ -57,12 +57,13 @@ function BookDetail({ book }) {
       {book.status !== 2 && (
         <>
           <p className="subject">독서기간</p>
-          <Period
+          <Pregress
             startFrom={book.startFrom}
             end={book.end}
             status={book.status}
             page={book.page}
             totalPage={book.totalPage}
+            padding="10px"
           />
         </>
       )}

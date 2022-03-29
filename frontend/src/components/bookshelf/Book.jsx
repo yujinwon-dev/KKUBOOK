@@ -1,7 +1,7 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 import StarRatings from 'react-star-ratings';
-import Period from './Progress';
+import Pregress from './Progress';
 
 const StyledBook = styled.li`
   width: 100%;
@@ -68,7 +68,7 @@ function Book({ book, handleClick }) {
           />
         )}
         {book.status !== 2 && (
-          <Period
+          <Pregress
             startFrom={book.startFrom}
             end={book.end}
             status={book.status}
