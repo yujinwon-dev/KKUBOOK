@@ -5,7 +5,7 @@ import Memo from './Memo';
 import mock_memos from '../../data/memos';
 
 const BookDetailPage = styled.div`
-  padding: 0px 10px;
+  padding: 3rem 10px;
   margin: 0px auto;
   text-align: center;
   min-height: 100vh;

@@ -27,11 +27,7 @@ function BookshelfBook() {
 
   return (
     <>
-      <Header>
-        <button type="button" onClick={() => navigate(-1)}>
-          Back
-        </button>
-      </Header>
+      <Header />
       {book && <BookDetail book={book} />}
       {book.status !== 0 && (
         <Footer>
