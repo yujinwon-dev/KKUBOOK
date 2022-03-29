@@ -12,7 +12,8 @@ import ScanBook from './components/main/ScanBook';
 import BookDetail from './components/main/BookDetail';
 import KakaoRedirectHandler from './routes/KakaoRedirectHandler';
 import BottomSheetBase from './components/common/BottomSheetBase';
-import BookshelfBook from './components/bookshelf/BookDetail';
+import BookshelfBook from './routes/BookshelfBook';
+import Page404 from './routes/NotFound';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/scanbook" element={<ScanBook />} />
         <Route path="/bookDetail/:bookId" element={<BookDetail />} />
         <Route path="/reading/:bookId" element={<Reading />} />
+        <Route path="/*" element={<Page404 />} />
       </Routes>
       <BottomSheetBase />
     </BrowserRouter>
