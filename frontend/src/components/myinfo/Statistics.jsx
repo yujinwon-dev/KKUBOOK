@@ -189,7 +189,7 @@ function Statistics({ createdAt }) {
           </div>
         </Box>
       </Dl>
-      {userStatistics.category && userStatistics.category.length >= 0 && (
+      {userStatistics.category && userStatistics.category.length > 0 && (
         <Box>
           <DoughnutChart data={userStatistics.category} />
         </Box>
