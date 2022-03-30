@@ -9,19 +9,25 @@ const StyledHeader = styled.header(({ background }) => [
   width: 100%;
   top: 0px;
   display: flex;
-  z-index: 2;
   background-color: ${background};
+  padding-right: 1rem;
+  font-size: 17px;
+  z-index: 2;
+  align-items: center;
+  height: 55px;
+  
 
-  .title {
-    margin: auto 0px;
+  .bar-title {
+    display: flex;
+    align-items: center;
   }
 
-  .m-5 {
-    margin: 8px;
-  }
-
-  button {
+  .right-side {
     margin-left: auto;
+  }
+
+  .m-10 {
+    margin-left: 10px;
   }
 `,
 ]);
@@ -33,25 +39,27 @@ function Header({ title, children, background, backClickHandler }) {
 
   return (
     <StyledHeader background={background || 'white'}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="m-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-        width={25}
-        height={25}
-        onClick={onClickHandler}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 19l-7-7 7-7"
-        />
-      </svg>
-      <p className="title">{title}</p>
-      {children}
+      <div className="bar-title">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="m-10"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          width={25}
+          height={25}
+          onClick={onClickHandler}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        <p className="title">{title}</p>
+      </div>
+      <div className="right-side">{children}</div>
     </StyledHeader>
   );
 }
