@@ -58,7 +58,8 @@ function Content({ title, content }) {
 
 const Buttons = styled.div`
   position: fixed;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   bottom: 0;
   margin-bottom: 1rem;
   display: flex;

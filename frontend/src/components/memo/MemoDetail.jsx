@@ -44,6 +44,7 @@ const MemoForm = styled.div`
   flex-directin: column;
   padding: 1rem;
   padding-top: 4rem;
+  padding-bottom: 5rem;
   border-radius: 20px;
   min-height: 10rem;
 `;
@@ -55,7 +56,7 @@ const ImageBox = styled.div`
   img {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 10px;
     object-fit: cover;
   }
 `;
