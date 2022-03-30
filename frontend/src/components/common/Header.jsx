@@ -1,14 +1,16 @@
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
 
-const StyledHeader = styled.header`
-  ${tw`text-main-gray bg-white`}
-  position: fixed;
+const StyledHeader = styled.header(({ background }) => [
+  tw`text-main-gray`,
+  `position: fixed;
   max-width: 500px;
   width: 100%;
   top: 0px;
   display: flex;
-  z-index: 10;
+  z-index: 2;
+  background-color: ${background};
 
   .title {
     margin: auto 0px;
@@ -21,12 +23,16 @@ const StyledHeader = styled.header`
   button {
     margin-left: auto;
   }
-`;
+`,
+]);
 
-function Header({ title, children }) {
+function Header({ title, children, background, backClickHandler }) {
   const navigate = useNavigate();
+  const goBack = () => navigate(-1);
+  const onClickHandler = backClickHandler || goBack;
+
   return (
-    <StyledHeader>
+    <StyledHeader background={background || 'white'}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="m-5"
@@ -36,7 +42,7 @@ function Header({ title, children }) {
         strokeWidth={2}
         width={25}
         height={25}
-        onClick={() => navigate(-1)}
+        onClick={onClickHandler}
       >
         <path
           strokeLinecap="round"
@@ -50,4 +56,4 @@ function Header({ title, children }) {
   );
 }
 
-export default Header;
+export default memo(Header);
