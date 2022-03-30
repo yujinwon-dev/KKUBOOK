@@ -67,6 +67,7 @@ const Ul = styled.ul`
     color: #a1a1a1;
     border: 0;
     background-color: transparent;
+    padding: 0;
   }
 `;
 
