@@ -60,7 +60,14 @@ function MainBook({ book }) {
       >
         책 읽기
       </button>
-      <button type="button">메모 하기</button>
+      <button
+        type="button"
+        onClick={() =>
+          navigate('/creatememo', { state: { id: `${id}`, title: `${title}` } })
+        }
+      >
+        메모 하기
+      </button>
     </BookContainer>
   );
 }
