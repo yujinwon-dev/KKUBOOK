@@ -99,8 +99,7 @@ function Profile({ userInfo }) {
           </Svg>
         </button>
       </ProfileTitle>
-      {/* TODO: 아래 조건 not 떼기 */}
-      {!isKkubook ? (
+      {isKkubook ? (
         <>
           <strong>꾸북모드 시작한지 {level * 10 + kkubookDays}일째</strong>
           <ProgressBar

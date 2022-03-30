@@ -10,11 +10,11 @@ const MiddleText = styled.div`
   position: absolute;
   top: 50%;
   left: 0;
-  margin-top: 160px;
+  margin-top: 212px;
   line-height: 19px;
   text-align: center;
   font-size: 20px;
-  z-index: 99999999999;
+  z-index: 9;
 `;
 
 const GenreList = styled.ol`
