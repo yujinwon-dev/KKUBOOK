@@ -106,7 +106,6 @@ function CreateMemo() {
   const bookId = location.state.id;
   const bookTitle = location.state.title;
   const [image, setImage] = useState(null);
-  console.log(image);
   const [isUploaded, setIsUploaded] = useState(false);
 
   function handleImageChange(event) {

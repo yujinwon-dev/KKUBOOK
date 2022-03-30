@@ -1,23 +1,14 @@
-import React, { useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
 import StarRatings from 'react-star-ratings';
-import useBookStore from '../../stores/book';
-import Period from './Period';
+import Pregress from './Progress';
 import Memo from './Memo';
-import useBookshelfStore from '../../stores/bookshelf';
-
-const Header = styled.header`
-  position: fixed;
-  width: 100%;
-`;
+import mock_memos from '../../data/memos';
 
 const BookDetailPage = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  padding-top: 20%;
+  padding: 3rem 10px;
+  margin: 0px auto;
   text-align: center;
-  min-height: 100vh;
+  min-height: 110vh;
 
   img {
     height: 30%;
@@ -45,51 +36,42 @@ const BookDetailPage = styled.div`
   }
 `;
 
-function BookDetail() {
-  const navigate = useNavigate();
-  const { bookId } = useParams();
-  const book = useBookStore(
-    useCallback(
-      state => {
-        return state.books.find(item => {
-          return item.id === Number(bookId);
-        });
-      },
-      [bookId],
-    ),
-  );
-
-  const selectedCategory = useBookshelfStore(state => state.selectedCategory);
-
+function BookDetail({ book }) {
   return (
-    <>
-      <Header>
-        <button type="button" onClick={() => navigate(-1)}>
-          Back
-        </button>
-      </Header>
-      <BookDetailPage>
-        <p className="title">{book.title}</p>
-        <img src={book.image} alt={book.title} />
-        <p>{book.author}</p>
-        {selectedCategory.name === '읽은 책' && (
-          <StarRatings
-            rating={book.rating / 2}
-            starRatedColor="orange"
-            starEmptyColor="gray"
-            numberOfStars={5}
-            starDimension="20px"
-            starSpacing="0px"
+    <BookDetailPage>
+      <p className="title">{book.title}</p>
+      <img src={book.image} alt={book.title} />
+      <p>{book.author}</p>
+      {book.status === 0 && (
+        <StarRatings
+          rating={book.rating / 2}
+          starRatedColor="orange"
+          starEmptyColor="gray"
+          numberOfStars={5}
+          starDimension="20px"
+          starSpacing="0px"
+        />
+      )}
+      <br />
+      <p className="tag">선택된 카테고리</p>
+      {book.status !== 2 && (
+        <>
+          <p className="subject">독서기간</p>
+          <Pregress
+            startFrom={book.startFrom}
+            end={book.end}
+            status={book.status}
+            page={book.page}
+            totalPage={book.totalPage}
+            padding="10px 5px 5px"
           />
-        )}
-        <br />
-        <p className="tag">읽고 있는 책</p>
-        <p className="subject">독서기간</p>
-        <Period startFrom={book.startFrom} end={book.end} />
-        <p className="subject">내 메모</p>
-        <Memo />
-      </BookDetailPage>
-    </>
+        </>
+      )}
+      <p className="subject">내 메모</p>
+      {mock_memos.map(memo => (
+        <Memo key={memo.id} memo={memo} />
+      ))}
+    </BookDetailPage>
   );
 }
 
