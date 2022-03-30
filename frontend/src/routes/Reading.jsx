@@ -73,7 +73,7 @@ function Reading() {
       <CreateMemo
         id={bookId}
         title={book.title}
-        backClickHandler={() => setIsCurrentPage('reading')}
+        backClickHandler={useCallback(() => setIsCurrentPage('reading'), [])}
       />
     ),
   };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Header from '../common/Header';
@@ -80,10 +80,12 @@ const TextBox = styled.div`
   }
 `;
 
-function CreateMemo() {
+function CreateMemo({ id, title, backClickHandler }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const bookId = id || location.state.id;
+  const bookTitle = title || location.state.title;
   const [image, setImage] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
 
@@ -101,7 +103,7 @@ function CreateMemo() {
 
   return (
     <>
-      <Header>
+      <Header title={bookTitle} backClickHandler={backClickHandler}>
         <BarButton>저장</BarButton>
       </Header>
       <MemoForm>
@@ -167,4 +169,4 @@ function CreateMemo() {
   );
 }
 
-export default CreateMemo;
+export default memo(CreateMemo);
