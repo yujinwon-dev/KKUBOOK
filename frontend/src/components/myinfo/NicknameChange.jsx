@@ -46,9 +46,9 @@ const Form = styled.form`
 `;
 
 function NicknameChange() {
-  const { nickname, changeUserNickname } = userStore();
+  const { userInfo, changeUserNickname } = userStore();
   const onDismiss = bottomSheetStore(state => state.onDismiss);
-  const [value, setValue] = React.useState(nickname);
+  const [value, setValue] = React.useState(userInfo.nickname);
 
   function handleInputChange(event) {
     const userValue = event.target.value;
