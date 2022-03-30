@@ -7,6 +7,7 @@ import DoughnutChart from './DoughnutChart';
 const StatisticBox = styled.div`
   ${tw`px-page-x`}
   background: none;
+  margin-bottom: 65px;
 
   &:before {
     content: '';
@@ -85,7 +86,9 @@ function Statistics({ createdAt }) {
   const [year, setYear] = React.useState(thisYear);
   const [monthIdx, setMonthIdx] = React.useState(thisMonth - 1);
   // 가장 첫 달(=유저가 db에 created 된 날)
-  const firstYearMonth = createdAt.split('-').slice(0, 2).join('');
+  const firstYearMonth = createdAt
+    ? createdAt.split('-').slice(0, 2).join('')
+    : '';
 
   // 현재 통계를 보고 있는 달
   let currentYearMonth =
