@@ -26,11 +26,15 @@ const Bar = styled.div`
   .bar-button {
     display: flex;
     button {
+      padding-right: 1rem;
       font-size: 17px;
       color: #848282;
       border: none;
       background-color: #ffffff;
       cursor: pointer;
+    }
+    #delete-btn {
+      color: #ff5858;
     }
   }
 `;
@@ -38,7 +42,8 @@ const Bar = styled.div`
 const MemoForm = styled.div`
   dispaly: flex;
   flex-directin: column;
-  padding: 36px 48px;
+  padding: 1rem;
+  padding-top: 4rem;
   border-radius: 20px;
   min-height: 10rem;
 `;
@@ -106,6 +111,7 @@ function MemoDetail() {
         </div>
         <div className="bar-button">
           <button
+            id="delete-btn"
             type="button"
             onClick={() =>
               openBottomSheet(DeleteMemo, '메모를 삭제하시겠습니까?')

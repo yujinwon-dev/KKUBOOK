@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import memos from '../../data/memos';
@@ -19,7 +20,9 @@ const Bar = styled.div`
   }
 `;
 const SearchBox = styled.div`
-  margin: 2rem;
+  padding: 1rem;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
 
   .search-bar {
     width: 100%;
@@ -34,9 +37,18 @@ const SearchBox = styled.div`
     border: none;
     outline: none;
   }
+  #delete-keyword {
+    cursor: pointer;
+  }
 `;
+const MemoList = styled.div`
+  padding: 1rem;
+`;
+
 function SearchMemo() {
   const navigate = useNavigate();
+  const [keyword, setKeyword] = useState('');
+
   return (
     <>
       <Bar>
@@ -73,13 +85,19 @@ function SearchMemo() {
               clipRule="evenodd"
             />
           </svg>
-          <input placeholder="메모 내용을 검색해 보세요." />
+          <input
+            placeholder="메모 내용을 검색해 보세요."
+            value={keyword}
+            onChange={event => setKeyword(event.target.value)}
+          />
           <svg
+            id="delete-keyword"
             width="50"
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
             viewBox="0 0 20 20"
             fill="#848282"
+            onClick={() => setKeyword('')}
           >
             <path
               fillRule="evenodd"
@@ -89,9 +107,11 @@ function SearchMemo() {
           </svg>
         </div>
       </SearchBox>
-      {memos.map(memo => (
-        <MemoContainer key={memo.id} memo={memo} />
-      ))}
+      <MemoList>
+        {memos.map(memo => (
+          <MemoContainer key={memo.id} memo={memo} />
+        ))}
+      </MemoList>
     </>
   );
 }

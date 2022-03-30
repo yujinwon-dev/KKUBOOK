@@ -6,10 +6,18 @@ import FabButton from '../components/common/FabButton';
 import MemoContainer from '../components/memo/MemoContainer';
 import memos from '../data/memos';
 
-const Bar = styled.div`
+const MemoRoot = styled.div`
+  padding: 1rem;
+  padding-top: 4rem;
+`;
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
-
+  padding-bottom: 2rem;
+  .header {
+    font-size: 30px;
+    font-weight: bold;
+  }
   #search-icon {
     width: 30px;
     cursor: pointer;
@@ -20,7 +28,26 @@ const Container = styled.div`
   flex-direction: column;
   .form-check {
     align-self: end;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    .check-label {
+      padding-left: 5px;
+    }
+    #checkbox {
+      background-color: #8dcd84;
+      border-radius: 3px;
+    }
   }
+`;
+
+const CheckMark = styled.div`
+  border: ${props => (props.checked ? '' : '1px solid #848282')};
+  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+}
 `;
 
 function Memo() {
@@ -28,11 +55,11 @@ function Memo() {
   const [likedMemos, setLikedMemos] = useState(false);
 
   return (
-    <>
+    <MemoRoot>
       <Navbar />
       <FabButton />
-      <Bar>
-        <h1>Memo</h1>
+      <Header>
+        <p className="header">메모</p>
         <svg
           id="search-icon"
           width="50"
@@ -48,22 +75,43 @@ function Memo() {
             clipRule="evenodd"
           />
         </svg>
-      </Bar>
+      </Header>
       <Container>
-        <div className="form-check">
-          <input
-            type="checkbox"
-            onChange={() => {
-              setLikedMemos(!likedMemos);
-            }}
-          />
-          좋아하는 메모
+        <div
+          className="form-check"
+          role="button"
+          onClick={() => setLikedMemos(!likedMemos)}
+          onKeyDown={() => ''}
+          tabIndex={0}
+        >
+          {likedMemos ? (
+            <CheckMark checked>
+              <svg
+                id="checkbox"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="white"
+                strokeWidth="3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </CheckMark>
+          ) : (
+            <CheckMark />
+          )}
+          <p className="check-label">좋아하는 메모</p>
         </div>
         {memos.map(memo => (
           <MemoContainer key={memo.id} memo={memo} />
         ))}
       </Container>
-    </>
+    </MemoRoot>
   );
 }
 

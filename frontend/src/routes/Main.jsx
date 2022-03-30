@@ -46,16 +46,15 @@ function Main() {
         </Slider>
       ) : (
         <Card>
-          <button type="button">아직 읽고 있는 책이 없어요. 책 추가하기</button>
+          <button
+            type="button"
+            onClick={() => openBottomSheet(SearchList, '책 등록하기')}
+          >
+            아직 읽고 있는 책이 없어요. 책 추가하기
+          </button>
         </Card>
       )}
       <BookCommit />
-      <button
-        type="button"
-        onClick={() => openBottomSheet(SearchList, '책 등록하기')}
-      >
-        책 추가하기
-      </button>
     </>
   );
 }

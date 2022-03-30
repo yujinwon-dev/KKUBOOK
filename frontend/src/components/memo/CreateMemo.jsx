@@ -32,6 +32,7 @@ const Bar = styled.div`
 
 const MemoForm = styled.div`
   padding: 1rem;
+  padding-top: 4rem;
   width: 100%;
   height: 100%;
 `;
@@ -40,6 +41,9 @@ const ImageBox = styled.div`
   width: 100%;
   height: 20rem;
   margin-bottom: 1rem;
+  :hover {
+    opacity: 0.6;
+  }
 
   .image-upload {
     width: 100%;

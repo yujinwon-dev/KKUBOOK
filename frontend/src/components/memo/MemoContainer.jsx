@@ -5,8 +5,8 @@ import { styled } from 'twin.macro';
 const Container = styled.div`
   background-color: #f2f2f2;
   border-radius: 10px;
-  margin: 1rem;
-  padding: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
 `;
 const MemoInfo = styled.div`
   display: flex;
@@ -24,9 +24,10 @@ const MemoInfo = styled.div`
       }
     }
     .book-info-text {
+      height: 100%;
       display: flex;
       flex-direction: column;
-      line-height: 1.5rem;
+      justify-content: space-around;
     }
   }
   .like-button {
@@ -42,7 +43,7 @@ const MemoContnet = styled.div`
   flex-direction: column;
   cursor: pointer;
   :hover {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   .memo-text {
     margin-bottom: 1rem;
@@ -51,7 +52,7 @@ const MemoContnet = styled.div`
   }
   .memo-img {
     width: 100%;
-    height: 100%;
+    height: 20rem;
     img {
       width: 100%;
       height: 100%;

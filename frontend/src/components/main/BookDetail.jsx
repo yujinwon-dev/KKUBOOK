@@ -22,10 +22,13 @@ const Bar = styled.div`
 const BookInfo = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
   line-height: 2rem;
+  padding: 2rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 
   .book-title {
+    margin-bottom: 1rem;
     font-size: 22px;
     align-self: center;
   }
@@ -33,13 +36,14 @@ const BookInfo = styled.div`
     width: 128px;
     align-self: center;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
   .content-title {
     font-size: 18px;
   }
   .content {
     color: #a1a1a1;
+    margin-bottom: 1.5rem;
   }
 `;
 
@@ -53,13 +57,16 @@ function Content({ title, content }) {
 }
 
 const Buttons = styled.div`
+  position: fixed;
+  width: 500px;
+  bottom: 0;
+  margin-bottom: 1rem;
   display: flex;
-  padding: 1rem;
 `;
 
 const Button = styled.button`
   width: 100%;
-  height: 50px;
+  height: 3rem;
   margin: 0 0.5rem 0 0.5rem;
   cursor: pointer;
   color: ${props => (props.left ? '#61B864' : '#ffffff')};
@@ -100,9 +107,9 @@ function BookDetail() {
           src={books[bookId - 1].image}
           alt={books[bookId - 1].title}
         />
-        <Content title="책 소개" content={books[bookId - 1].title} />
-        <Content title="출판사" content={books[bookId - 1].title} />
-        <Content title="페이지" content={books[bookId - 1].title} />
+        <Content title="책 소개" content={books[bookId - 1].content} />
+        <Content title="출판사" content={books[bookId - 1].content} />
+        <Content title="페이지" content={books[bookId - 1].content} />
       </BookInfo>
       <Buttons>
         <Button left>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import SearchResult from './SearchResult';
 import books from '../../data/books';
-import happyKkubook from '../../assets/happy-kkubook.png';
+import worryingKkubook from '../../assets/worrying-kkubook.png';
 
 const Bar = styled.div`
   position: fixed;
@@ -21,12 +21,12 @@ const Bar = styled.div`
   }
 `;
 const SearchBox = styled.div`
-  margin: 2rem;
-
+  margin: 1rem;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
   p {
     color: #848282;
   }
-
   .search-bar {
     width: 100%;
     height: 2rem;
@@ -34,34 +34,38 @@ const SearchBox = styled.div`
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
-  }
-
-  input {
-    width: 100%;
-    border: none;
-    outline: none;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+    }
+    #delete-input {
+      cursor: pointer;
+    }
   }
   .conditions {
     display: flex;
-  }
-  .true {
-    width: 5rem;
-    text-align: center;
-    border: none;
-    background-color: white;
-    border-top: 2px solid #71b864;
-    cursor: pointer;
-  }
-  .true > p {
-    color: #71b864;
-  }
-  .false {
-    width: 5rem;
-    text-align: center;
-    border: none;
-    background-color: white;
-    border-top: 1px solid #848282;
-    cursor: pointer;
+    .true {
+      width: 5rem;
+      text-align: center;
+      border: none;
+      background-color: white;
+      border-top: 2px solid #71b864;
+      cursor: pointer;
+    }
+    .true > p {
+      color: #71b864;
+    }
+    .false {
+      width: 5rem;
+      text-align: center;
+      border: none;
+      background-color: white;
+      border-top: 1px solid #848282;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -69,11 +73,14 @@ const NoResult = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  img {
-    max-width: 100%;
-    height: 150px;
-    margin: 2rem;
+  height: 150px;
+  .kkubook-img {
+    height: 100%;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    img {
+      height: 100%;
+    }
   }
 `;
 
@@ -81,6 +88,7 @@ function SearchBook() {
   const navigate = useNavigate();
   const [isTitle, setTitle] = useState('true');
   const [isAuthor, setAuthor] = useState('false');
+  const [keyword, setKeyword] = useState('');
 
   return (
     <>
@@ -120,13 +128,19 @@ function SearchBook() {
                 clipRule="evenodd"
               />
             </svg>
-            <input placeholder="책 이름 / 저자 검색하기" />
+            <input
+              value={keyword}
+              placeholder="책 이름 / 저자 검색하기"
+              onChange={event => setKeyword(event.target.value)}
+            />
             <svg
+              id="delete-input"
               width="50"
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               viewBox="0 0 20 20"
               fill="#848282"
+              onClick={() => setKeyword('')}
             >
               <path
                 fillRule="evenodd"
@@ -167,7 +181,9 @@ function SearchBook() {
         </>
       ) : (
         <NoResult>
-          <img src={happyKkubook} alt="kkubook character" />
+          <div className="kkubook-img">
+            <img src={worryingKkubook} alt="kkubook character" />
+          </div>
           <p>찾으시는 책이 없으면 관리자에게 문의하세요</p>
         </NoResult>
       )}
