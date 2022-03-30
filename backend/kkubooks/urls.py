@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import main
 from .views import bookshelf
+from .views import statistics
 from .views import memo
 
 urlpatterns = [
@@ -23,4 +24,8 @@ urlpatterns = [
     path('memolist/', memo.memo_list),
     path('memo/<int:memo_id>/', memo.memo_detail),
     path('memo/bookmark/<int:memo_id>/', memo.memo_bookmark),
+
+    path('mypage/kkubookmode/', statistics.set_kkubookmode),
+    path('mypage/bookstatistics/<str:yyyymm>/', statistics.get_user_statistics),
+    #path('mypage/statistics/', statistics.)
 ]
