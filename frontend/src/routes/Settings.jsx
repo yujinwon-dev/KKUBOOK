@@ -99,7 +99,7 @@ function Settings() {
       <GoBackBar title="설정" />
       <Navbar />
       <Div>
-        <hr noshade />
+        <hr />
         <Ul>
           <li className="kkubookSetting">
             꾸북 모드
@@ -112,7 +112,7 @@ function Settings() {
               그만하기
             </button>
           </li>
-          <hr noshade />
+          <hr />
           <li>
             <button
               type="button"
@@ -122,7 +122,7 @@ function Settings() {
               닉네임 변경
             </button>
           </li>
-          <hr noshade />
+          <hr />
           <li>
             <button
               type="button"
@@ -132,7 +132,7 @@ function Settings() {
               로그아웃
             </button>
           </li>
-          <hr noshade />
+          <hr />
           <li>
             <button
               type="button"
