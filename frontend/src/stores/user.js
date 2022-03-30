@@ -5,7 +5,12 @@ const useStore = create(
   persist(
     set => ({
       userInfo: {},
-      setUserInfo: userData => set({ userInfo: userData }),
+      setUserInfo: userInfo => set({ userInfo }),
+      deleteUserInfo: () => set({}),
+      offKkubook: () =>
+        set(state => ({
+          userInfo: { ...state.userInfo, isKkubook: false },
+        })),
     }),
     {
       name: 'user-storage',
