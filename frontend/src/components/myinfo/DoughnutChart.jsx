@@ -10,7 +10,7 @@ const MiddleText = styled.div`
   position: absolute;
   top: 50%;
   left: 0;
-  margin-top: 212px;
+  margin-top: 157px;
   line-height: 19px;
   text-align: center;
   font-size: 20px;
