@@ -8,6 +8,7 @@ const StyledHeader = styled.header`
   width: 100%;
   top: 0px;
   display: flex;
+  z-index: 10;
 
   .title {
     margin: auto 0px;
