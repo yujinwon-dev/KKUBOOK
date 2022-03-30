@@ -24,6 +24,7 @@ const settings = {
 const StyledBox = styled.div`
   ${tw`bg-main-green`}
   width: 100%;
+  max-width: 500px;
   height: 30vh;
   position: fixed;
 

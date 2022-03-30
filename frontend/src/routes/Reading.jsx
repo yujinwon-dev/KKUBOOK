@@ -8,7 +8,6 @@ import useBookStore from '../stores/book';
 const Page = styled.div`
   min-width: 100%;
   min-height: 100vh;
-  background-color: azure;
 
   button {
     border: 0;
