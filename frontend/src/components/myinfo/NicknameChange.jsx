@@ -2,6 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import userStore from '../../stores/user';
 import bottomSheetStore from '../../stores/bottomSheet';
+import { changeNickname } from '../../api/user';
 
 const FormDiv = styled.div`
   ${tw`flex flex-col justify-center items-center`}
@@ -45,7 +46,7 @@ const Form = styled.form`
 `;
 
 function NicknameChange() {
-  const { nickname } = userStore(state => state.userInfo);
+  const { nickname, changeUserNickname } = userStore();
   const onDismiss = bottomSheetStore(state => state.onDismiss);
   const [value, setValue] = React.useState(nickname);
 
@@ -56,8 +57,14 @@ function NicknameChange() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // TODO: 닉네임 변경 API 연결
-    console.log('submit');
+    changeNickname(
+      value,
+      response => {
+        changeUserNickname(response.data.nickname);
+        onDismiss();
+      },
+      error => console.log(error),
+    );
   }
 
   return (
