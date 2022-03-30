@@ -21,7 +21,12 @@ const settings = {
 };
 
 function Main() {
-  const books = useStore(state => state.books);
+  const books = useStore(
+    useCallback(state => {
+      return state.books.filter(book => book.status === 1);
+    }),
+    [],
+  );
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
   );
