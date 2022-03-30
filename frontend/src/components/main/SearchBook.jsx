@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import SearchResult from './SearchResult';
-import books from '../../data/books';
+// import books from '../../data/books';
 import worryingKkubook from '../../assets/worrying-kkubook.png';
+import { apiSearchBook } from '../../api/main';
 
 const Bar = styled.div`
   position: fixed;
@@ -91,6 +92,45 @@ function SearchBook() {
   const [isTitle, setTitle] = useState('true');
   const [isAuthor, setAuthor] = useState('false');
   const [keyword, setKeyword] = useState('');
+  const [books, setBooks] = useState([]);
+
+  function searchTitle() {
+    const reqData = {
+      word: `${keyword}`,
+      index: 0,
+    };
+    apiSearchBook(
+      reqData,
+      response => {
+        setBooks(response.data);
+      },
+      error => console.log(error),
+    );
+  }
+
+  function searchAuthor() {
+    const reqData = {
+      word: `${keyword}`,
+      index: 1,
+    };
+    apiSearchBook(
+      reqData,
+      response => {
+        setBooks(response.data);
+      },
+      error => console.log(error),
+    );
+  }
+
+  function submitKeyword(event) {
+    if (event.key === 'Enter') {
+      if (isTitle === 'true') {
+        searchTitle();
+      } else {
+        searchAuthor();
+      }
+    }
+  }
 
   return (
     <>
@@ -133,6 +173,7 @@ function SearchBook() {
             value={keyword}
             placeholder="책 이름 / 저자 검색하기"
             onChange={event => setKeyword(event.target.value)}
+            onKeyPress={submitKeyword}
           />
           <svg
             id="delete-input"
@@ -157,6 +198,7 @@ function SearchBook() {
             onClick={event => {
               setTitle('true');
               setAuthor('false');
+              searchTitle();
             }}
           >
             <p>책 제목</p>
@@ -167,6 +209,7 @@ function SearchBook() {
             onClick={() => {
               setTitle('false');
               setAuthor('true');
+              searchAuthor();
             }}
           >
             <p>저자</p>
