@@ -52,7 +52,7 @@ const StyledRecordPage = styled.div`
   }
 `;
 
-function RecordPage({ time, setIsReadingPage }) {
+function RecordPage({ time, setIsCurrentPage }) {
   const openBottomSheet = useStore(state => state.openSheet);
   const totalPage = 100;
   const initialPage = 1;
@@ -80,7 +80,7 @@ function RecordPage({ time, setIsReadingPage }) {
     <>
       <Header
         title="오늘의 독서기록"
-        backClickHandler={() => setIsReadingPage(true)}
+        backClickHandler={() => setIsCurrentPage('reading')}
       />
       <StyledRecordPage>
         <div className="content">
