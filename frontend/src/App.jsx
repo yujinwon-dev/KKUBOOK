@@ -34,7 +34,6 @@ function App() {
         <Route path="/myinfo" element={<MyInfo />} />
         <Route path="/myinfo/settings" element={<Settings />} />
         <Route path="/myinfo/settings/signout" element={<Signout />} />
-        <Route path="/reading" element={<Reading />} />
         <Route path="/searchbook" element={<SearchBook />} />
         <Route path="/scanbook" element={<ScanBook />} />
         <Route path="/bookDetail/:bookId" element={<BookDetail />} />
