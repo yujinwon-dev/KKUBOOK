@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
-import GoBackBar from '../common/GoBackBar';
 import SearchResult from './SearchResult';
 import books from '../../data/books';
 import happyKkubook from '../../assets/happy-kkubook.png';
 
+const Bar = styled.div`
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  max-width: 500px;
+  height: 52px;
+  display: flex;
+  background-color: white;
+  z-index: 3;
+
+  p {
+    align-self: center;
+    font-size: 17px;
+  }
+`;
 const SearchBox = styled.div`
   margin: 2rem;
 
@@ -24,6 +39,7 @@ const SearchBox = styled.div`
   input {
     width: 100%;
     border: none;
+    outline: none;
   }
   .conditions {
     display: flex;
@@ -62,12 +78,31 @@ const NoResult = styled.div`
 `;
 
 function SearchBook() {
+  const navigate = useNavigate();
   const [isTitle, setTitle] = useState('true');
   const [isAuthor, setAuthor] = useState('false');
 
   return (
     <>
-      <GoBackBar title="책 검색하기" />
+      <Bar>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+          width="29px"
+          onClick={() => navigate(-1)}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        <p>책 검색하기</p>
+      </Bar>
       <SearchBox>
         <p>읽고 싶은 책을 검색해 보세요!</p>
         <form>

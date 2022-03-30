@@ -13,6 +13,9 @@ import BookDetail from './components/main/BookDetail';
 import KakaoRedirectHandler from './routes/KakaoRedirectHandler';
 import BottomSheetBase from './components/common/BottomSheetBase';
 import BookshelfBook from './components/bookshelf/BookDetail';
+import CreateMemo from './components/memo/CreateMemo';
+import MemoDetail from './components/memo/MemoDetail';
+import SearchMemo from './components/memo/SearchMemo';
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
         <Route path="/bookshelf" element={<Bookshelf />} />
         <Route path="/bookshelf/book/:bookId" element={<BookshelfBook />} />
         <Route path="/memo" element={<Memo />} />
+        <Route path="/creatememo" element={<CreateMemo />} />
+        <Route path="/searchmemo" element={<SearchMemo />} />
+        <Route path="/memo/:memoId" element={<MemoDetail />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/myinfo" element={<MyInfo />} />
         <Route path="/reading" element={<Reading />} />
