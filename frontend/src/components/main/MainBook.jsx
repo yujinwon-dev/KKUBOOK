@@ -114,7 +114,15 @@ function MainBook({ book }) {
           </svg>
           <p className="button-title">책 읽기</p>
         </button>
-        <button className="br-right-bottom v-line" type="button">
+        <button
+          className="br-right-bottom v-line"
+          type="button"
+          onClick={() =>
+            navigate('/creatememo', {
+              state: { id: `${id}`, title: `${title}` },
+            })
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
