@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const CardWrapper = styled.div`
   background-color: transparent;
-  padding: 0 0.5rem;
+  padding: 0rem 0.5rem;
 `;
 
 const StyledCard = styled.div`
@@ -14,7 +14,6 @@ const StyledCard = styled.div`
   padding: 1rem 1.5rem;
   min-height: 240px;
   width: 100%;
-  margin: 10px auto;
   box-shadow: 0px 0px 6px rgba(1, 1, 1, 0.2);
   background-color: white;
 `;

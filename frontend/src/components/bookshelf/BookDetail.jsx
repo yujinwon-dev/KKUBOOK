@@ -46,6 +46,7 @@ const BookDetailPage = styled.div`
     border: none;
     outline: none;
     background-color: #fff;
+  }
 `;
 
 function BookDetail({ book, finishedReading, startedReading, isReading }) {
