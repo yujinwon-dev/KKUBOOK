@@ -94,7 +94,9 @@ function BookshelfBook() {
           startedReading={book.bookStatus !== 2}
           isReading={book.bookStatus === 1}
         />
-        {book.status !== 0 && <Footer>{getButtonByStatus[book.status]}</Footer>}
+        {book.bookStatus !== 0 && (
+          <Footer>{getButtonByStatus[book.bookStatus]}</Footer>
+        )}
       </>
     );
   }
