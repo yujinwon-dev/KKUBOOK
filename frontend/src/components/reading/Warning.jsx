@@ -45,11 +45,11 @@ const WarningSheet = styled.div`
 
 function Warning() {
   const hideBottomSheet = useStore(state => state.onDismiss);
-  const setIsReadingPage = useStore(state => state.onSubmit);
+  const setIsCurrentPage = useStore(state => state.onSubmit);
 
   const stopReading = () => {
     hideBottomSheet();
-    setIsReadingPage(false);
+    setIsCurrentPage('record');
   };
 
   return (
