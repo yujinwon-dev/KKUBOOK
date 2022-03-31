@@ -2,7 +2,6 @@ import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
 
 function Survey5({ setPrevPage, setNextPage, setSurveyInput }) {
-  // onclick 처리 다른 방식으로 해야 함 -> string으로 붙일 수 있게 상태관리
   const interestList = [
     '여행',
     '진로',
