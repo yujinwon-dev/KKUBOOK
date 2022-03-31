@@ -1,33 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'twin.macro';
+import Header from '../common/Header';
 
-const Bar = styled.div`
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  max-width: 500px;
-  height: 52px;
-  background-color: white;
-  z-index: 3;
-  display: flex;
-  justify-content: space-between;
-
-  .bar-title {
-    display: flex;
-
-    p {
-      align-self: center;
-      font-size: 17px;
-    }
-  }
-  button {
-    font-size: 17px;
-    color: #848282;
-    border: none;
-    background-color: #ffffff;
-    cursor: pointer;
-  }
+const BarButton = styled.button`
+  font-size: 17px;
+  color: #848282;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
 `;
 
 const MemoForm = styled.div`
@@ -103,12 +84,12 @@ const TextBox = styled.div`
   }
 `;
 
-function CreateMemo() {
+function CreateMemo({ id, title, backClickHandler }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const bookId = location.state.id;
-  const bookTitle = location.state.title;
+  const bookId = id || location.state.id;
+  const bookTitle = title || location.state.title;
   const [image, setImage] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
 
@@ -126,28 +107,9 @@ function CreateMemo() {
 
   return (
     <>
-      <Bar>
-        <div className="bar-title">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-            width="29px"
-            onClick={() => navigate(-1)}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          <p>{bookTitle}</p>
-        </div>
-        <button type="button">저장</button>
-      </Bar>
+      <Header title={bookTitle} backClickHandler={backClickHandler}>
+        <BarButton>저장</BarButton>
+      </Header>
       <MemoForm>
         <ImageBox>
           {!isUploaded ? (
@@ -211,4 +173,4 @@ function CreateMemo() {
   );
 }
 
-export default CreateMemo;
+export default memo(CreateMemo);
