@@ -4,7 +4,7 @@ import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import MemoContainer from '../components/memo/MemoContainer';
-import memos from '../data/memos';
+// import memos from '../data/memos';
 import { apiGetMemos } from '../api/memo';
 
 const MemoRoot = styled.div`
@@ -55,14 +55,14 @@ const CheckMark = styled.div`
 function Memo() {
   const navigate = useNavigate();
   const [likedMemos, setLikedMemos] = useState(false);
-  // const [memos, getMemos] = useState([]);
+  const [memos, getMemos] = useState([]);
 
-  // useEffect(() => {
-  //   apiGetMemos(
-  //     response => setLikedMemos(response.data),
-  //     error => console.log(error),
-  //   );
-  // });
+  useEffect(() => {
+    apiGetMemos(
+      response => setLikedMemos(response.data),
+      error => console.log(error),
+    );
+  });
 
   return (
     <>
