@@ -1,5 +1,6 @@
 import api from '../utils/apiInstance';
 import formatKey from '../utils/snakeToCamel';
+import getCurrentDate from '../utils/currentDate';
 
 const getBooks = async () => {
   try {
@@ -10,11 +11,11 @@ const getBooks = async () => {
   }
 };
 
-const addBook = async (book, user) => {
+const addBook = async (bookId, userId) => {
   try {
     const { data } = await api.post('kkubooks/bookshelf/', {
-      book,
-      user,
+      book: bookId,
+      user: userId,
     });
     return formatKey(data);
   } catch (err) {
@@ -22,4 +23,19 @@ const addBook = async (book, user) => {
   }
 };
 
-export { getBooks, addBook };
+const startReading = async (bookshelfId, bookId, userId) => {
+  try {
+    const body = {
+      book: bookId,
+      user: userId,
+      book_status: 1,
+      start_date: getCurrentDate(),
+    };
+    const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
+    return formatKey(data);
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export { getBooks, addBook, startReading };
