@@ -88,7 +88,12 @@ function BookshelfBook() {
     return (
       <>
         <Header>{getHeaderButton(book.status)}</Header>
-        <BookDetail book={book} />
+        <BookDetail
+          book={book}
+          finishedReading={book.bookStatus === 0}
+          startedReading={book.bookStatus !== 2}
+          isReading={book.bookStatus === 1}
+        />
         {book.status !== 0 && <Footer>{getButtonByStatus[book.status]}</Footer>}
       </>
     );

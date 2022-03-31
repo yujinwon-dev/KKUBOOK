@@ -35,13 +35,13 @@ const BookDetailPage = styled.div`
   }
 `;
 
-function BookDetail({ book }) {
+function BookDetail({ book, finishedReading, startedReading, isReading }) {
   return (
     <BookDetailPage>
       <p className="title">{book.title}</p>
-      <img src={book.image} alt={book.title} />
+      <img src={book.imgUrl} alt={book.title} />
       <p>{book.author}</p>
-      {book.status === 0 && (
+      {finishedReading && (
         <StarRatings
           rating={book.rating / 2}
           starRatedColor="orange"
@@ -53,15 +53,15 @@ function BookDetail({ book }) {
       )}
       <br />
       <p className="tag">선택된 카테고리</p>
-      {book.status !== 2 && (
+      {startedReading && (
         <>
           <p className="subject">독서기간</p>
           <Pregress
-            startFrom={book.startFrom}
-            end={book.end}
-            status={book.status}
-            page={book.page}
-            totalPage={book.totalPage}
+            startDate={book.startDate}
+            endDate={book.endDate}
+            currPage={book.currPage}
+            totalPage={book.page}
+            isReading={isReading}
             padding="10px 5px 5px"
           />
         </>

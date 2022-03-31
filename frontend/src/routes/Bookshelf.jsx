@@ -83,7 +83,13 @@ function BookShelf() {
 
         <ul>
           {books.map(book => (
-            <Book key={book.id} book={book} handleClick={selectBook} />
+            <Book
+              key={book.id}
+              book={book}
+              handleClick={selectBook}
+              startedReading={book.bookStatus !== 2}
+              finishedReading={book.bookStatus === 0}
+            />
           ))}
         </ul>
       </BookshelfPage>
