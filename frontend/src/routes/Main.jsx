@@ -65,7 +65,6 @@ function Main() {
     useCallback(state => {
       return state.books.filter(book => book.status === 1);
     }),
-    [],
   );
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
