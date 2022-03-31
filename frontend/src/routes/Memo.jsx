@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import MemoContainer from '../components/memo/MemoContainer';
 import memos from '../data/memos';
+import { apiGetMemos } from '../api/memo';
 
 const MemoRoot = styled.div`
   padding: 1rem;
@@ -54,6 +55,14 @@ const CheckMark = styled.div`
 function Memo() {
   const navigate = useNavigate();
   const [likedMemos, setLikedMemos] = useState(false);
+  // const [memos, getMemos] = useState([]);
+
+  // useEffect(() => {
+  //   apiGetMemos(
+  //     response => setLikedMemos(response.data),
+  //     error => console.log(error),
+  //   );
+  // });
 
   return (
     <>

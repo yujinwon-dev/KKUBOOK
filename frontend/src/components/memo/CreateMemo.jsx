@@ -2,6 +2,7 @@ import React, { useState, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Header from '../common/Header';
+import { apiPostMemo } from '../../api/memo';
 
 const BarButton = styled.button`
   font-size: 17px;
@@ -90,6 +91,8 @@ function CreateMemo({ id, title, backClickHandler }) {
 
   const bookId = id || location.state.id;
   const bookTitle = title || location.state.title;
+
+  const [text, setText] = useState('');
   const [image, setImage] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
 
@@ -105,10 +108,27 @@ function CreateMemo({ id, title, backClickHandler }) {
     }
   }
 
+  function postMemo() {
+    const reqData = {
+      book: bookId,
+      content: text,
+      memo_img: image,
+    };
+    if (text !== '' || image !== null) {
+      apiPostMemo(
+        reqData,
+        response => console.log(response.data),
+        error => console.log(error),
+      );
+    } else {
+      alert('메모를 입력해주세요');
+    }
+  }
+
   return (
     <>
       <Header title={bookTitle} backClickHandler={backClickHandler}>
-        <BarButton>저장</BarButton>
+        <BarButton onClick={() => postMemo()}> 저장 </BarButton>
       </Header>
       <MemoForm>
         <ImageBox>
@@ -166,7 +186,11 @@ function CreateMemo({ id, title, backClickHandler }) {
           )}
         </ImageBox>
         <TextBox>
-          <textarea placeholder="메모를 작성해보세요" />
+          <textarea
+            placeholder="메모를 작성해보세요"
+            value={text}
+            onChange={event => setText(event.target.value)}
+          />
         </TextBox>
       </MemoForm>
     </>
