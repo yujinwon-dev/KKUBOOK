@@ -7,5 +7,4 @@ const useStore = create(set => ({
       nowMemoId: newId,
     })),
 }));
-
 export default useStore;
