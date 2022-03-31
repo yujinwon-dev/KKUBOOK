@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'twin.macro';
+import { getBookDetail, getNaverUrl } from '../../api/main';
 import books from '../../data/books';
 
 const Bar = styled.div`
@@ -74,11 +75,46 @@ const Button = styled.button`
   border: ${props => (props.left ? '1px solid #61B864' : 'none')};
   border-radius: 10px;
   background-color: ${props => (props.left ? '#ffffff' : '#8DCD84')};
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 function BookDetail() {
   const navigate = useNavigate();
   const { bookId } = useParams();
+  const [isbn, getIsbn] = useState('');
+  const [title, getTitle] = useState('');
+  const [description, getDescription] = useState('');
+  const [author, getAuthor] = useState('');
+  const [publisher, getPublisher] = useState('');
+  const [imgUrl, getImgUrl] = useState('');
+  const [page, getPage] = useState('');
+  const [naverUrl, getUrl] = useState('');
+
+  useEffect(() => {
+    getBookDetail(
+      bookId,
+      response => {
+        const { isbn, title, description, author, publisher, img_url, page } =
+          response.data;
+        getIsbn(isbn);
+        getTitle(title);
+        getDescription(description);
+        getAuthor(author);
+        getPublisher(publisher);
+        getImgUrl(img_url);
+        getPage(page);
+      },
+      error => console.log(error),
+    );
+    getNaverUrl(
+      { isbn: `${isbn}` },
+      response => getUrl(response.data.link),
+      error => console.log(error),
+    );
+  });
 
   return (
     <>
@@ -102,19 +138,17 @@ function BookDetail() {
         <p>책 검색하기</p>
       </Bar>
       <BookInfo>
-        <p className="book-title">{books[bookId - 1].title}</p>
-        <img
-          className="book-img"
-          src={books[bookId - 1].image}
-          alt={books[bookId - 1].title}
-        />
-        <Content title="책 소개" content={books[bookId - 1].content} />
-        <Content title="출판사" content={books[bookId - 1].content} />
-        <Content title="페이지" content={books[bookId - 1].content} />
+        <p className="book-title">{title}</p>
+        <img className="book-img" src={imgUrl} alt={title} />
+        <Content title="책 소개" content={description} />
+        <Content title="출판사" content={publisher} />
+        <Content title="페이지" content={page} />
       </BookInfo>
       <Buttons>
         <Button left>
-          <p>책 상세내용 보기</p>
+          <a href={naverUrl}>
+            <p>책 상세내용 보기</p>
+          </a>
         </Button>
         <Button>
           <p>서재에 등록하기</p>

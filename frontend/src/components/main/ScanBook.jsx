@@ -29,7 +29,7 @@ function ScanBook() {
       reqData,
       response => {
         console(response.data.bookId);
-        navigate(`/bookDetail/${response.data}`);
+        navigate(`/bookDetail/${response.data.bookId}`);
       },
       error => console.log(error),
     );
