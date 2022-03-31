@@ -21,7 +21,7 @@ const BookDetailPage = styled.div`
   }
 
   .subject {
-    margin: 15px auto;
+    margin: 15px 0px;
     text-align: left;
   }
 
@@ -33,6 +33,19 @@ const BookDetailPage = styled.div`
     border-radius: 50px;
     font-size: 12px;
   }
+
+  .memo-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .memo-button {
+    ${tw`text-dark-green`}
+    margin-left: auto;
+    height: 20px;
+    border: none;
+    outline: none;
+    background-color: #fff;
 `;
 
 function BookDetail({ book, finishedReading, startedReading, isReading }) {
@@ -66,7 +79,12 @@ function BookDetail({ book, finishedReading, startedReading, isReading }) {
           />
         </>
       )}
-      <p className="subject">내 메모</p>
+      <div className="memo-title">
+        <p className="subject">내 메모</p>
+        <button type="button" className="subject memo-button">
+          메모 작성
+        </button>
+      </div>
       {mock_memos.map(memo => (
         <Memo key={memo.id} memo={memo} />
       ))}
