@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Intro from './routes/Intro';
+import Survey from './routes/Survey';
 import Main from './routes/Main';
 import Memo from './routes/Memo';
 import MyInfo from './routes/MyInfo';
@@ -26,6 +27,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/intro" element={<Intro />} />
+        <Route path="/survey" element={<Survey />} />
         <Route
           path="/oauth/callback/kakao"
           element={<KakaoRedirectHandler />}

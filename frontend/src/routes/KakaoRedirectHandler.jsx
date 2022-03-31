@@ -62,7 +62,7 @@ function KakaoRedirectHandler() {
             access_token,
             is_new,
           } = res.data;
-          console.log(res);
+          sessionStorage.setItem('Authorization', access_token);
           apiInstance.defaults.headers.common.Authorization = `Bearer ${access_token}`;
           setUserInfo({
             userId: user_id,
@@ -74,7 +74,11 @@ function KakaoRedirectHandler() {
             nickname,
             level,
           });
-          navigate('/');
+          if (is_new === true) {
+            navigate('/survey');
+          } else {
+            navigate('/');
+          }
         });
       },
       () => {
