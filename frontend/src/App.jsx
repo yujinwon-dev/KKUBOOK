@@ -10,6 +10,7 @@ import Signout from './routes/Signout';
 import Reading from './routes/Reading';
 import Bookshelf from './routes/Bookshelf';
 import Recommendation from './routes/Recommendation';
+import SearchRecommend from './components/recommendation/SearchRecommend';
 import SearchBook from './components/main/SearchBook';
 import ScanBook from './components/main/ScanBook';
 import BookDetail from './components/main/BookDetail';
@@ -39,6 +40,7 @@ function App() {
         <Route path="/searchmemo" element={<SearchMemo />} />
         <Route path="/memo/:memoId" element={<MemoDetail />} />
         <Route path="/recommendation" element={<Recommendation />} />
+        <Route path="/searchkeyword" element={<SearchRecommend />} />
         <Route path="/myinfo" element={<MyInfo />} />
         <Route path="/myinfo/settings" element={<Settings />} />
         <Route path="/myinfo/settings/signout" element={<Signout />} />

@@ -6,7 +6,7 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
-  padding: 2vh;
+  padding: 1rem;
 `;
 
 const Message = styled.div`
@@ -22,13 +22,13 @@ const Buttons = styled.div`
 
 const Button = styled.button`
   width: 100%;
-  height: 50px;
-  margin-bottom: 1rem;
+  height: 3rem;
+  margin-top: 1rem;
   cursor: pointer;
   color: ${props => (props.delete ? '#ffffff' : '#000')};
   border: none;
   border-radius: 10px;
-  background-color: ${props => (props.delete ? '#FF5858' : '#f2f2f2')};
+  background-color: ${props => (props.delete ? '#ff5858' : '#f2f2f2')};
 `;
 
 function DeleteMemo() {
