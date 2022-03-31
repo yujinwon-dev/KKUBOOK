@@ -13,7 +13,7 @@ import useBottomSheetStore from '../stores/bottomSheet';
 
 const settings = {
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -70,6 +70,14 @@ function Main() {
         <p className="text-white">읽고 있는 책</p>
         {books.length ? (
           <Slider {...settings}>
+            <Card>
+              <button
+                type="button"
+                onClick={() => openBottomSheet(SearchList, '책 등록하기')}
+              >
+                책 추가하기
+              </button>
+            </Card>
             {books.map(book => (
               <Card key={book.id}>
                 <MainBook book={book} />
@@ -87,12 +95,6 @@ function Main() {
           </Card>
         )}
         <BookCommit />
-        <button
-          type="button"
-          onClick={() => openBottomSheet(SearchList, '책 등록하기')}
-        >
-          책 추가하기
-        </button>
       </StyledMain>
     </>
   );
