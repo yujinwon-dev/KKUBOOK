@@ -10,5 +10,3 @@ export function apiSearchBook({ word, index }, success, fail) {
 export function getBookCommit(success, fail) {
   apiInstance.get('kkubooks/main/commits').then(success).catch(fail);
 }
-
-export default { apiSearchBook, getBookCommit };
