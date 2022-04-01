@@ -11,7 +11,7 @@ const SubText = styled.p`
   ${tw`text-[#848282] text-[15px] mb-[6rem]`}
 `;
 
-const H2 = styled.h1`
+const H1 = styled.h1`
   ${tw`text-[20px] font-semibold`}
   margin: 0 auto 0 2rem;
 `;
@@ -51,7 +51,7 @@ function Survey1({ setNextPage, addSurveyResult, age }) {
         <SubText>본 응답은 책 추천 목적으로만 사용됩니다.</SubText>
       </div>
 
-      <H2>나이</H2>
+      <H1>나이</H1>
       <BtnDiv>
         <div className="grid-box">
           {ageList.map(age => (
