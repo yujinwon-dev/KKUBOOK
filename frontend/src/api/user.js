@@ -42,7 +42,7 @@ export function offKkubookMode(success, fail) {
 /* 독서량&장르 통계 가져오기 */
 export function getUserStatistics(date, success, fail) {
   apiInstance
-    .get(`kkubooks/mypage/bookstatistics/${date}`)
+    .get(`kkubooks/mypage/statistics/${date}`)
     .then(success)
     .catch(fail);
 }
