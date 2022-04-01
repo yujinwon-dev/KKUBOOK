@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { styled } from 'twin.macro';
+import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
 import { submitSurvey } from '../api/survey';
 import Survey1 from '../components/survey/Survey1';
@@ -10,6 +10,7 @@ import Survey5 from '../components/survey/Survey5';
 import Survey6 from '../components/survey/Survey6';
 
 const Page = styled.div`
+  ${tw`flex flex-col items-center`}
   padding: 4rem 2rem;
 `;
 
