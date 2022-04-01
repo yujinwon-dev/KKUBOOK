@@ -26,3 +26,7 @@ export function getNaverUrl(reqData, success, fail) {
     .then(success)
     .catch(fail);
 }
+
+export async function getBooklist() {
+  const response = await apiInstance.get('kkubooks/main/booklist/');
+}

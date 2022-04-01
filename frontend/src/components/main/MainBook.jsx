@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../stores/book';
+import useStore from '../../stores/mainBook';
 import ProgressBar from '../common/ProgressBar';
 
 const BookContainer = styled.div`
