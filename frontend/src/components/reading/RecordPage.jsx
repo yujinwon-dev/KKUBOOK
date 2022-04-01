@@ -5,7 +5,7 @@ import useStore from '../../stores/bottomSheet';
 import PageInput from './PageInput';
 import GiveUpReading from './GiveupReading';
 import Header from '../common/Header';
-import { recordProgress } from '../../api/bookshelf';
+import { recordProgress, commit } from '../../api/bookshelf';
 import useUserStore from '../../stores/user';
 
 const StyledRecordPage = styled.div`
@@ -54,7 +54,7 @@ const StyledRecordPage = styled.div`
   }
 `;
 
-function RecordPage({ time, book, setIsCurrentPage }) {
+function RecordPage({ time, book, setIsCurrentPage, startDateTime }) {
   const openBottomSheet = useStore(state => state.openSheet);
   const totalPage = book.bookInfo.page;
   const [currPage, setCurrPage] = useState(book.currPage);
@@ -151,6 +151,7 @@ function RecordPage({ time, book, setIsCurrentPage }) {
               currPage,
               totalPage === currPage,
             );
+            commit(book.bookId, startDateTime);
           }}
         >
           저장하기

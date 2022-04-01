@@ -64,4 +64,24 @@ const recordProgress = async (
   }
 };
 
-export { getBooks, addBook, startReading, recordProgress };
+const commit = async (bookId, startTime) => {
+  /*
+    startTime: 읽기 페이지에 진입한 순간
+    endTime: 저장하기 버튼을 누른 시점
+    형식: 2022-04-01 11:23  (yyyy-mm-dd hh-min)
+  */
+
+  const endTime = getCurrentDate(true);
+  try {
+    const { data } = await api.post(`kkubooks/main/${bookId}/commit/`, {
+      start_time: startTime,
+      end_time: endTime,
+    });
+
+    return formatKey(data);
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export { getBooks, addBook, startReading, recordProgress, commit };
