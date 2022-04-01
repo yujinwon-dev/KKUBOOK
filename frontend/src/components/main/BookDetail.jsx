@@ -87,6 +87,10 @@ const Button = styled.button`
 function BookDetail() {
   const navigate = useNavigate();
   const { bookId } = useParams();
+  const userId = useStore(state => state.userInfo.userId);
+  const setSelectedCategory = useBookshelfStore(
+    state => state.setSelectedCategory,
+  );
   const [isbn, getIsbn] = useState('');
   const [title, getTitle] = useState('');
   const [description, getDescription] = useState('');
