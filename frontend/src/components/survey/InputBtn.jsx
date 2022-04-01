@@ -4,20 +4,21 @@ const Btn = styled.button`
   ${tw`bg-transparent`}
   height: 3rem;
   color: #848282;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem;
   border: 1px solid #848282;
   border-radius: 10px;
+  margin: 0.5rem;
 
-  &:active {
+  &.selected {
     color: #61b864;
     background-color: #d7f6d7;
     border: 1px solid #61b864;
   }
 `;
 
-function InputBtn({ children, onClick }) {
+function InputBtn({ children, id, onClick }) {
   return (
-    <Btn type="button" onClick={onClick}>
+    <Btn type="button" id={id} onClick={onClick} className="input-btn">
       {children}
     </Btn>
   );
