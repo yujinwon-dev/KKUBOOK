@@ -51,12 +51,14 @@ const StyledBook = styled.li`
   }
 `;
 function Book({ book, handleClick, startedReading, finishedReading }) {
+  const { bookInfo } = book;
+
   return (
-    <StyledBook onClick={() => handleClick(book.book)}>
-      <img src={book.imgUrl} alt={book.title} />
+    <StyledBook onClick={() => handleClick(book.bookId)}>
+      <img src={bookInfo.img_url} alt={bookInfo.title} />
       <div className="description">
-        <p className="title">{book.title}</p>
-        <p className="author">{book.author}</p>
+        <p className="title">{bookInfo.title}</p>
+        <p className="author">{bookInfo.author}</p>
         {finishedReading && (
           <StarRatings
             rating={book.rating / 2}
@@ -72,7 +74,7 @@ function Book({ book, handleClick, startedReading, finishedReading }) {
             startDate={book.startDate}
             endDate={book.endDate}
             currPage={book.currPage}
-            totalPage={book.page}
+            totalPage={bookInfo.page}
             isReading={book.bookStatus === 1}
           />
         )}
