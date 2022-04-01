@@ -1,6 +1,6 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
-import StarRatings from 'react-star-ratings';
+import { Rating } from 'react-simple-star-rating';
 import Pregress from './Progress';
 
 const StyledBook = styled.li`
@@ -60,14 +60,7 @@ function Book({ book, handleClick, startedReading, finishedReading }) {
         <p className="title">{bookInfo.title}</p>
         <p className="author">{bookInfo.author}</p>
         {finishedReading && (
-          <StarRatings
-            rating={book.rating / 2}
-            starRatedColor="orange"
-            starEmptyColor="gray"
-            numberOfStars={5}
-            starDimension="18px"
-            starSpacing="0px"
-          />
+          <Rating readonly ratingValue={book.rating * 10} size={22} />
         )}
         {startedReading && (
           <Pregress

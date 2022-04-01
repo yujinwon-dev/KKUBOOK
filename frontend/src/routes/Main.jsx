@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import tw, { styled } from 'twin.macro';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -8,7 +8,7 @@ import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
 import BookCommit from '../components/main/BookCommit';
 import SearchList from '../components/main/SearchList';
-import useStore from '../stores/book';
+import useMainBookStore from '../stores/mainBook';
 import useBottomSheetStore from '../stores/bottomSheet';
 
 const settings = {
@@ -61,14 +61,15 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
-  const books = useStore(
-    useCallback(state => {
-      return state.books.filter(book => book.bookStatus === 1);
-    }),
-  );
+  const books = useMainBookStore(state => state.books);
+  const getMainBooks = useMainBookStore(state => state.getMainBooks);
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
   );
+
+  useEffect(() => {
+    getMainBooks();
+  }, []);
 
   // slider에는 padding이 들어가면 안된다.
   // slider를 감싼 요소가 fix면 slider css가 깨져서 greenHeader를 absolute로 설정

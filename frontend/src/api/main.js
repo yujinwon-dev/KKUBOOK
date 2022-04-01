@@ -1,4 +1,5 @@
 import apiInstance from '../utils/apiInstance';
+import formatKey from '../utils/snakeToCamel';
 
 // 책 검색하기 (index 0: 책 제목 / index 1: 작가 / index 2: isbn)
 export function apiSearchBook({ word, index }, success, fail) {
@@ -25,4 +26,25 @@ export function getNaverUrl(reqData, success, fail) {
     })
     .then(success)
     .catch(fail);
+}
+
+export async function getBooklist() {
+  try {
+    const { data } = await apiInstance.get('kkubooks/main/booklist/');
+    return data.map(item => formatKey(item));
+  } catch (err) {
+    return err;
+  }
+}
+
+export async function submitRating(bookshelf_id, rating) {
+  try {
+    const { data } = await apiInstance.put(
+      `kkubooks/main/${bookshelf_id}/rating/`,
+      { rating },
+    );
+    return data;
+  } catch (err) {
+    return err;
+  }
 }
