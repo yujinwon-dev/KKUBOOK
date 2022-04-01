@@ -1,11 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import bookshelfCategories from '../constants/bookShelf';
 import BookshelfCategory from '../components/bookshelf/BookshelfCategory';
-import useBookStore from '../stores/book';
 import useBookshelfStore from '../stores/bookshelf';
 import Book from '../components/bookshelf/Book';
 
@@ -34,20 +33,25 @@ const BookshelfPage = styled.div`
 
 function BookShelf() {
   const navigate = useNavigate();
-  const { selectedCategory, setSelectedCategory } = useBookshelfStore(
-    state => state,
+  const selectedCategory = useBookshelfStore(state => state.selectedCategory);
+  const setSelectedCategory = useBookshelfStore(
+    state => state.setSelectedCategory,
   );
-
-  const books = useBookStore(
+  const getBooklist = useBookshelfStore(state => state.getBooklist);
+  const books = useBookshelfStore(
     useCallback(
       state => {
         return state.books.filter(
-          book => book.status === selectedCategory.status,
+          book => book.bookStatus === selectedCategory.status,
         );
       },
-      [selectedCategory],
+      [selectedCategory.name],
     ),
   );
+
+  useEffect(() => {
+    getBooklist();
+  }, []);
 
   const selectCategory = category => {
     if (category.name !== selectedCategory.name) {
@@ -79,7 +83,13 @@ function BookShelf() {
 
         <ul>
           {books.map(book => (
-            <Book key={book.id} book={book} handleClick={selectBook} />
+            <Book
+              key={book.id}
+              book={book}
+              handleClick={selectBook}
+              startedReading={book.bookStatus !== 2}
+              finishedReading={book.bookStatus === 0}
+            />
           ))}
         </ul>
       </BookshelfPage>
