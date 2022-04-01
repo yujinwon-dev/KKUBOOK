@@ -5,6 +5,7 @@ import useStore from '../../stores/bottomSheet';
 import PageInput from './PageInput';
 import GiveUpReading from './GiveupReading';
 import Header from '../common/Header';
+import { recordProgress } from '../../api/bookshelf';
 
 const StyledRecordPage = styled.div`
   width: 100%;
@@ -52,11 +53,10 @@ const StyledRecordPage = styled.div`
   }
 `;
 
-function RecordPage({ time, setIsCurrentPage }) {
+function RecordPage({ time, book, setIsCurrentPage }) {
   const openBottomSheet = useStore(state => state.openSheet);
-  const totalPage = 100;
-  const initialPage = 1;
-  const [page, setPage] = useState(initialPage);
+  const totalPage = book.page || 100;
+  const [page, setPage] = useState(book.currPage);
   const submitPage = submittedPage => {
     if (submittedPage === 'done') {
       setPage(totalPage);
@@ -138,7 +138,19 @@ function RecordPage({ time, setIsCurrentPage }) {
             </div>
           </button>
         </div>
-        <button type="button" className="save-button">
+        <button
+          type="button"
+          className="save-button"
+          onClick={() => {
+            recordProgress(
+              book.id,
+              book.book,
+              book.user,
+              page,
+              totalPage === page,
+            );
+          }}
+        >
           저장하기
         </button>
       </StyledRecordPage>

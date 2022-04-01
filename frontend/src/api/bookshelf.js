@@ -38,4 +38,30 @@ const startReading = async (bookshelfId, bookId, userId) => {
   }
 };
 
-export { getBooks, addBook, startReading };
+const recordProgress = async (
+  bookshelfId,
+  bookId,
+  userId,
+  currPage,
+  isCompleted,
+) => {
+  try {
+    const body = {
+      book: bookId,
+      user: userId,
+      curr_page: currPage,
+    };
+
+    if (isCompleted) {
+      body.book_status = 0;
+      body.end_date = getCurrentDate();
+    }
+
+    const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
+    return formatKey(data);
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export { getBooks, addBook, startReading, recordProgress };
