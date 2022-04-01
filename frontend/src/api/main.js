@@ -33,6 +33,18 @@ export async function getBooklist() {
     const { data } = await apiInstance.get('kkubooks/main/booklist/');
     return data.map(item => formatKey(item));
   } catch (err) {
-    return console.error(err);
+    return err;
+  }
+}
+
+export async function submitRating(bookshelf_id, rating) {
+  try {
+    const { data } = await apiInstance.put(
+      `kkubooks/main/${bookshelf_id}/rating/`,
+      { rating },
+    );
+    return data;
+  } catch (err) {
+    return err;
   }
 }
