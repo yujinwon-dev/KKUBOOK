@@ -19,6 +19,7 @@ import CreateMemo from './components/memo/CreateMemo';
 import MemoDetail from './components/memo/MemoDetail';
 import SearchMemo from './components/memo/SearchMemo';
 import BookshelfBook from './routes/BookshelfBookDetail';
+import Review from './routes/Review';
 import Page404 from './routes/NotFound';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/scanbook" element={<ScanBook />} />
         <Route path="/bookDetail/:bookId" element={<BookDetail />} />
         <Route path="/reading/:bookId" element={<Reading />} />
+        <Route path="/review" element={<Review />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
       <BottomSheetBase />
