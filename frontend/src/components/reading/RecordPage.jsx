@@ -6,6 +6,7 @@ import PageInput from './PageInput';
 import GiveUpReading from './GiveupReading';
 import Header from '../common/Header';
 import { recordProgress } from '../../api/bookshelf';
+import useUserStore from '../../stores/user';
 
 const StyledRecordPage = styled.div`
   width: 100%;
@@ -55,11 +56,12 @@ const StyledRecordPage = styled.div`
 
 function RecordPage({ time, book, setIsCurrentPage }) {
   const openBottomSheet = useStore(state => state.openSheet);
-  const totalPage = book.page || 100;
-  const [page, setPage] = useState(book.currPage);
+  const totalPage = book.bookInfo.page;
+  const [currPage, setCurrPage] = useState(book.currPage);
+  const user = useUserStore(state => state.userInfo.userId);
   const submitPage = submittedPage => {
     if (submittedPage === 'done') {
-      setPage(totalPage);
+      setCurrPage(totalPage);
       return;
     }
 
@@ -69,7 +71,7 @@ function RecordPage({ time, book, setIsCurrentPage }) {
     }
 
     // 차후 값이 valid 한지 확인하는 로직 추가
-    setPage(Number(submittedPage));
+    setCurrPage(Number(submittedPage));
   };
 
   useEffect(() => {
@@ -133,7 +135,7 @@ function RecordPage({ time, book, setIsCurrentPage }) {
             <div className="record">
               <p className="title">읽은 페이지</p>
               <p>
-                <span className="page">P. {page}</span> / {totalPage}
+                <span className="page">P. {currPage}</span> / {totalPage}
               </p>
             </div>
           </button>
@@ -144,10 +146,10 @@ function RecordPage({ time, book, setIsCurrentPage }) {
           onClick={() => {
             recordProgress(
               book.id,
-              book.book,
-              book.user,
-              page,
-              totalPage === page,
+              book.bookId,
+              user,
+              currPage,
+              totalPage === currPage,
             );
           }}
         >
