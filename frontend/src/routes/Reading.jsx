@@ -5,6 +5,7 @@ import ReadingPage from '../components/reading/ReadingPage';
 import RecordPage from '../components/reading/RecordPage';
 import useBookshelfStore from '../stores/bookshelf';
 import CreateMemo from '../components/memo/CreateMemo';
+import getCurrentDate from '../utils/currentDate';
 
 const Page = styled.div`
   min-width: 100%;
@@ -17,6 +18,7 @@ const Page = styled.div`
 `;
 
 function Reading() {
+  const startDateTime = useMemo(() => getCurrentDate(true), []);
   const [currentPage, setIsCurrentPage] = useState('reading');
   const [isTimerActive, setIsTimerActive] = useState(true); // 읽는 중 vs 쉬는 중
   const [isTimeVisible, setIsTimeVisible] = useState(true);
@@ -69,7 +71,12 @@ function Reading() {
       />
     ),
     record: (
-      <RecordPage time={time} book={book} setIsCurrentPage={setIsCurrentPage} />
+      <RecordPage
+        time={time}
+        book={book}
+        setIsCurrentPage={setIsCurrentPage}
+        startDateTime={startDateTime}
+      />
     ),
     memo: (
       <CreateMemo
