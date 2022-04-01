@@ -2,6 +2,9 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import books from '../../data/books';
+import useStore from '../../stores/user';
+import { addBook } from '../../api/bookshelf';
+import useBookshelfStore from '../../stores/bookshelf';
 
 const Bar = styled.div`
   position: fixed;
@@ -79,6 +82,10 @@ const Button = styled.button`
 function BookDetail() {
   const navigate = useNavigate();
   const { bookId } = useParams();
+  const userId = useStore(state => state.userInfo.userId);
+  const setSelectedCategory = useBookshelfStore(
+    state => state.setSelectedCategory,
+  );
 
   return (
     <>
@@ -116,7 +123,16 @@ function BookDetail() {
         <Button left>
           <p>책 상세내용 보기</p>
         </Button>
-        <Button>
+        <Button
+          onClick={() => {
+            addBook(Number(bookId), userId);
+            setSelectedCategory({
+              name: '읽고 싶은 책',
+              status: 2,
+            });
+            navigate('/bookshelf');
+          }}
+        >
           <p>서재에 등록하기</p>
         </Button>
       </Buttons>

@@ -50,14 +50,14 @@ const StyledBook = styled.li`
     align-items: center;
   }
 `;
-function Book({ book, handleClick }) {
+function Book({ book, handleClick, startedReading, finishedReading }) {
   return (
-    <StyledBook onClick={() => handleClick(book.id)}>
-      <img src={book.image} alt={book.title} />
+    <StyledBook onClick={() => handleClick(book.book)}>
+      <img src={book.imgUrl} alt={book.title} />
       <div className="description">
         <p className="title">{book.title}</p>
         <p className="author">{book.author}</p>
-        {book.status === 0 && (
+        {finishedReading && (
           <StarRatings
             rating={book.rating / 2}
             starRatedColor="orange"
@@ -67,13 +67,13 @@ function Book({ book, handleClick }) {
             starSpacing="0px"
           />
         )}
-        {book.status !== 2 && (
+        {startedReading && (
           <Pregress
-            startFrom={book.startFrom}
-            end={book.end}
-            status={book.status}
-            page={book.page}
-            totalPage={book.totalPage}
+            startDate={book.startDate}
+            endDate={book.endDate}
+            currPage={book.currPage}
+            totalPage={book.page}
+            isReading={book.bookStatus === 1}
           />
         )}
       </div>
