@@ -50,11 +50,12 @@ const BookDetailPage = styled.div`
 `;
 
 function BookDetail({ book, finishedReading, startedReading, isReading }) {
+  const { bookInfo } = book;
   return (
     <BookDetailPage>
-      <p className="title">{book.title}</p>
-      <img src={book.imgUrl} alt={book.title} />
-      <p>{book.author}</p>
+      <p className="title">{bookInfo.title}</p>
+      <img src={bookInfo.img_url} alt={bookInfo.title} />
+      <p>{bookInfo.author}</p>
       {finishedReading && (
         <StarRatings
           rating={book.rating / 2}
@@ -74,7 +75,7 @@ function BookDetail({ book, finishedReading, startedReading, isReading }) {
             startDate={book.startDate}
             endDate={book.endDate}
             currPage={book.currPage}
-            totalPage={book.page}
+            totalPage={bookInfo.page}
             isReading={isReading}
             padding="10px 5px 5px"
           />

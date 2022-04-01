@@ -17,7 +17,7 @@ function BookshelfBook() {
     useCallback(
       state => {
         return state.books.find(item => {
-          return item.book === Number(bookId);
+          return item.bookId === Number(bookId);
         });
       },
       [bookId],

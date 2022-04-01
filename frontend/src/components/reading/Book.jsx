@@ -24,13 +24,13 @@ const BookReading = styled.div`
   }
 `;
 
-function Book({ book, isTimerActive, setIsTimerActive }) {
+function Book({ bookInfo, isTimerActive, setIsTimerActive }) {
   return (
     <BookReading>
-      <img src={book.image} alt={book.title} />
+      <img src={bookInfo.img_url} alt={bookInfo.title} />
       <div>
-        <p>{book.title}</p>
-        <p>{book.author}</p>
+        <p>{bookInfo.title}</p>
+        <p>{bookInfo.author}</p>
       </div>
       <button type="button" onClick={() => setIsTimerActive(!isTimerActive)}>
         {isTimerActive ? (
