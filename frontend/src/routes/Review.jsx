@@ -1,25 +1,44 @@
 import React, { useState } from 'react';
 import tw, { styled } from 'twin.macro';
-import StarRatings from 'react-star-ratings';
+import { Rating } from 'react-simple-star-rating';
+import Button from '../components/common/Button';
 
 const ReviewPage = styled.div`
   padding: 0 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
+  font-size: 20px;
   img {
-    width: 120px;
-    height: 180px;
+    width: 40%;
+    height: 60%;
+  }
+
+  .book-title {
+    font-size: 1rem;
+    margin: 1rem;
   }
 
   .content {
-    width: 100%;
-    background-color: beige;
+    ${tw`bg-light-gray`}
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2rem 1rem;
+    border-radius: 10px;
+    box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 15vh;
+  }
+
+  .num-rating {
+    margin: 5px auto 40px;
+    color: #f1a545;
+  }
+
+  .top-1rem {
+    top: 1rem;
+  }
+
+  .title {
+    padding-top: 1rem;
   }
 `;
 
@@ -40,18 +59,24 @@ const book = {
 
 function Review() {
   const [rating, setRating] = useState(0);
-  const changeRating = value => setRating(value);
+  const changeRating = value => {
+    setRating(value);
+  };
   return (
     <ReviewPage>
+      <p className="title">다 읽었어요!</p>
       <div className="content">
         <img src={book.imgUrl} alt={book.title} />
-        {book.title}
-
-        <StarRatings
-          rating={rating}
-          changeRating={changeRating}
-          numOfStars={5}
+        <p className="book-title">{book.title}</p>
+        <Rating
+          onClick={changeRating}
+          ratingValue={rating}
+          size={30}
+          allowHalfIcon
         />
+        <p className="num-rating">{rating / 10}</p>
+        <Button title="독서 완료" background="white" color="#8DCD84" />
+        <Button title="다음에 읽을 책 추천 받기" />
       </div>
     </ReviewPage>
   );
