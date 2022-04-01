@@ -1,5 +1,5 @@
 import tw, { styled } from 'twin.macro';
-import StarRatings from 'react-star-ratings';
+import { Rating } from 'react-simple-star-rating';
 import Pregress from './Progress';
 import Memo from './Memo';
 import mock_memos from '../../data/memos';
@@ -57,14 +57,7 @@ function BookDetail({ book, finishedReading, startedReading, isReading }) {
       <img src={bookInfo.img_url} alt={bookInfo.title} />
       <p>{bookInfo.author}</p>
       {finishedReading && (
-        <StarRatings
-          rating={book.rating / 2}
-          starRatedColor="orange"
-          starEmptyColor="gray"
-          numberOfStars={5}
-          starDimension="20px"
-          starSpacing="0px"
-        />
+        <Rating readonly ratingValue={book.rating * 10} size={25} />
       )}
       <br />
       <p className="tag">선택된 카테고리</p>
