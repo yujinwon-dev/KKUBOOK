@@ -4,6 +4,7 @@ const Btn = styled.button`
   ${tw`bg-transparent`}
   height: 3rem;
   color: #848282;
+  padding: 0.5rem 1.5rem;
   border: 1px solid #848282;
   border-radius: 10px;
 

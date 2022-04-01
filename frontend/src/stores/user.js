@@ -6,7 +6,7 @@ const useStore = create(
     set => ({
       userInfo: {},
       setUserInfo: userInfo => set({ userInfo }),
-      deleteUserInfo: () => set({}),
+      deleteUserInfo: () => set({ userInfo: null }),
       changeUserNickname: newNickname =>
         set(state => ({
           userInfo: { ...state.userInfo, nickname: newNickname },
