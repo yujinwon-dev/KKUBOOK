@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
+import { apiPutLikeMemo } from '../../api/memo';
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -63,6 +64,18 @@ function MemoContainer({ memo }) {
     memo;
   const [isLiked, setLiked] = useState(memo_mark);
 
+  function putLikeMemo() {
+    const reqData = {
+      memo_mark: isLiked,
+    };
+    apiPutLikeMemo(
+      { memo_id: id },
+      reqData,
+      response => console.log(response),
+      error => console.log(error),
+    );
+  }
+
   return (
     <Container>
       <MemoInfo>
@@ -82,7 +95,10 @@ function MemoContainer({ memo }) {
             className="h-5 w-5 like-button"
             viewBox="0 0 20 20"
             fill="red"
-            onClick={() => setLiked(!isLiked)}
+            onClick={() => {
+              setLiked(!isLiked);
+              putLikeMemo();
+            }}
           >
             <path
               fillRule="evenodd"
@@ -99,7 +115,10 @@ function MemoContainer({ memo }) {
             stroke="#a1a1a1"
             strokeWidth={2}
             width="24"
-            onClick={() => setLiked(!isLiked)}
+            onClick={() => {
+              setLiked(!isLiked);
+              putLikeMemo();
+            }}
           >
             <path
               strokeLinecap="round"

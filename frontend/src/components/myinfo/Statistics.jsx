@@ -89,9 +89,10 @@ function Statistics({ createdAt }) {
   const [userStatistics, setUserStatistics] = useState({});
 
   // 가장 첫 달(=유저가 db에 created 된 날)
-  const firstYearMonth = createdAt
-    ? createdAt.split('-').slice(0, 2).join('')
-    : '';
+  const firstYearMonth =
+    createdAt && createdAt.length > 0
+      ? createdAt.split('-').slice(0, 2).join('')
+      : '';
 
   // 현재 통계를 보고 있는 달
   let currentYearMonth =

@@ -1,8 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import useBottomSheetStore from '../../stores/bottomSheet';
+import useStoreMemo from '../../stores/memo';
 import DeleteMemo from './DeleteMemo';
+import { apiPutMemo } from '../../api/memo';
 
 const Bar = styled.div`
   position: fixed;
@@ -88,6 +90,24 @@ function MemoDetail() {
     useCallback(state => state.openSheet),
   );
 
+  const setMemoId = useStoreMemo(useCallback(state => state.setMemoId));
+
+  function putMemo() {
+    const reqData = {
+      content: text,
+    };
+    apiPutMemo(
+      { memo_id: id },
+      reqData,
+      response => console.log(response),
+      error => console.log(error),
+    );
+  }
+
+  useEffect(() => {
+    setMemoId(id);
+  });
+
   return (
     <>
       <Bar>
@@ -120,7 +140,9 @@ function MemoDetail() {
           >
             삭제
           </button>
-          <button type="button">수정</button>
+          <button type="button" onClick={() => putMemo()}>
+            수정
+          </button>
         </div>
       </Bar>
       <MemoForm>

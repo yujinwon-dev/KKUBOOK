@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import BookResult from '../components/recommendation/BookResult';
 import books from '../data/books';
+import { getUserBooks, getBestBooks } from '../api/recommend';
 
 const RecommendRoot = styled.div`
   padding: 1rem;
@@ -46,6 +47,19 @@ const Categories = styled.div`
 
 function Recommendation() {
   const navigate = useNavigate();
+  const [userBooks, setUserBooks] = useState([]);
+  const [bestBooks, setBestBooks] = useState([]);
+
+  useEffect(() => {
+    getUserBooks(
+      response => setUserBooks(response.data),
+      error => console.log(error),
+    );
+    getBestBooks(
+      response => setBestBooks(response.data),
+      error => console.log(error),
+    );
+  });
   return (
     <>
       <Navbar />
@@ -71,7 +85,7 @@ function Recommendation() {
         </Header>
         <Categories>
           <div className="category">
-            <p>님을 위한 추천</p>
+            <p>테스트</p>
             <div className="book-results">
               {books.map(book => (
                 <BookResult key={book.id} book={book} />
@@ -81,7 +95,15 @@ function Recommendation() {
           <div className="category">
             <p>님을 위한 추천</p>
             <div className="book-results">
-              {books.map(book => (
+              {userBooks.map(book => (
+                <BookResult key={book.id} book={book} />
+              ))}
+            </div>
+          </div>
+          <div className="category">
+            <p>베스트셀러</p>
+            <div className="book-results">
+              {bestBooks.map(book => (
                 <BookResult key={book.id} book={book} />
               ))}
             </div>
