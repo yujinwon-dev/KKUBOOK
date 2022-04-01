@@ -1,6 +1,7 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 import CenteredModalBase from './CenteredModalBase';
+import { onKkubookMode } from '../../api/user';
 import happyKkubook from '../../assets/happy-kkubook.png';
 import bizmessage from '../../assets/bizmessage.png';
 import kkubookMode from '../../assets/kkubook-mode.png';
@@ -36,6 +37,14 @@ const PrevBtn = styled.button`
 const NextBtn = styled.button`
   ${tw`text-[#2860e1] text-base font-medium bg-transparent pt-2 pb-4 px-10 border-none cursor-pointer`}
 `;
+
+function startKkubook() {
+  onKkubookMode(
+    response => console.log(response),
+    error => console.log(error),
+  );
+  window.location.href = 'https://pf.kakao.com/_xcsqNb/friend';
+}
 
 function KkubookModal({ open, close }) {
   const [page, setPage] = React.useState(0);
@@ -81,6 +90,7 @@ function KkubookModal({ open, close }) {
       },
       netxValue: '시작하기',
       nextAction: () => {
+        startKkubook();
         // TODO: 시작 버튼 클릭 시 페이지 이동
         close();
       },
