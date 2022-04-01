@@ -19,7 +19,7 @@ const Page = styled.div`
 
 function Reading() {
   const startDateTime = useMemo(() => getCurrentDate(true), []);
-  const [currentPage, setIsCurrentPage] = useState('reading');
+  const [currentPage, setCurrentPage] = useState('reading');
   const [isTimerActive, setIsTimerActive] = useState(true); // 읽는 중 vs 쉬는 중
   const [isTimeVisible, setIsTimeVisible] = useState(true);
   const [time, setTime] = useState(0);
@@ -67,14 +67,14 @@ function Reading() {
         setIsTimerActive={setIsTimerActive}
         isTimeVisible={isTimeVisible}
         setIsTimeVisible={setIsTimeVisible}
-        setIsCurrentPage={setIsCurrentPage}
+        setCurrentPage={setCurrentPage}
       />
     ),
     record: (
       <RecordPage
         time={time}
         book={book}
-        setIsCurrentPage={setIsCurrentPage}
+        setCurrentPage={setCurrentPage}
         startDateTime={startDateTime}
       />
     ),
@@ -82,7 +82,7 @@ function Reading() {
       <CreateMemo
         id={bookId}
         title={book.title}
-        backClickHandler={useCallback(() => setIsCurrentPage('reading'), [])}
+        backClickHandler={useCallback(() => setCurrentPage('reading'), [])}
       />
     ),
   };

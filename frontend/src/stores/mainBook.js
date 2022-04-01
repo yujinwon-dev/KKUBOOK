@@ -1,8 +1,13 @@
 import create from 'zustand';
-import books from '../data/books';
+import { getBooklist } from '../api/main';
+import bookList from '../data/books';
 
 const useStore = create((set, get) => ({
-  books,
+  books: [],
+  getMainBooks: async () => {
+    const books = await getBooklist();
+    return set({ books });
+  },
   updateOrder: bookId => {
     const bookLists = get().books;
     const targetBook = bookLists.find(book => book.id === bookId);

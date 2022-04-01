@@ -1,10 +1,12 @@
 import { styled } from 'twin.macro';
 
+const BtnDiv = styled.div``;
+
 const Btn = styled.button`
   width: 9rem;
   height: 3rem;
   border-radius: 10px;
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
 
   &.prev {
@@ -24,9 +26,11 @@ const Btn = styled.button`
 
 function InputBtn({ children, btnClass, onClick }) {
   return (
-    <Btn type="button" className={btnClass} onClick={onClick}>
-      {children}
-    </Btn>
+    <BtnDiv>
+      <Btn type="button" className={btnClass} onClick={onClick}>
+        {children}
+      </Btn>
+    </BtnDiv>
   );
 }
 
