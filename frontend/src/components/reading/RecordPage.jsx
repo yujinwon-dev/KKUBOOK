@@ -5,6 +5,8 @@ import useStore from '../../stores/bottomSheet';
 import PageInput from './PageInput';
 import GiveUpReading from './GiveupReading';
 import Header from '../common/Header';
+import { recordProgress, commit } from '../../api/bookshelf';
+import useUserStore from '../../stores/user';
 
 const StyledRecordPage = styled.div`
   width: 100%;
@@ -52,14 +54,14 @@ const StyledRecordPage = styled.div`
   }
 `;
 
-function RecordPage({ time, setIsCurrentPage }) {
+function RecordPage({ time, book, setIsCurrentPage, startDateTime }) {
   const openBottomSheet = useStore(state => state.openSheet);
-  const totalPage = 100;
-  const initialPage = 1;
-  const [page, setPage] = useState(initialPage);
+  const totalPage = book.bookInfo.page;
+  const [currPage, setCurrPage] = useState(book.currPage);
+  const user = useUserStore(state => state.userInfo.userId);
   const submitPage = submittedPage => {
     if (submittedPage === 'done') {
-      setPage(totalPage);
+      setCurrPage(totalPage);
       return;
     }
 
@@ -69,7 +71,7 @@ function RecordPage({ time, setIsCurrentPage }) {
     }
 
     // 차후 값이 valid 한지 확인하는 로직 추가
-    setPage(Number(submittedPage));
+    setCurrPage(Number(submittedPage));
   };
 
   useEffect(() => {
@@ -133,12 +135,25 @@ function RecordPage({ time, setIsCurrentPage }) {
             <div className="record">
               <p className="title">읽은 페이지</p>
               <p>
-                <span className="page">P. {page}</span> / {totalPage}
+                <span className="page">P. {currPage}</span> / {totalPage}
               </p>
             </div>
           </button>
         </div>
-        <button type="button" className="save-button">
+        <button
+          type="button"
+          className="save-button"
+          onClick={() => {
+            recordProgress(
+              book.id,
+              book.bookId,
+              user,
+              currPage,
+              totalPage === currPage,
+            );
+            commit(book.bookId, startDateTime);
+          }}
+        >
           저장하기
         </button>
       </StyledRecordPage>

@@ -85,7 +85,7 @@ function ReadingPage({
         </div>
 
         <Book
-          book={book}
+          bookInfo={book.bookInfo}
           isTimerActive={isTimerActive}
           setIsTimerActive={setIsTimerActive}
         />
