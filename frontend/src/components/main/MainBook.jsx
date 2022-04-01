@@ -66,23 +66,22 @@ const BookContainer = styled.div`
 `;
 
 function MainBook({ book }) {
-  const { id, title, author, image, startFrom, end, totalPage, page, status } =
-    book;
+  const { id, bookId, currPage, startDate, bookInfo } = book;
   const navigate = useNavigate();
   const updateOrder = useStore(state => state.updateOrder);
 
   return (
     <BookContainer>
-      <h3 className="title">{title}</h3>
-      <h5>{author}</h5>
+      <h3 className="title">{bookInfo.title}</h3>
+      <h5>{bookInfo.author}</h5>
       <div className="contents">
-        <img src={image} alt={title} />
+        <img src={bookInfo.img_url} alt={bookInfo.title} />
         <div className="progress">
           <div className="progress-items">
-            <p>시작일 {startFrom}</p>
-            <ProgressBar value={page} totalValue={totalPage} />
+            <p>시작일 {startDate}</p>
+            <ProgressBar value={currPage} totalValue={bookInfo.page} />
             <p>
-              {totalPage} 중에 {page} 페이지
+              {bookInfo.page} 중에 {currPage} 페이지
             </p>
           </div>
         </div>
@@ -119,7 +118,7 @@ function MainBook({ book }) {
           type="button"
           onClick={() =>
             navigate('/creatememo', {
-              state: { id: `${id}`, title: `${title}` },
+              state: { id: `${bookId}`, title: `${bookInfo.title}` },
             })
           }
         >
