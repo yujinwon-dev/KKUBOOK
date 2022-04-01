@@ -1,32 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
-import Survey2 from './Survey2';
 
 const MainText = styled.p`
   ${tw`text-[20px] font-medium mb-4`}
 `;
 
 const SubText = styled.p`
-  ${tw`text-[#848282] text-[15px] mb-[9rem]`}
+  ${tw`text-[#848282] text-[15px] mb-[6rem]`}
 `;
 
-const H2 = styled.h2`
+const H2 = styled.h1`
   ${tw`text-[20px] font-semibold`}
-  margin: 0 auto 1.5rem 0;
+  margin: 0 auto 0 2rem;
 `;
 
 const BtnDiv = styled.div`
-  ${tw`flex`}
+  margin: 1rem 3rem 3rem 3rem;
+
+  .grid-box {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    justify-items: center;
+
+    .input-btn {
+      width: 60%;
+    }
+  }
 `;
 
-function Survey1({ setNextPage, setSurveyInput }) {
+function Survey1({ setNextPage, addSurveyResult, age }) {
   const ageList = ['10대', '20대', '30대', '40대', '50대', '60대 이상'];
 
-  function clickInputBtn(age) {
-    setSurveyInput(prev => ({ ...prev, age: ageList.indexOf(age) }));
-  }
+  useEffect(() => {
+    const prevSelected = document.querySelector('.selected');
+    if (prevSelected) {
+      prevSelected.classList.remove('selected');
+    }
+    if (age !== null) {
+      const currentSelected = document.getElementById(ageList[age]);
+      currentSelected.classList.add('selected');
+    }
+  }, [age]);
 
   return (
     <>
@@ -37,14 +53,25 @@ function Survey1({ setNextPage, setSurveyInput }) {
 
       <H2>나이</H2>
       <BtnDiv>
-        {ageList.map(age => (
-          <InputBtn key={age} onClick={() => clickInputBtn(age)}>
-            {age}
-          </InputBtn>
-        ))}
-        <PrevNextBtn btnClass="next" onClick={() => setNextPage()}>
-          다음
-        </PrevNextBtn>
+        <div className="grid-box">
+          {ageList.map(age => (
+            <InputBtn
+              key={age}
+              id={age}
+              onClick={() => addSurveyResult('age', ageList.indexOf(age))}
+            >
+              {age}
+            </InputBtn>
+          ))}
+          <PrevNextBtn
+            btnClass="next"
+            onClick={() =>
+              age !== null ? setNextPage() : alert('항목을 선택해주세요.')
+            }
+          >
+            다음
+          </PrevNextBtn>
+        </div>
       </BtnDiv>
     </>
   );
