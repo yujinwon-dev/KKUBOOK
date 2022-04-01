@@ -63,7 +63,7 @@ const StyledContent = styled.div`
 function Main() {
   const books = useStore(
     useCallback(state => {
-      return state.books.filter(book => book.status === 1);
+      return state.books.filter(book => book.bookStatus === 1);
     }),
   );
   const openBottomSheet = useBottomSheetStore(
@@ -105,7 +105,7 @@ function Main() {
               type="button"
               onClick={() => openBottomSheet(SearchList, '책 등록하기')}
             >
-              아직 읽고 있는 책이 없어요. 책 추가하기
+              책 추가하기
             </button>
           </Card>
         )}
