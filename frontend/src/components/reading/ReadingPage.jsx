@@ -60,7 +60,7 @@ function ReadingPage({
   setIsTimerActive,
   isTimeVisible,
   book,
-  setIsCurrentPage,
+  setCurrentPage,
 }) {
   const openBottomSheet = useStore(useCallback(state => state.openSheet));
   const navigate = useNavigate();
@@ -68,11 +68,11 @@ function ReadingPage({
     setIsTimerActive(false);
 
     if (time < 120) {
-      openBottomSheet(Warning, '독서 시간이 너무 적어요', setIsCurrentPage);
+      openBottomSheet(Warning, '독서 시간이 너무 적어요', setCurrentPage);
       return;
     }
 
-    setIsCurrentPage('record');
+    setCurrentPage('record');
   };
 
   return (
@@ -94,7 +94,7 @@ function ReadingPage({
           <button
             type="button"
             className="w-45p h-3r bg-light-gray br-10"
-            onClick={() => setIsCurrentPage('memo')}
+            onClick={() => setCurrentPage('memo')}
           >
             메모하기
           </button>
