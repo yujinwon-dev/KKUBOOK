@@ -17,7 +17,7 @@ function BookshelfBook() {
     useCallback(
       state => {
         return state.books.find(item => {
-          return item.book === Number(bookId);
+          return item.bookId === Number(bookId);
         });
       },
       [bookId],
@@ -43,7 +43,7 @@ function BookshelfBook() {
         title="읽기 시작"
         width="90%"
         onClick={() => {
-          startReading(book.id, book.book, userId);
+          startReading(book.id, book.bookId, userId);
           moveToReading();
         }}
       />
