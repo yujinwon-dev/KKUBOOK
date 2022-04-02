@@ -63,16 +63,18 @@ function Survey1({ setNextPage, addSurveyResult, age }) {
               {age}
             </InputBtn>
           ))}
-          <PrevNextBtn
-            btnClass="next"
-            onClick={() =>
-              age !== null ? setNextPage() : alert('항목을 선택해주세요.')
-            }
-          >
-            다음
-          </PrevNextBtn>
         </div>
       </BtnDiv>
+      <div>
+        <PrevNextBtn
+          btnClass="next"
+          onClick={() =>
+            age !== null ? setNextPage() : alert('항목을 선택해주세요.')
+          }
+        >
+          다음
+        </PrevNextBtn>
+      </div>
     </>
   );
 }
