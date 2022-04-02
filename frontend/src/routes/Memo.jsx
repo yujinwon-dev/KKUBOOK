@@ -59,7 +59,7 @@ function Memo() {
 
   useEffect(() => {
     apiGetMemos(
-      response => setLikedMemos(response.data),
+      response => getMemos(response.data),
       error => console.log(error),
     );
   });

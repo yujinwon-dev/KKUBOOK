@@ -34,6 +34,11 @@ export function signout(success, fail) {
   apiInstance.delete('accounts/').then(success).catch(fail);
 }
 
+/* 꾸북모드 켜기 */
+export function onKkubookMode(success, fail) {
+  apiInstance.post('kkubooks/mypage/kkubookmode/').then(success).catch(fail);
+}
+
 /* 꾸북모드 끄기 */
 export function offKkubookMode(success, fail) {
   apiInstance.delete('kkubooks/mypage/kkubookmode/').then(success).catch(fail);
