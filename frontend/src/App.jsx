@@ -22,34 +22,39 @@ import SearchMemo from './components/memo/SearchMemo';
 import BookshelfBook from './routes/BookshelfBookDetail';
 import Review from './routes/Review';
 import Page404 from './routes/NotFound';
+import PrivateRoute from './routes/PrivateRoute';
+import useStore from './stores/user';
 
 function App() {
+  const userId = useStore(state => state.userInfo.userId);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/intro" element={<Intro />} />
-        <Route path="/survey" element={<Survey />} />
         <Route
           path="/oauth/callback/kakao"
           element={<KakaoRedirectHandler />}
         />
-        <Route path="/" element={<Main />} />
-        <Route path="/bookshelf" element={<Bookshelf />} />
-        <Route path="/bookshelf/book/:bookId" element={<BookshelfBook />} />
-        <Route path="/memo" element={<Memo />} />
-        <Route path="/creatememo" element={<CreateMemo />} />
-        <Route path="/searchmemo" element={<SearchMemo />} />
-        <Route path="/memo/:memoId" element={<MemoDetail />} />
-        <Route path="/recommendation" element={<Recommendation />} />
-        <Route path="/searchkeyword" element={<SearchRecommend />} />
-        <Route path="/myinfo" element={<MyInfo />} />
-        <Route path="/myinfo/settings" element={<Settings />} />
-        <Route path="/myinfo/settings/signout" element={<Signout />} />
-        <Route path="/searchbook" element={<SearchBook />} />
-        <Route path="/scanbook" element={<ScanBook />} />
-        <Route path="/bookDetail/:bookId" element={<BookDetail />} />
-        <Route path="/reading/:bookId" element={<Reading />} />
-        <Route path="/review" element={<Review />} />
+        <Route element={<PrivateRoute isLoggedIn={userId} />}>
+          <Route path="/survey" element={<Survey />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/bookshelf" element={<Bookshelf />} />
+          <Route path="/bookshelf/book/:bookId" element={<BookshelfBook />} />
+          <Route path="/memo" element={<Memo />} />
+          <Route path="/creatememo" element={<CreateMemo />} />
+          <Route path="/searchmemo" element={<SearchMemo />} />
+          <Route path="/memo/:memoId" element={<MemoDetail />} />
+          <Route path="/recommendation" element={<Recommendation />} />
+          <Route path="/searchkeyword" element={<SearchRecommend />} />
+          <Route path="/myinfo" element={<MyInfo />} />
+          <Route path="/myinfo/settings" element={<Settings />} />
+          <Route path="/myinfo/settings/signout" element={<Signout />} />
+          <Route path="/searchbook" element={<SearchBook />} />
+          <Route path="/scanbook" element={<ScanBook />} />
+          <Route path="/bookDetail/:bookId" element={<BookDetail />} />
+          <Route path="/reading/:bookId" element={<Reading />} />
+          <Route path="/review" element={<Review />} />
+        </Route>
         <Route path="/*" element={<Page404 />} />
       </Routes>
       <BottomSheetBase />
