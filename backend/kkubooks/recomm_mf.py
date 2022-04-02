@@ -1,48 +1,6 @@
-# import mariadb
-# import sys
-
-# import pandas as pd
-
-# # Connect to MariaDB Platform
-# try:
-#     conn = mariadb.connect(
-#         user="root",
-#         password="kkubook204",
-#         host="localhost",
-#         port=3307,
-#         database="kkubook"
-#     )
-# except mariadb.Error as e:
-#     print(f"Error connecting to MariaDB Platform: {e}")
-#     sys.exit(1)
-
-# # Get Cursor
-# cur = conn.cursor()
-
-
-# # selectall = "SELECT * from employee" 
-# select_all_bookshelf = "SELECT id, book_status, rating from kkubooks_bookshelf" 
-# cur.execute( select_all_bookshelf )
-
-# # bookshelf query 결과를 list 형으로 가져옴.
-# bookshelf_resultset = cur.fetchall()
-
-# for bookshelf in bookshelf_resultset: 
-#     print(f'bookshelf_pk: {bookshelf[0]} | book_status: {bookshelf[1]} | rating:{bookshelf[2]}')
-
-
-# print('--------------------------------------------')
-# select_all_user = "SELECT id, username from accounts_user" 
-# cur.execute( select_all_user )
-
-# # user query 결과를 list 형으로 가져옴.
-# user_resultset = cur.fetchall()
-
-# for user in user_resultset: 
-#     print(f'user_pk: {user[0]} | username: {user[1]}')
-
-
 import pandas as pd
+import numpy as np
+from scipy.sparse.linalg import svds
 import mariadb
 from datetime import datetime
 
@@ -77,8 +35,50 @@ def query_MariaDB(query):
      return query_result
 
 
-df = query_MariaDB("SELECT book_id, rating, user_id from kkubooks_bookshelf where book_status=0")
+df_book = query_MariaDB("SELECT id from kkubooks_book limit 100")
+df_bookshelf = query_MariaDB("SELECT book_id, rating, user_id from kkubooks_bookshelf where book_status=0")
+# TODO: user_id list로 가져오기
+df = pd.merge(
+     df_book, df_bookshelf, left_on='id', right_on='book_id', how='left'
+     ).fillna(0)
+# print(df)
 
-df_user_book_pivot = df.pivot(index='user_id', columns='book_id', values='rating').fillna(0)
+df_user_book_pivot = df.pivot(index='user_id', columns='id', values='rating').fillna(0)
 
-print(df_user_book_pivot)
+df_user_book_pivot = df_user_book_pivot.drop([df_user_book_pivot.index[0]])
+
+# print(df_user_book_pivot)
+
+matrix = df_user_book_pivot.to_numpy()
+user_ratings_mean = np.mean(matrix, axis=1)
+# print(user_ratings_mean)
+matrix_user_mean = matrix - user_ratings_mean.reshape(-1, 1)
+
+df_mean = pd.DataFrame(matrix_user_mean, columns=df_user_book_pivot.columns)
+# print(df_mean)
+
+U, sigma, Vt = svds(matrix_user_mean, k=5)
+
+sigma = np.diag(sigma)
+
+svd_user_predicted_book = np.dot(np.dot(U, sigma), Vt) + user_ratings_mean.reshape(-1, 1)
+# 예측 평점 table
+df_svd_preds = pd.DataFrame(svd_user_predicted_book, columns = df_user_book_pivot.columns)
+
+
+def recomm_books(df_svd_preds, user_id, ori_book_df, ori_bookshelf_df, num=10):
+     sorted_user_preds = df_svd_preds.iloc[user_id].sort_values(ascending=False)
+
+     user_data = ori_bookshelf_df[ori_bookshelf_df.user_id == user_id]
+
+     recomm = ori_book_df[~ori_book_df['id'].isin(user_data['book_id'])]
+
+     recomm = recomm.merge(pd.DataFrame(sorted_user_preds).reset_index(), on='id')
+
+     recomm = recomm.rename(columns={user_id: 'predictions'}).sort_values('predictions', ascending=False)
+     return recomm
+
+
+# TODO: user_id list로 가져오기
+# For문 돌리기
+# 결과값 pickle 저장
