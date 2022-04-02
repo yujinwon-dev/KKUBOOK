@@ -43,7 +43,7 @@ function startKkubook() {
     response => console.log(response),
     error => console.log(error),
   );
-  window.location.href = 'https://pf.kakao.com/_xcsqNb/friend';
+  window.open('https://pf.kakao.com/_xcsqNb/friend', '_blank');
 }
 
 function KkubookModal({ open, close }) {
