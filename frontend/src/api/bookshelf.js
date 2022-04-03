@@ -92,4 +92,12 @@ const commit = async (bookId, startTime) => {
   }
 };
 
-export { getBooks, addBook, startReading, recordProgress, commit };
+const deleteBook = async bookshelfId => {
+  try {
+    return await api.delete(`kkubooks/bookshelf/${bookshelfId}/`);
+  } catch (err) {
+    return err;
+  }
+};
+
+export { getBooks, addBook, startReading, recordProgress, commit, deleteBook };

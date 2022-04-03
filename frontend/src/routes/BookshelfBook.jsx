@@ -7,7 +7,7 @@ import BookDetail from '../components/bookshelf/BookDetail';
 import Button from '../components/common/Button';
 import useBottomSheetStore from '../stores/bottomSheet';
 import Warning from '../components/bookshelf/Warning';
-import { startReading } from '../api/bookshelf';
+import { startReading, deleteBook } from '../api/bookshelf';
 import useUserStore from '../stores/user';
 
 function BookshelfBook() {
@@ -56,7 +56,6 @@ function BookshelfBook() {
     () => <Warning status={book.bookStatus} />,
     [],
   );
-  // const deleteBook = useBookStore(state => state.deleteBook); bookStore -> bookshelf store
 
   const getHeaderButton = status => {
     if (status === 2 || status === 3) {
@@ -68,11 +67,11 @@ function BookshelfBook() {
           width="initial"
           size="15px"
           padding="14px"
-          // onClick={() =>
-          //   openBottomSheet(warningDelete, '책을 삭제하시겠습니까?', () =>
-          //     deleteBook(Number(bookId)),
-          //   )
-          // }
+          onClick={() =>
+            openBottomSheet(warningDelete, '책을 삭제하시겠습니까?', () =>
+              deleteBook(book.id),
+            )
+          }
         />
       );
     }
