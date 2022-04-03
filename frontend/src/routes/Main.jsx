@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import tw, { styled } from 'twin.macro';
-import { useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -10,6 +10,7 @@ import BookCommit from '../components/main/BookCommit';
 import SearchList from '../components/main/SearchList';
 import useMainBookStore from '../stores/mainBook';
 import useBottomSheetStore from '../stores/bottomSheet';
+import { getBookCommit } from '../api/main';
 
 const settings = {
   dots: false,
@@ -61,6 +62,9 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
+  const [isLoading, setLoading] = useState(true);
+  const [commits, setCommits] = useState([]);
+
   const books = useMainBookStore(state => state.books);
   const getMainBooks = useMainBookStore(state => state.getMainBooks);
   const openBottomSheet = useBottomSheetStore(
@@ -68,6 +72,12 @@ function Main() {
   );
 
   useEffect(() => {
+    async function getCommits() {
+      const resData = await getBookCommit();
+      setCommits(resData);
+      setLoading(false);
+    }
+    getCommits();
     getMainBooks();
   }, []);
 
@@ -110,9 +120,11 @@ function Main() {
             </button>
           </Card>
         )}
-        <div className="content-wrapper">
-          <BookCommit />
-        </div>
+        {isLoading ? null : (
+          <div className="content-wrapper">
+            <BookCommit values={commits} />
+          </div>
+        )}
       </StyledContent>
     </>
   );
