@@ -168,7 +168,12 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
             }
 
             setCategory(updatedProgress.bookStatus);
-            navigate('/bookshelf');
+
+            if (updatedProgress.bookStatus === 0) {
+              navigate('/review');
+            } else {
+              navigate('/bookshelf');
+            }
           }}
         >
           저장하기

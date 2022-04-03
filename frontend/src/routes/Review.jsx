@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import { Rating } from 'react-simple-star-rating';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
-import useStore from '../stores/book';
+import useStore, { selectedBookStore } from '../stores/book';
 import { submitRating } from '../api/main';
 
 const ReviewPage = styled.div`
@@ -67,6 +67,7 @@ function Review() {
     setRating(value);
   };
   const setCategory = useStore(state => state.setCategory);
+  const selectedBook = selectedBookStore(state => state.selectedBook);
   return (
     <ReviewPage>
       <p className="title">다 읽었어요!</p>
@@ -85,7 +86,7 @@ function Review() {
           background="white"
           color="#8DCD84"
           onClick={() => {
-            submitRating(13, rating / 10);
+            submitRating(selectedBook.id, rating / 10);
             setCategory(0);
             navigate('/bookshelf');
           }}
@@ -93,7 +94,7 @@ function Review() {
         <Button
           title="다음에 읽을 책 추천 받기"
           onClick={() => {
-            submitRating(13, rating / 10);
+            submitRating(selectedBook.id, rating / 10);
             navigate('/recommendation');
           }}
         />

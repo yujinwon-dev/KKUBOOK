@@ -9,7 +9,7 @@ import useBookStore, { selectedBookStore } from '../stores/book';
 import Book from '../components/bookshelf/Book';
 
 const BookshelfPage = styled.div`
-  padding: 0 1rem;
+  padding: 0 1rem 4rem;
   margin: 0px auto;
 
   header {
