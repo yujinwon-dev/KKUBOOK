@@ -44,6 +44,7 @@ const recordProgress = async (
   userId,
   currPage,
   isCompleted,
+  stopReading,
 ) => {
   try {
     const body = {
@@ -55,6 +56,10 @@ const recordProgress = async (
     if (isCompleted) {
       body.book_status = 0;
       body.end_date = getCurrentDate();
+    }
+
+    if (stopReading) {
+      body.book_status = 3;
     }
 
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);

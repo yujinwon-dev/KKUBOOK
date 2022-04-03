@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
 import Time from './Time';
 import useStore from '../../stores/bottomSheet';
 import PageInput from './PageInput';
@@ -56,20 +57,25 @@ const StyledRecordPage = styled.div`
 
 function RecordPage({ time, book, setCurrentPage, startDateTime }) {
   const openBottomSheet = useStore(state => state.openSheet);
+  const hideBottomSheet = useStore(state => state.onDismiss);
   const totalPage = book.bookInfo.page;
   const [currPage, setCurrPage] = useState(book.currPage);
+  const [stopReading, setStopReading] = useState(false);
   const user = useUserStore(state => state.userInfo.userId);
+  const navigate = useNavigate();
   const submitPage = submittedPage => {
+    if (submittedPage === 'stop') {
+      setStopReading(true);
+      hideBottomSheet();
+      return;
+    }
+
+    setStopReading(false);
+
     if (submittedPage === 'done') {
       setCurrPage(totalPage);
       return;
     }
-
-    if (submittedPage === 'stop') {
-      openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
-      return;
-    }
-
     // 차후 값이 valid 한지 확인하는 로직 추가
     setCurrPage(Number(submittedPage));
   };
@@ -137,6 +143,7 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               <p>
                 <span className="page">P. {currPage}</span> / {totalPage}
               </p>
+              {stopReading && <p>그만 읽을래요</p>}
             </div>
           </button>
         </div>
@@ -150,8 +157,14 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               user,
               currPage,
               totalPage === currPage,
+              stopReading,
             );
             commit(book.bookId, startDateTime);
+
+            if (stopReading) {
+              openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
+            }
+            navigate('/bookshelf');
           }}
         >
           저장하기
