@@ -4,7 +4,6 @@ import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import MemoContainer from '../components/memo/MemoContainer';
-// import memos from '../data/memos';
 import { apiGetMemos } from '../api/memo';
 
 const MemoRoot = styled.div`
@@ -55,13 +54,26 @@ const CheckMark = styled.div`
 function Memo() {
   const navigate = useNavigate();
   const [likedMemos, setLikedMemos] = useState(false);
-  const [memos, getMemos] = useState([]);
+  const [memos, setMemos] = useState([]);
+
+  async function getMemos() {
+    const resData = await apiGetMemos();
+    setMemos(resData);
+  }
+
+  async function getLikedMemos(likeStatus) {
+    const memoList = await apiGetMemos();
+    if (likeStatus) {
+      const likeStatusMemos = memoList.filter(
+        memo => memo.memo_mark === likeStatus,
+      );
+      return setMemos(likeStatusMemos);
+    }
+    return setMemos(memoList);
+  }
 
   useEffect(() => {
-    apiGetMemos(
-      response => getMemos(response.data),
-      error => console.log(error),
-    );
+    getMemos();
   }, []);
 
   return (
@@ -91,7 +103,10 @@ function Memo() {
           <div
             className="form-check"
             role="button"
-            onClick={() => setLikedMemos(!likedMemos)}
+            onClick={() => {
+              setLikedMemos(!likedMemos);
+              getLikedMemos(!likedMemos);
+            }}
             onKeyDown={() => ''}
             tabIndex={0}
           >

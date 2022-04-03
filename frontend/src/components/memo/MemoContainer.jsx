@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import { apiPutLikeMemo } from '../../api/memo';
+import currentDate from '../../utils/currentDate';
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -60,18 +61,17 @@ const MemoContnet = styled.div`
 
 function MemoContainer({ memo }) {
   const navigate = useNavigate();
-  const { id, content, memo_img, memo_mark, created_at, title, author, image } =
-    memo;
+  const { book_info, id, content, created_at, memo_img, memo_mark } = memo;
   const [isLiked, setLiked] = useState(memo_mark);
 
   function putLikeMemo() {
     const reqData = {
-      memo_mark: isLiked,
+      memo_mark: !isLiked,
     };
     apiPutLikeMemo(
       { memo_id: id },
       reqData,
-      response => console.log(response),
+      response => response,
       error => console.log(error),
     );
   }
@@ -81,12 +81,12 @@ function MemoContainer({ memo }) {
       <MemoInfo>
         <div className="book-info">
           <div className="book-info-img">
-            <img src={image} alt={title} />
+            <img src={book_info.img_url} alt={book_info.title} />
           </div>
           <div className="book-info-text">
-            <p>{title}</p>
-            <p>{author}</p>
-            <p>{created_at}</p>
+            <p>{book_info.title}</p>
+            <p>{book_info.author}</p>
+            <p>{currentDate(created_at)}</p>
           </div>
         </div>
         {isLiked ? (
@@ -130,14 +130,14 @@ function MemoContainer({ memo }) {
       </MemoInfo>
       <MemoContnet
         role="button"
-        onClick={() => navigate(`/memo/${id}`, { state: { memo } })}
+        onClick={() => navigate(`/memo/${book_info.id}`, { state: { memo } })}
         onKeyDown={() => ''}
         tabIndex={0}
       >
         <div className="memo-text">
           <p>{content}</p>
         </div>
-        {memo_img ? (
+        {memo_img !== '/media/null' ? (
           <div className="memo-img">
             <img src={memo_img} alt="memo-img" />
           </div>

@@ -102,6 +102,7 @@ function MemoDetail() {
       response => console.log(response),
       error => console.log(error),
     );
+    navigate('/memo');
   }
 
   useEffect(() => {
@@ -146,7 +147,7 @@ function MemoDetail() {
         </div>
       </Bar>
       <MemoForm>
-        {memo_img ? (
+        {memo_img !== '/media/null' ? (
           <ImageBox>
             <img src={memo_img} alt="memo-img" draggable={false} />
           </ImageBox>
