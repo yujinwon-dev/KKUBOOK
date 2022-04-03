@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import { Rating } from 'react-simple-star-rating';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
-import useStore, { selectedBookStore } from '../stores/book';
+import { selectedBookStore } from '../stores/book';
 import { submitRating } from '../api/main';
 
 const ReviewPage = styled.div`
@@ -66,7 +66,7 @@ function Review() {
   const changeRating = value => {
     setRating(value);
   };
-  const setCategory = useStore(state => state.setCategory);
+
   const selectedBook = selectedBookStore(state => state.selectedBook);
   return (
     <ReviewPage>
@@ -87,7 +87,6 @@ function Review() {
           color="#8DCD84"
           onClick={() => {
             submitRating(selectedBook.id, rating / 10);
-            setCategory(0);
             navigate('/bookshelf');
           }}
         />
