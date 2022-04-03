@@ -68,12 +68,7 @@ function MemoContainer({ memo }) {
     const reqData = {
       memo_mark: !isLiked,
     };
-    apiPutLikeMemo(
-      { memo_id: id },
-      reqData,
-      response => response,
-      error => console.log(error),
-    );
+    apiPutLikeMemo({ memo_id: id }, reqData);
   }
 
   return (

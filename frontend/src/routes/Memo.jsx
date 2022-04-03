@@ -51,6 +51,13 @@ const CheckMark = styled.div`
 }
 `;
 
+const NoMemo = styled.div`
+  min-height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 function Memo() {
   const navigate = useNavigate();
   const [likedMemos, setLikedMemos] = useState(false);
@@ -133,9 +140,17 @@ function Memo() {
             )}
             <p className="check-label">좋아하는 메모</p>
           </div>
-          {memos.map(memo => (
-            <MemoContainer key={memo.id} memo={memo} />
-          ))}
+          {memos.length ? (
+            <div>
+              {memos.map(memo => (
+                <MemoContainer key={memo.id} memo={memo} />
+              ))}
+            </div>
+          ) : (
+            <NoMemo>
+              <p>아직 작성한 메모가 없습니다</p>
+            </NoMemo>
+          )}
         </Container>
       </MemoRoot>
     </>
