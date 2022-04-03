@@ -33,19 +33,15 @@ const BookshelfPage = styled.div`
 
 function BookShelf() {
   const navigate = useNavigate();
-  const selectedCategory = useBookshelfStore(state => state.selectedCategory);
-  const setSelectedCategory = useBookshelfStore(
-    state => state.setSelectedCategory,
-  );
+  const selectedCategory = useBookshelfStore(state => state.category);
+  const setCategory = useBookshelfStore(state => state.setCategory);
   const getBooklist = useBookshelfStore(state => state.getBooklist);
   const books = useBookshelfStore(
     useCallback(
       state => {
-        return state.books.filter(
-          book => book.bookStatus === selectedCategory.status,
-        );
+        return state.books.filter(book => book.bookStatus === selectedCategory);
       },
-      [selectedCategory.name],
+      [selectedCategory],
     ),
   );
 
@@ -54,8 +50,8 @@ function BookShelf() {
   }, []);
 
   const selectCategory = category => {
-    if (category.name !== selectedCategory.name) {
-      setSelectedCategory(category);
+    if (category !== selectedCategory) {
+      setCategory(category);
     }
   };
 
@@ -73,9 +69,9 @@ function BookShelf() {
         <ul>
           {bookshelfCategories.map(category => (
             <BookshelfCategory
-              key={category.status}
+              key={category.name}
               category={category}
-              isSelected={selectedCategory.name === category.name}
+              isSelected={selectedCategory === category.status}
               handleClick={selectCategory}
             />
           ))}

@@ -66,7 +66,7 @@ function Review() {
   const changeRating = value => {
     setRating(value);
   };
-  const setCategory = useStore(state => state.setSelectedCategory);
+  const setCategory = useStore(state => state.setCategory);
   return (
     <ReviewPage>
       <p className="title">다 읽었어요!</p>
@@ -86,10 +86,7 @@ function Review() {
           color="#8DCD84"
           onClick={() => {
             submitRating(13, rating / 10);
-            setCategory({
-              name: '읽은 책',
-              status: 0,
-            });
+            setCategory(0);
             navigate('/bookshelf');
           }}
         />

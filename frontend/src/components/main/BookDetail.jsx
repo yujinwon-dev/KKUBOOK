@@ -88,9 +88,7 @@ function BookDetail() {
   const navigate = useNavigate();
   const { bookId } = useParams();
   const userId = useStore(state => state.userInfo.userId);
-  const setSelectedCategory = useBookshelfStore(
-    state => state.setSelectedCategory,
-  );
+  const setCategory = useBookshelfStore(state => state.setCategory);
   const [isbn, getIsbn] = useState('');
   const [title, getTitle] = useState('');
   const [description, getDescription] = useState('');
@@ -160,10 +158,7 @@ function BookDetail() {
         <Button
           onClick={() => {
             addBook(Number(bookId), userId);
-            setSelectedCategory({
-              name: '읽고 싶은 책',
-              status: 2,
-            });
+            setCategory(2);
             navigate('/bookshelf');
           }}
         >
