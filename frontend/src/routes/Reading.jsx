@@ -23,15 +23,15 @@ function Reading() {
   const [isTimerActive, setIsTimerActive] = useState(true); // 읽는 중 vs 쉬는 중
   const [isTimeVisible, setIsTimeVisible] = useState(true);
   const [time, setTime] = useState(0);
-  const { bookId } = useParams();
+  const { bookshelfId } = useParams();
   const book = useBookshelfStore(
     useCallback(
       state => {
-        return state.books.find(item => {
-          return item.bookId === Number(bookId);
+        return state.books.find(book => {
+          return `${book.id}` === bookshelfId;
         });
       },
-      [bookId],
+      [bookshelfId],
     ),
   );
 
@@ -80,7 +80,7 @@ function Reading() {
     ),
     memo: (
       <CreateMemo
-        id={bookId}
+        id={book.bookId} // bookshelf id로 수정가능성 (book.id)
         title={book.title}
         backClickHandler={useCallback(() => setCurrentPage('reading'), [])}
       />

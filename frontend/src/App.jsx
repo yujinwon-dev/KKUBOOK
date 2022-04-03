@@ -19,7 +19,7 @@ import BottomSheetBase from './components/common/BottomSheetBase';
 import CreateMemo from './components/memo/CreateMemo';
 import MemoDetail from './components/memo/MemoDetail';
 import SearchMemo from './components/memo/SearchMemo';
-import BookshelfBook from './routes/BookshelfBookDetail';
+import BookshelfBook from './routes/BookshelfBook';
 import Review from './routes/Review';
 import Page404 from './routes/NotFound';
 import PrivateRoute from './routes/PrivateRoute';
@@ -39,7 +39,8 @@ function App() {
           <Route path="/survey" element={<Survey />} />
           <Route path="/" element={<Main />} />
           <Route path="/bookshelf" element={<Bookshelf />} />
-          <Route path="/bookshelf/book/:bookId" element={<BookshelfBook />} />
+          <Route path="/bookshelf/:bookshelfId" element={<BookshelfBook />} />
+          <Route path="/reading/:bookshelfId" element={<Reading />} />
           <Route path="/memo" element={<Memo />} />
           <Route path="/creatememo" element={<CreateMemo />} />
           <Route path="/searchmemo" element={<SearchMemo />} />
@@ -52,7 +53,6 @@ function App() {
           <Route path="/searchbook" element={<SearchBook />} />
           <Route path="/scanbook" element={<ScanBook />} />
           <Route path="/bookDetail/:bookId" element={<BookDetail />} />
-          <Route path="/reading/:bookId" element={<Reading />} />
           <Route path="/review" element={<Review />} />
         </Route>
         <Route path="/*" element={<Page404 />} />

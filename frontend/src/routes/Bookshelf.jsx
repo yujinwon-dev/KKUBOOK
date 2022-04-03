@@ -59,8 +59,8 @@ function BookShelf() {
     }
   };
 
-  const selectBook = bookId => {
-    navigate(`/bookshelf/book/${bookId}`);
+  const selectBook = bookshelfId => {
+    navigate(`/bookshelf/${bookshelfId}`);
   };
 
   return (

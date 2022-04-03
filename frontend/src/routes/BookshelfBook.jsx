@@ -12,28 +12,28 @@ import useUserStore from '../stores/user';
 
 function BookshelfBook() {
   const navigate = useNavigate();
-  const { bookId } = useParams();
+  const { bookshelfId } = useParams();
   const book = useBookshelfStore(
     useCallback(
       state => {
-        return state.books.find(item => {
-          return item.bookId === Number(bookId);
+        return state.books.find(book => {
+          return `${book.id}` === bookshelfId;
         });
       },
-      [bookId],
+      [bookshelfId],
     ),
   );
 
   const userId = useUserStore(state => state.userInfo.userId);
 
-  useEffect(() => {
-    if (!book) {
-      navigate('/NotFound');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!book) {
+  //     navigate('/NotFound');
+  //   }
+  // }, []);
 
   const moveToReading = () => {
-    navigate(`/reading/${bookId}`);
+    navigate(`/reading/${bookshelfId}`);
   };
 
   const getButtonByStatus = {

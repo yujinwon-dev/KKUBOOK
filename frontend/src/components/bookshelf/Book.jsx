@@ -54,7 +54,7 @@ function Book({ book, handleClick, startedReading, finishedReading }) {
   const { bookInfo } = book;
 
   return (
-    <StyledBook onClick={() => handleClick(book.bookId)}>
+    <StyledBook onClick={() => handleClick(book.id)}>
       <img src={bookInfo.img_url} alt={bookInfo.title} />
       <div className="description">
         <p className="title">{bookInfo.title}</p>
