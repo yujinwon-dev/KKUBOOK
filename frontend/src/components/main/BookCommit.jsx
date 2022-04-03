@@ -42,7 +42,7 @@ function BookCommit() {
       response => setCommits(response.data),
       error => console.log(error),
     );
-  });
+  }, []);
 
   return (
     <CommitContainer>

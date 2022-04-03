@@ -62,7 +62,7 @@ function Memo() {
       response => getMemos(response.data),
       error => console.log(error),
     );
-  });
+  }, []);
 
   return (
     <>
