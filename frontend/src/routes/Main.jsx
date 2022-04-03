@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import tw, { styled } from 'twin.macro';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -8,21 +8,8 @@ import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
 import BookCommit from '../components/main/BookCommit';
 import SearchList from '../components/main/SearchList';
-import useBookStore from '../stores/book';
+import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
-
-const settings = {
-  dots: false,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  draggable: true,
-  arrows: false,
-  initialSlide: 1,
-  centerMode: true,
-  centerPadding: '4%',
-};
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -66,9 +53,32 @@ function Main() {
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
   );
+  const cardIndex = useBookStore(state => state.firstCardIndex);
+  const setCardIndex = useBookStore(state => state.setCardIndex);
+  const selectBook = selectedBookStore(state => state.setSelectedBook);
+
+  const sliderSetting = useMemo(
+    () => ({
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      draggable: true,
+      arrows: false,
+      initialSlide: cardIndex,
+      centerMode: true,
+      centerPadding: '4%',
+    }),
+    [cardIndex],
+  );
 
   useEffect(() => {
     getMainBooks();
+
+    if (cardIndex >= mainBooks.length) {
+      setCardIndex(1);
+    }
   }, []);
 
   useEffect(() => {
@@ -103,7 +113,7 @@ function Main() {
       </GreenHeader>
       <StyledContent>
         {mainBooks.length ? (
-          <Slider {...settings}>
+          <Slider {...sliderSetting}>
             <Card>
               <button
                 type="button"
@@ -112,9 +122,14 @@ function Main() {
                 책 추가하기
               </button>
             </Card>
-            {mainBooks.map(book => (
+            {mainBooks.map((book, index) => (
               <Card key={book.id}>
-                <MainBook book={book} />
+                <MainBook
+                  book={book}
+                  index={index}
+                  selectBook={selectBook}
+                  setCardIndex={setCardIndex}
+                />
               </Card>
             ))}
           </Slider>

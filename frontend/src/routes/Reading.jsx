@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import ReadingPage from '../components/reading/ReadingPage';
 import RecordPage from '../components/reading/RecordPage';
-import useBookStore from '../stores/book';
+import { selectedBookStore } from '../stores/book';
 import CreateMemo from '../components/memo/CreateMemo';
 import getCurrentDate from '../utils/currentDate';
 
@@ -22,7 +22,7 @@ function Reading() {
   const [isTimerActive, setIsTimerActive] = useState(true); // 읽는 중 vs 쉬는 중
   const [isTimeVisible, setIsTimeVisible] = useState(true);
   const [time, setTime] = useState(0);
-  const book = useBookStore(useCallback(state => state.selectedBook, []));
+  const book = selectedBookStore(useCallback(state => state.selectedBook, []));
 
   useEffect(() => {
     if (time === 120) {
