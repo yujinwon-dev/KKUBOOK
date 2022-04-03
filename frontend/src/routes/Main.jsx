@@ -71,6 +71,24 @@ function Main() {
     getMainBooks();
   }, []);
 
+  useEffect(() => {
+    const initKakao = () => {
+      if (window.Kakao) {
+        const kakao = window.Kakao;
+        if (!kakao.isInitialized()) {
+          kakao.init(process.env.REACT_APP_JS_KEY);
+        }
+
+        kakao.Channel.createAddChannelButton({
+          container: '#kakao-talk-channel-add-button',
+        });
+      }
+    };
+    initKakao();
+
+    return () => window.Kakao.Channel.cleanup();
+  }, []);
+
   // slider에는 padding이 들어가면 안된다.
   // slider를 감싼 요소가 fix면 slider css가 깨져서 greenHeader를 absolute로 설정
   return (
@@ -112,6 +130,12 @@ function Main() {
         )}
         <div className="content-wrapper">
           <BookCommit />
+          <div
+            id="kakao-talk-channel-add-button"
+            data-channel-public-id="_xcsqNb"
+            data-size="small"
+            data-support-multiple-densities="true"
+          />
         </div>
       </StyledContent>
     </>
