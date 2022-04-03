@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import useBookshelfStore from '../stores/bookshelf';
+import useBookStore from '../stores/book';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import BookDetail from '../components/bookshelf/BookDetail';
@@ -13,7 +13,7 @@ import useUserStore from '../stores/user';
 function BookshelfBook() {
   const navigate = useNavigate();
   const { bookshelfId } = useParams();
-  const book = useBookshelfStore(
+  const book = useBookStore(
     useCallback(
       state => {
         return state.books.find(book => {

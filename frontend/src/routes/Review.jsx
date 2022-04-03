@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 import { Rating } from 'react-simple-star-rating';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
-import useStore from '../stores/bookshelf';
+import useStore from '../stores/book';
 import { submitRating } from '../api/main';
 
 const ReviewPage = styled.div`

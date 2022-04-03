@@ -5,7 +5,7 @@ import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import bookshelfCategories from '../constants/bookShelf';
 import BookshelfCategory from '../components/bookshelf/BookshelfCategory';
-import useBookshelfStore from '../stores/bookshelf';
+import useBookStore from '../stores/book';
 import Book from '../components/bookshelf/Book';
 
 const BookshelfPage = styled.div`
@@ -33,13 +33,15 @@ const BookshelfPage = styled.div`
 
 function BookShelf() {
   const navigate = useNavigate();
-  const selectedCategory = useBookshelfStore(state => state.category);
-  const setCategory = useBookshelfStore(state => state.setCategory);
-  const getBooklist = useBookshelfStore(state => state.getBooklist);
-  const books = useBookshelfStore(
+  const selectedCategory = useBookStore(state => state.category);
+  const setCategory = useBookStore(state => state.setCategory);
+  const getBooklist = useBookStore(state => state.getBooklist);
+  const books = useBookStore(
     useCallback(
       state => {
-        return state.books.filter(book => book.bookStatus === selectedCategory);
+        return state.bookshelf.filter(
+          book => book.bookStatus === selectedCategory,
+        );
       },
       [selectedCategory],
     ),

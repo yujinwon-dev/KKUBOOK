@@ -8,7 +8,7 @@ import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
 import BookCommit from '../components/main/BookCommit';
 import SearchList from '../components/main/SearchList';
-import useMainBookStore from '../stores/mainBook';
+import useBookStore from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
 
 const settings = {
@@ -61,8 +61,8 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
-  const books = useMainBookStore(state => state.books);
-  const getMainBooks = useMainBookStore(state => state.getMainBooks);
+  const mainBooks = useBookStore(state => state.mainbooks);
+  const getMainBooks = useBookStore(state => state.getMainBooks);
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
   );
@@ -102,7 +102,7 @@ function Main() {
         </div>
       </GreenHeader>
       <StyledContent>
-        {books.length ? (
+        {mainBooks.length ? (
           <Slider {...settings}>
             <Card>
               <button
@@ -112,7 +112,7 @@ function Main() {
                 책 추가하기
               </button>
             </Card>
-            {books.map(book => (
+            {mainBooks.map(book => (
               <Card key={book.id}>
                 <MainBook book={book} />
               </Card>

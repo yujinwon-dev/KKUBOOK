@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../stores/mainBook';
+import useBookStore from '../../stores/book';
 import ProgressBar from '../common/ProgressBar';
 
 const BookContainer = styled.div`
@@ -68,7 +68,7 @@ const BookContainer = styled.div`
 function MainBook({ book }) {
   const { id, bookId, currPage, startDate, bookInfo } = book;
   const navigate = useNavigate();
-  const updateOrder = useStore(state => state.updateOrder);
+  const updateOrder = useBookStore(state => state.updateOrder);
 
   return (
     <BookContainer>

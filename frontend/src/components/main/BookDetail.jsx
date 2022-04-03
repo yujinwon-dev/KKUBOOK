@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import { getBookDetail, getNaverUrl } from '../../api/main';
-import books from '../../data/books';
 import useStore from '../../stores/user';
 import { addBook } from '../../api/bookshelf';
-import useBookshelfStore from '../../stores/bookshelf';
+import useBookStore from '../../stores/book';
 
 const Bar = styled.div`
   position: fixed;
@@ -88,7 +87,7 @@ function BookDetail() {
   const navigate = useNavigate();
   const { bookId } = useParams();
   const userId = useStore(state => state.userInfo.userId);
-  const setCategory = useBookshelfStore(state => state.setCategory);
+  const setCategory = useBookStore(state => state.setCategory);
   const [isbn, getIsbn] = useState('');
   const [title, getTitle] = useState('');
   const [description, getDescription] = useState('');

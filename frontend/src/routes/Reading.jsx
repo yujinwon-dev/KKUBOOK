@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadingPage from '../components/reading/ReadingPage';
 import RecordPage from '../components/reading/RecordPage';
-import useBookshelfStore from '../stores/bookshelf';
+import useBookStore from '../stores/book';
 import CreateMemo from '../components/memo/CreateMemo';
 import getCurrentDate from '../utils/currentDate';
 
@@ -24,7 +24,7 @@ function Reading() {
   const [isTimeVisible, setIsTimeVisible] = useState(true);
   const [time, setTime] = useState(0);
   const { bookshelfId } = useParams();
-  const book = useBookshelfStore(
+  const book = useBookStore(
     useCallback(
       state => {
         return state.books.find(book => {
