@@ -78,8 +78,15 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
       setCurrPage(totalPage);
       return;
     }
-    // 차후 값이 valid 한지 확인하는 로직 추가
-    setCurrPage(Number(submittedPage));
+
+    const value = Number(submittedPage);
+    if (value >= 0 && value <= totalPage) {
+      setCurrPage(value);
+      hideBottomSheet();
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('유효하지 않은 값입니다.');
+    }
   };
 
   useEffect(() => {
