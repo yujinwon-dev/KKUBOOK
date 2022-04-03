@@ -8,6 +8,7 @@ import GiveUpReading from './GiveupReading';
 import Header from '../common/Header';
 import { recordProgress, commit } from '../../api/bookshelf';
 import useUserStore from '../../stores/user';
+import useBookStore from '../../stores/book';
 
 const StyledRecordPage = styled.div`
   width: 100%;
@@ -56,13 +57,14 @@ const StyledRecordPage = styled.div`
 `;
 
 function RecordPage({ time, book, setCurrentPage, startDateTime }) {
+  const navigate = useNavigate();
   const openBottomSheet = useStore(state => state.openSheet);
   const hideBottomSheet = useStore(state => state.onDismiss);
   const totalPage = book.bookInfo.page;
   const [currPage, setCurrPage] = useState(book.currPage);
   const [stopReading, setStopReading] = useState(false);
   const user = useUserStore(state => state.userInfo.userId);
-  const navigate = useNavigate();
+  const setCategory = useBookStore(state => state.setCategory);
   const submitPage = submittedPage => {
     if (submittedPage === 'stop') {
       setStopReading(true);
@@ -150,8 +152,8 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
         <button
           type="button"
           className="save-button"
-          onClick={() => {
-            recordProgress(
+          onClick={async () => {
+            const updatedProgress = await recordProgress(
               book.id,
               book.bookId,
               user,
@@ -164,6 +166,8 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
             if (stopReading) {
               openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
             }
+
+            setCategory(updatedProgress.bookStatus);
             navigate('/bookshelf');
           }}
         >
