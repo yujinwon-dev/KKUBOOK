@@ -23,14 +23,17 @@ const addBook = async (bookId, userId) => {
   }
 };
 
-const startReading = async (bookshelfId, bookId, userId) => {
+const startReading = async (bookshelfId, bookId, userId, bookStatus) => {
   try {
     const body = {
       book: bookId,
       user: userId,
       book_status: 1,
-      start_date: getCurrentDate(),
     };
+
+    if (bookStatus === 2) {
+      body.start_date = getCurrentDate();
+    }
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
     return formatKey(data);
   } catch (err) {

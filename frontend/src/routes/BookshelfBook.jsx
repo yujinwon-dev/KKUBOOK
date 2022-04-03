@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useBookStore from '../stores/book';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
@@ -12,28 +12,17 @@ import useUserStore from '../stores/user';
 
 function BookshelfBook() {
   const navigate = useNavigate();
-  const { bookshelfId } = useParams();
-  const book = useBookStore(
-    useCallback(
-      state => {
-        return state.books.find(book => {
-          return `${book.id}` === bookshelfId;
-        });
-      },
-      [bookshelfId],
-    ),
-  );
-
+  const book = useBookStore(useCallback(state => state.selectedBook, []));
   const userId = useUserStore(state => state.userInfo.userId);
 
-  // useEffect(() => {
-  //   if (!book) {
-  //     navigate('/NotFound');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!book) {
+      navigate('/');
+    }
+  }, []);
 
   const moveToReading = () => {
-    navigate(`/reading/${bookshelfId}`);
+    navigate('/reading');
   };
 
   const getButtonByStatus = {
@@ -43,7 +32,7 @@ function BookshelfBook() {
         title="읽기 시작"
         width="90%"
         onClick={() => {
-          startReading(book.id, book.bookId, userId);
+          startReading(book.id, book.bookId, userId, book.bookStatus);
           moveToReading();
         }}
       />
@@ -53,7 +42,7 @@ function BookshelfBook() {
         title="읽기"
         width="90%"
         onClick={() => {
-          // update book status (3 -> 1)
+          startReading(book.id, book.bookId, userId, book.bookStatus);
           moveToReading();
         }}
       />

@@ -69,6 +69,7 @@ function MainBook({ book }) {
   const { id, bookId, currPage, startDate, bookInfo } = book;
   const navigate = useNavigate();
   const updateOrder = useBookStore(state => state.updateOrder);
+  const selectBook = useBookStore(state => state.setSelectedBook);
 
   return (
     <BookContainer>
@@ -92,7 +93,8 @@ function MainBook({ book }) {
           type="button"
           onClick={() => {
             updateOrder(id);
-            navigate(`reading/${id}`);
+            selectBook(book);
+            navigate('/reading');
           }}
         >
           <svg

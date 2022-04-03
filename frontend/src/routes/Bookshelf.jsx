@@ -36,6 +36,7 @@ function BookShelf() {
   const selectedCategory = useBookStore(state => state.category);
   const setCategory = useBookStore(state => state.setCategory);
   const getBooklist = useBookStore(state => state.getBooklist);
+  const setSelectedBook = useBookStore(state => state.setSelectedBook);
   const books = useBookStore(
     useCallback(
       state => {
@@ -57,8 +58,9 @@ function BookShelf() {
     }
   };
 
-  const selectBook = bookshelfId => {
-    navigate(`/bookshelf/${bookshelfId}`);
+  const selectBook = book => {
+    setSelectedBook(book);
+    navigate('/bookshelf/book');
   };
 
   return (

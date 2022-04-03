@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ReadingPage from '../components/reading/ReadingPage';
 import RecordPage from '../components/reading/RecordPage';
@@ -23,17 +22,7 @@ function Reading() {
   const [isTimerActive, setIsTimerActive] = useState(true); // 읽는 중 vs 쉬는 중
   const [isTimeVisible, setIsTimeVisible] = useState(true);
   const [time, setTime] = useState(0);
-  const { bookshelfId } = useParams();
-  const book = useBookStore(
-    useCallback(
-      state => {
-        return state.books.find(book => {
-          return `${book.id}` === bookshelfId;
-        });
-      },
-      [bookshelfId],
-    ),
-  );
+  const book = useBookStore(useCallback(state => state.selectedBook, []));
 
   useEffect(() => {
     if (time === 120) {
@@ -80,8 +69,8 @@ function Reading() {
     ),
     memo: (
       <CreateMemo
-        id={book.bookId} // bookshelf id로 수정가능성 (book.id)
-        title={book.title}
+        id={book.bookId}
+        title={book.bookInfo.title}
         backClickHandler={useCallback(() => setCurrentPage('reading'), [])}
       />
     ),

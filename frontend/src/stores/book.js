@@ -4,6 +4,9 @@ import { getBooks } from '../api/bookshelf';
 
 const useStore = create((set, get) => ({
   selectedBook: null,
+  setSelectedBook: book => {
+    return set({ selectedBook: book });
+  },
   // main
   mainbooks: [],
   getMainBooks: async () => {
@@ -11,7 +14,7 @@ const useStore = create((set, get) => ({
     return set({ mainbooks: books });
   },
   updateOrder: bookshelfId => {
-    const bookLists = get().books;
+    const bookLists = get().mainbooks;
     const targetBook = bookLists.find(book => book.id === bookshelfId);
     const restBooks = bookLists.filter(book => book.id !== bookshelfId);
     return set({ books: [targetBook, ...restBooks] });

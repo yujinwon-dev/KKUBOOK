@@ -39,8 +39,8 @@ function App() {
           <Route path="/survey" element={<Survey />} />
           <Route path="/" element={<Main />} />
           <Route path="/bookshelf" element={<Bookshelf />} />
-          <Route path="/bookshelf/:bookshelfId" element={<BookshelfBook />} />
-          <Route path="/reading/:bookshelfId" element={<Reading />} />
+          <Route path="/bookshelf/book" element={<BookshelfBook />} />
+          <Route path="/reading" element={<Reading />} />
           <Route path="/memo" element={<Memo />} />
           <Route path="/creatememo" element={<CreateMemo />} />
           <Route path="/searchmemo" element={<SearchMemo />} />
