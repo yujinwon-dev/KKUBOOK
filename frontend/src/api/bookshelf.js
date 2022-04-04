@@ -102,8 +102,8 @@ const deleteBook = async bookshelfId => {
 
 const getMemoList = async () => {
   try {
-    const response = await api.get('kkubooks/memolist/');
-    return response.data;
+    const { data } = await api.get('kkubooks/memolist/');
+    return data.map(bookObj => formatKey(bookObj));
   } catch (err) {
     return err;
   }

@@ -11,7 +11,6 @@ import useBottomSheetStore from '../stores/bottomSheet';
 import useUserStore from '../stores/user';
 import { selectedBookStore } from '../stores/book';
 import { startReading, deleteBook } from '../api/bookshelf';
-import mock_memos from '../data/memos';
 
 const StyledBookshelf = styled.div`
   padding: 4rem 1rem;
@@ -48,10 +47,19 @@ function BookshelfBook() {
   const navigate = useNavigate();
   const book = selectedBookStore(useCallback(state => state.selectedBook, []));
   const userId = useUserStore(state => state.userInfo.userId);
+  const memos = selectedBookStore(
+    useCallback(
+      state => state.memos.filter(memo => memo.bookInfo.id === book.bookId),
+      [],
+    ),
+  );
+  const getMemos = selectedBookStore(state => state.getMemos);
 
   useEffect(() => {
     if (!book) {
       navigate('/');
+    } else {
+      getMemos();
     }
   }, []);
 
@@ -134,7 +142,7 @@ function BookshelfBook() {
               메모 작성
             </button>
           </div>
-          {mock_memos.map(memo => (
+          {memos.map(memo => (
             <Memo key={memo.id} memo={memo} />
           ))}
         </StyledBookshelf>
