@@ -7,7 +7,7 @@ const getBooks = async () => {
     const { data } = await api.get('kkubooks/bookshelf/booklist');
     return data.map(bookObj => formatKey(bookObj));
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -19,7 +19,7 @@ const addBook = async (bookId, userId) => {
     });
     return formatKey(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -37,7 +37,7 @@ const startReading = async (bookshelfId, bookId, userId, bookStatus) => {
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
     return formatKey(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -68,7 +68,7 @@ const recordProgress = async (
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
     return formatKey(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -88,7 +88,7 @@ const commit = async (bookId, startTime) => {
 
     return formatKey(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -100,4 +100,21 @@ const deleteBook = async bookshelfId => {
   }
 };
 
-export { getBooks, addBook, startReading, recordProgress, commit, deleteBook };
+const getMemoList = async () => {
+  try {
+    const response = await api.get('kkubooks/memolist/');
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};
+
+export {
+  getBooks,
+  addBook,
+  startReading,
+  recordProgress,
+  commit,
+  deleteBook,
+  getMemoList,
+};

@@ -6,6 +6,7 @@ import FabButton from '../components/common/FabButton';
 import bookshelfCategories from '../constants/bookShelf';
 import BookshelfCategory from '../components/bookshelf/BookshelfCategory';
 import useBookStore, { selectedBookStore } from '../stores/book';
+import useMemoStore from '../stores/memo';
 import Book from '../components/bookshelf/Book';
 
 const BookshelfPage = styled.div`
@@ -47,9 +48,11 @@ function BookShelf() {
       [selectedCategory],
     ),
   );
+  const getMemos = useMemoStore(state => state.getMemos);
 
   useEffect(() => {
     getBooklist();
+    getMemos();
   }, []);
 
   const selectCategory = category => {
