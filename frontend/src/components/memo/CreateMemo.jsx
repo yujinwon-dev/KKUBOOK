@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Header from '../common/Header';
 import { apiPostMemo } from '../../api/memo';
+import { selectedBookStore } from '../../stores/book';
 
 const BarButton = styled.button`
   font-size: 17px;
@@ -85,12 +86,12 @@ const TextBox = styled.div`
   }
 `;
 
-function CreateMemo({ id, title, backClickHandler }) {
+function CreateMemo({ backClickHandler }) {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const bookId = id || location.state.id;
-  const bookTitle = title || location.state.title;
+  const selectedBook = selectedBookStore(state => state.selectedBook);
+  const bookId = selectedBook.bookId || location.state.id;
+  const bookTitle = selectedBook.bookInfo.title || location.state.title;
 
   const [text, setText] = useState('');
   const [image, setImage] = useState(null);

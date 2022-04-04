@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw, { styled } from 'twin.macro';
-import { selectedBookStore } from '../stores/book';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import BookDetail from '../components/bookshelf/BookDetail';
 import Button from '../components/common/Button';
-import useBottomSheetStore from '../stores/bottomSheet';
 import Warning from '../components/bookshelf/Warning';
-import { startReading, deleteBook } from '../api/bookshelf';
-import useUserStore from '../stores/user';
 import Memo from '../components/bookshelf/Memo';
+import useBottomSheetStore from '../stores/bottomSheet';
+import useUserStore from '../stores/user';
+import { selectedBookStore } from '../stores/book';
+import { startReading, deleteBook } from '../api/bookshelf';
 import mock_memos from '../data/memos';
 
 const StyledBookshelf = styled.div`
@@ -129,7 +129,7 @@ function BookshelfBook() {
             <button
               type="button"
               className="subject memo-button"
-              onClick={() => console.log('!!')}
+              onClick={() => navigate('/creatememo')}
             >
               메모 작성
             </button>
