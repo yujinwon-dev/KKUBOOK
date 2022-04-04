@@ -63,6 +63,7 @@ function MemoContainer({ memo }) {
   const navigate = useNavigate();
   const { book_info, id, content, created_at, memo_img, memo_mark } = memo;
   const [isLiked, setLiked] = useState(memo_mark);
+  const URLmemo_img = `http://127.0.0.1:8000${memo_img}`;
 
   function putLikeMemo() {
     const reqData = {
@@ -132,9 +133,9 @@ function MemoContainer({ memo }) {
         <div className="memo-text">
           <p>{content}</p>
         </div>
-        {memo_img !== '/media/null' ? (
+        {memo_img !== null ? (
           <div className="memo-img">
-            <img src={memo_img} alt="memo-img" />
+            <img src={URLmemo_img} alt="memo-img" />
           </div>
         ) : null}
       </MemoContnet>
