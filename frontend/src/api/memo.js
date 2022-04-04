@@ -1,4 +1,5 @@
 import apiInstance from '../utils/apiInstance';
+import memoFormat from '../utils/memoFormat';
 
 export function apiPostMemo(reqData, success, fail) {
   apiInstance.post('kkubooks/memo/', reqData).then(success).catch(fail);
@@ -7,7 +8,7 @@ export function apiPostMemo(reqData, success, fail) {
 export async function apiGetMemos() {
   try {
     const response = await apiInstance.get('kkubooks/memolist/');
-    return response.data;
+    return response.data.map(memo => memoFormat(memo));
   } catch (error) {
     return error;
   }
