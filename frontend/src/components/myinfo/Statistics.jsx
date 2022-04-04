@@ -4,6 +4,7 @@ import { months, days } from '../../utils/days';
 import Svg from '../common/Svg';
 import DoughnutChart from './DoughnutChart';
 import { getUserStatistics } from '../../api/user';
+import BookList from './BookList';
 
 const StatisticBox = styled.div`
   ${tw`px-page-x`}
@@ -190,6 +191,9 @@ function Statistics({ createdAt }) {
           </div>
         </Box>
       </Dl>
+      {userStatistics.book_img && userStatistics.book_img.length > 0 && (
+        <BookList books={userStatistics.book_img} />
+      )}
       {userStatistics.category && (
         <Box>
           <DoughnutChart
