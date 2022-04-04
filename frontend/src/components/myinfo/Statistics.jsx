@@ -10,7 +10,7 @@ import EmptyMessage from './EmptyMessage';
 const StatisticBox = styled.div`
   ${tw`px-page-x`}
   background: none;
-  margin-bottom: 65px;
+  padding-bottom: 65px;
 
   &:before {
     content: '';
@@ -196,16 +196,16 @@ function Statistics({ createdAt }) {
           </div>
         </Box>
       </Dl>
-      {userStatistics.book_img && userStatistics.book_img.length > 0 && (
-        <BookList books={userStatistics.book_img} />
-      )}
-      {userStatistics.category && userStatistics.category.length > 0 ? (
-        <Box>
-          <DoughnutChart
-            data={userStatistics.category}
-            bookCnt={userStatistics.book_num}
-          />
-        </Box>
+      {userStatistics.book_num > 0 ? (
+        <>
+          <BookList books={userStatistics.book_img} />
+          <Box>
+            <DoughnutChart
+              data={userStatistics.category}
+              bookCnt={userStatistics.book_num}
+            />
+          </Box>
+        </>
       ) : (
         <EmptyMessage />
       )}

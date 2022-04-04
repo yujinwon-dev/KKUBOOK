@@ -8,7 +8,7 @@ const MiddleText = styled.div`
   width: 100%;
   height: 40px;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 0;
   margin-top: 157px;
   line-height: 19px;
