@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import { getBookDetail, getNaverUrl } from '../../api/main';
-import books from '../../data/books';
 import useStore from '../../stores/user';
 import { addBook } from '../../api/bookshelf';
-import useBookshelfStore from '../../stores/bookshelf';
+import useBookStore from '../../stores/book';
 
 const Bar = styled.div`
   position: fixed;
@@ -88,9 +87,7 @@ function BookDetail() {
   const navigate = useNavigate();
   const { bookId } = useParams();
   const userId = useStore(state => state.userInfo.userId);
-  const setSelectedCategory = useBookshelfStore(
-    state => state.setSelectedCategory,
-  );
+  const setCategory = useBookStore(state => state.setCategory);
   const [isbn, getIsbn] = useState('');
   const [title, getTitle] = useState('');
   const [description, getDescription] = useState('');
@@ -113,15 +110,15 @@ function BookDetail() {
         getPublisher(publisher);
         getImgUrl(img_url);
         getPage(page);
+        getNaverUrl(
+          { isbn: `${isbn}` },
+          response => getUrl(response.data.link),
+          error => console.log(error),
+        );
       },
       error => console.log(error),
     );
-    getNaverUrl(
-      { isbn: `${isbn}` },
-      response => getUrl(response.data.link),
-      error => console.log(error),
-    );
-  });
+  }, []);
 
   return (
     <>
@@ -160,10 +157,7 @@ function BookDetail() {
         <Button
           onClick={() => {
             addBook(Number(bookId), userId);
-            setSelectedCategory({
-              name: '읽고 싶은 책',
-              status: 2,
-            });
+            setCategory(2);
             navigate('/bookshelf');
           }}
         >

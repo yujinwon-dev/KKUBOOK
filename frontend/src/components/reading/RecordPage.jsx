@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
+import { useNavigate } from 'react-router-dom';
 import Time from './Time';
 import useStore from '../../stores/bottomSheet';
 import PageInput from './PageInput';
@@ -7,6 +8,7 @@ import GiveUpReading from './GiveupReading';
 import Header from '../common/Header';
 import { recordProgress, commit } from '../../api/bookshelf';
 import useUserStore from '../../stores/user';
+import useBookStore from '../../stores/book';
 
 const StyledRecordPage = styled.div`
   width: 100%;
@@ -55,23 +57,36 @@ const StyledRecordPage = styled.div`
 `;
 
 function RecordPage({ time, book, setCurrentPage, startDateTime }) {
+  const navigate = useNavigate();
   const openBottomSheet = useStore(state => state.openSheet);
+  const hideBottomSheet = useStore(state => state.onDismiss);
   const totalPage = book.bookInfo.page;
   const [currPage, setCurrPage] = useState(book.currPage);
+  const [stopReading, setStopReading] = useState(false);
   const user = useUserStore(state => state.userInfo.userId);
+  const setCategory = useBookStore(state => state.setCategory);
   const submitPage = submittedPage => {
+    if (submittedPage === 'stop') {
+      setStopReading(true);
+      hideBottomSheet();
+      return;
+    }
+
+    setStopReading(false);
+
     if (submittedPage === 'done') {
       setCurrPage(totalPage);
       return;
     }
 
-    if (submittedPage === 'stop') {
-      openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
-      return;
+    const value = Number(submittedPage);
+    if (value >= 0 && value <= totalPage) {
+      setCurrPage(value);
+      hideBottomSheet();
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('유효하지 않은 값입니다.');
     }
-
-    // 차후 값이 valid 한지 확인하는 로직 추가
-    setCurrPage(Number(submittedPage));
   };
 
   useEffect(() => {
@@ -137,21 +152,35 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               <p>
                 <span className="page">P. {currPage}</span> / {totalPage}
               </p>
+              {stopReading && <p>그만 읽을래요</p>}
             </div>
           </button>
         </div>
         <button
           type="button"
           className="save-button"
-          onClick={() => {
-            recordProgress(
+          onClick={async () => {
+            const updatedProgress = await recordProgress(
               book.id,
               book.bookId,
               user,
               currPage,
               totalPage === currPage,
+              stopReading,
             );
             commit(book.bookId, startDateTime);
+
+            if (stopReading) {
+              openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
+            }
+
+            setCategory(updatedProgress.bookStatus);
+
+            if (updatedProgress.bookStatus === 0) {
+              navigate('/review');
+            } else {
+              navigate('/bookshelf');
+            }
           }}
         >
           저장하기

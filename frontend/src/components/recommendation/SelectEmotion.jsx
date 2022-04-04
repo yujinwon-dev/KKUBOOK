@@ -38,11 +38,7 @@ function SearchRecommend() {
     const prevSelected = document.querySelector('.selected');
     prevSelected.classList.remove('selected');
     setFeelingIdx(newFeelingIdx);
-    submitFeeling(
-      nowFeelingIdx,
-      response => console.log(response.data),
-      error => console.log(error),
-    );
+    submitFeeling(nowFeelingIdx);
   }
 
   return (
