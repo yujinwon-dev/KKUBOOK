@@ -18,6 +18,7 @@ const Form = styled.form`
     padding: 0;
     margin: 0.5rem 5px;
     border: 0;
+    border-radius: 0;
     border-bottom: 1px solid #000;
   }
 
@@ -31,17 +32,18 @@ const Form = styled.form`
     padding: 0;
     margin: 0.5rem 5px;
     border-radius: 10px;
-    border: none;
+    border: 0;
     font-size: 15px;
   }
 
   .submit-btn {
-    ${tw`bg-light-gray`}
+    ${tw`bg-main-green`}
+    color: #fff;
   }
 
   .cancel-btn {
-    ${tw`bg-main-green`}
-    color: white;
+    ${tw`bg-light-gray`}
+    color: #000;
   }
 `;
 
