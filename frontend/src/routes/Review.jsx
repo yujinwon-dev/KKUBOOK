@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import { Rating } from 'react-simple-star-rating';
 import { useNavigate } from 'react-router-dom';
+import Confetti from 'react-confetti';
 import Button from '../components/common/Button';
 import useStore from '../stores/bookshelf';
 import { submitRating } from '../api/main';
@@ -67,41 +68,60 @@ function Review() {
     setRating(value);
   };
   const setCategory = useStore(state => state.setSelectedCategory);
+  const [numOfPieces, setNumOfPieces] = useState(200);
+  const { innerWidth, innerHeight } = window;
+  const width = innerWidth <= 500 ? innerWidth : 500;
+
+  useEffect(
+    () =>
+      setTimeout(() => {
+        setNumOfPieces(0);
+      }, 2500),
+    [],
+  );
+
   return (
-    <ReviewPage>
-      <p className="title">다 읽었어요!</p>
-      <div className="content">
-        <img src={book.imgUrl} alt={book.title} />
-        <p className="book-title">{book.title}</p>
-        <Rating
-          onClick={changeRating}
-          ratingValue={rating}
-          size={30}
-          allowHalfIcon
-        />
-        <p className="num-rating">{rating / 10}</p>
-        <Button
-          title="독서 완료"
-          background="white"
-          color="#8DCD84"
-          onClick={() => {
-            submitRating(13, rating / 10);
-            setCategory({
-              name: '읽은 책',
-              status: 0,
-            });
-            navigate('/bookshelf');
-          }}
-        />
-        <Button
-          title="다음에 읽을 책 추천 받기"
-          onClick={() => {
-            submitRating(13, rating / 10);
-            navigate('/recommendation');
-          }}
-        />
-      </div>
-    </ReviewPage>
+    <>
+      <Confetti
+        width={width}
+        height={innerHeight}
+        numberOfPieces={numOfPieces}
+      />
+      <ReviewPage>
+        <p className="title">다 읽었어요!</p>
+        <div className="content">
+          <img src={book.imgUrl} alt={book.title} />
+          <p className="book-title">{book.title}</p>
+          <Rating
+            onClick={changeRating}
+            ratingValue={rating}
+            size={30}
+            allowHalfIcon
+          />
+          <p className="num-rating">{rating / 10}</p>
+          <Button
+            title="독서 완료"
+            background="white"
+            color="#8DCD84"
+            onClick={() => {
+              submitRating(13, rating / 10);
+              setCategory({
+                name: '읽은 책',
+                status: 0,
+              });
+              navigate('/bookshelf');
+            }}
+          />
+          <Button
+            title="다음에 읽을 책 추천 받기"
+            onClick={() => {
+              submitRating(13, rating / 10);
+              navigate('/recommendation');
+            }}
+          />
+        </div>
+      </ReviewPage>
+    </>
   );
 }
 
