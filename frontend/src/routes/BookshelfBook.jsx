@@ -143,7 +143,7 @@ function BookshelfBook() {
             </button>
           </div>
           {memos.map(memo => (
-            <Memo key={memo.id} memo={memo} />
+            <Memo key={memo.id} memo={memo} navigate={navigate} />
           ))}
         </StyledBookshelf>
         {book.bookStatus !== 0 && (

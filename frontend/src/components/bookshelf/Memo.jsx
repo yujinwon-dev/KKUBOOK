@@ -1,4 +1,5 @@
 import tw, { styled } from 'twin.macro';
+import { camelToSnake } from '../../utils/formatKey';
 
 const StyledMemo = styled.div`
   ${tw`bg-light-gray`}
@@ -19,10 +20,17 @@ const StyledMemo = styled.div`
   }
 `;
 
-function Memo({ memo }) {
-  const { createdAt, content, memoImg } = memo;
+function Memo({ memo, navigate }) {
+  const { createdAt, content, memoImg, bookInfo } = memo;
+
   return (
-    <StyledMemo>
+    <StyledMemo
+      onClick={() =>
+        navigate(`/memo/${bookInfo.id}`, {
+          state: { memo: camelToSnake(memo) },
+        })
+      }
+    >
       <p className="date">{createdAt}</p>
       <p className="content">{content}</p>
       {memoImg && <img src={`http://127.0.0.1:8000${memoImg}`} alt={content} />}
