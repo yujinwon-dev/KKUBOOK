@@ -84,6 +84,7 @@ function MemoDetail() {
   const location = useLocation();
 
   const { id, title, content, memo_img } = location.state.memo;
+  const URLmemo_img = `http://127.0.0.1:8000${memo_img}`;
   const [text, setText] = useState(content);
 
   const openBottomSheet = useBottomSheetStore(
@@ -96,12 +97,7 @@ function MemoDetail() {
     const reqData = {
       content: text,
     };
-    apiPutMemo(
-      { memo_id: id },
-      reqData,
-      response => console.log(response),
-      error => console.log(error),
-    );
+    apiPutMemo({ memo_id: id }, reqData);
     navigate('/memo');
   }
 
@@ -147,9 +143,9 @@ function MemoDetail() {
         </div>
       </Bar>
       <MemoForm>
-        {memo_img !== '/media/null' ? (
+        {memo_img !== null ? (
           <ImageBox>
-            <img src={memo_img} alt="memo-img" draggable={false} />
+            <img src={URLmemo_img} alt="memo-img" draggable={false} />
           </ImageBox>
         ) : null}
         <TextBox>
