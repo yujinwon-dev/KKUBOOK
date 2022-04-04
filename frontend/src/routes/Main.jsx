@@ -27,25 +27,21 @@ const GreenHeader = styled.header`
     height: 50px;
     margin: 0.6rem auto;
   }
-
-  .wrapper {
-    padding: 0 1rem;
-    position: relative;
-    top: 8vh;
-  }
-
-  .text-white {
-    color: white;
-    font-size: 20px;
-  }
 `;
 
 const StyledContent = styled.div`
   position: relative;
-  top: 18vh;
+  top: 16vh;
+  overflow: auto;
 
   .content-wrapper {
     padding: 0 1rem;
+  }
+
+  .main-title {
+    color: white;
+    font-size: 20px;
+    margin: 0.5rem 1.5rem;
   }
 
   button {
@@ -133,11 +129,9 @@ function Main() {
       <FabButton />
       <GreenHeader>
         <img src={logo} className="logo" alt="kkubook logo" />
-        <div className="wrapper">
-          <p className="text-white">읽고 있는 책</p>
-        </div>
       </GreenHeader>
       <StyledContent>
+        <p className="main-title">읽고 있는 책</p>
         {mainBooks.length ? (
           <Slider {...sliderSetting}>
             <Card>
