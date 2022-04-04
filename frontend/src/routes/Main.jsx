@@ -11,6 +11,7 @@ import SearchList from '../components/main/SearchList';
 import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
+import transparentKKubook from '../assets/transparent-kkubook.png';
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -30,7 +31,7 @@ const GreenHeader = styled.header`
   .wrapper {
     padding: 0 1rem;
     position: relative;
-    top: 10vh;
+    top: 8vh;
   }
 
   .text-white {
@@ -41,10 +42,26 @@ const GreenHeader = styled.header`
 
 const StyledContent = styled.div`
   position: relative;
-  top: 17vh;
+  top: 18vh;
 
   .content-wrapper {
     padding: 0 1rem;
+  }
+
+  button {
+    ${tw`text-dark-gray`}
+    outline: none;
+    border: none;
+    background: none;
+  }
+
+  img {
+    width: 40%;
+    margin: 10px auto;
+  }
+
+  .kakao-button {
+    width: 200px;
   }
 `;
 
@@ -128,7 +145,8 @@ function Main() {
                 type="button"
                 onClick={() => openBottomSheet(SearchList, '책 등록하기')}
               >
-                책 추가하기
+                <img src={transparentKKubook} alt="transparent-kkubook" />
+                읽을 책 추가하기
               </button>
             </Card>
             {mainBooks.map((book, index) => (
@@ -159,6 +177,7 @@ function Main() {
         )}
         <div className="content-wrapper">
           <div
+            className="kakao-button"
             id="kakao-talk-channel-add-button"
             data-channel-public-id="_xcsqNb"
             data-size="small"
