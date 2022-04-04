@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import tw, { styled } from 'twin.macro';
 import { selectedBookStore } from '../stores/book';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
@@ -9,6 +10,39 @@ import useBottomSheetStore from '../stores/bottomSheet';
 import Warning from '../components/bookshelf/Warning';
 import { startReading, deleteBook } from '../api/bookshelf';
 import useUserStore from '../stores/user';
+import Memo from '../components/bookshelf/Memo';
+import mock_memos from '../data/memos';
+
+const StyledBookshelf = styled.div`
+  padding: 4rem 1rem;
+  margin: 0px auto;
+  text-align: center;
+
+  img {
+    height: 30%;
+    width: 50%;
+    margin: 20px auto;
+  }
+
+  .subject {
+    margin: 15px 0px;
+    text-align: left;
+  }
+
+  .memo-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .memo-button {
+    ${tw`text-dark-green`}
+    margin-left: auto;
+    height: 20px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+  }
+`;
 
 function BookshelfBook() {
   const navigate = useNavigate();
@@ -83,12 +117,27 @@ function BookshelfBook() {
     return (
       <>
         <Header>{getHeaderButton(book.bookStatus)}</Header>
-        <BookDetail
-          book={book}
-          finishedReading={book.bookStatus === 0}
-          startedReading={book.bookStatus !== 2}
-          isReading={book.bookStatus === 1}
-        />
+        <StyledBookshelf>
+          <BookDetail
+            book={book}
+            finishedReading={book.bookStatus === 0}
+            startedReading={book.bookStatus !== 2}
+            isReading={book.bookStatus === 1}
+          />
+          <div className="memo-title">
+            <p className="subject">내 메모</p>
+            <button
+              type="button"
+              className="subject memo-button"
+              onClick={() => console.log('!!')}
+            >
+              메모 작성
+            </button>
+          </div>
+          {mock_memos.map(memo => (
+            <Memo key={memo.id} memo={memo} />
+          ))}
+        </StyledBookshelf>
         {book.bookStatus !== 0 && (
           <Footer>{getButtonByStatus[book.bookStatus]}</Footer>
         )}
