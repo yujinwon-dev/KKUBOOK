@@ -5,12 +5,14 @@ import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import MemoContainer from '../components/memo/MemoContainer';
 import { apiGetMemos } from '../api/memo';
+import backKkubook from '../assets/back-kkubook.png';
 
 const MemoRoot = styled.div`
   padding: 1rem;
   padding-top: 4rem;
   padding-bottom: 5rem;
 `;
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -24,6 +26,7 @@ const Header = styled.div`
     cursor: pointer;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,8 +57,16 @@ const CheckMark = styled.div`
 const NoMemo = styled.div`
   min-height: 10rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  img {
+    display: block;
+    width: 4.5rem;
+    height: auto;
+    margin-bottom: 1rem;
+  }
 `;
 
 function Memo() {
@@ -148,7 +159,8 @@ function Memo() {
             </div>
           ) : (
             <NoMemo>
-              <p>아직 작성한 메모가 없습니다</p>
+              <img src={backKkubook} alt="back of kkubook character" />
+              <p>아직 작성한 메모가 없습니다.</p>
             </NoMemo>
           )}
         </Container>

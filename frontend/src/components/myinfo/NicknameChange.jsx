@@ -48,7 +48,7 @@ const Form = styled.form`
 `;
 
 function NicknameChange() {
-  const { userInfo, changeUserNickname } = userStore();
+  const { userInfo, updateUserInfo } = userStore();
   const onDismiss = bottomSheetStore(state => state.onDismiss);
   const [value, setValue] = React.useState(userInfo.nickname);
 
@@ -62,7 +62,7 @@ function NicknameChange() {
     changeNickname(
       value,
       response => {
-        changeUserNickname(response.data.nickname);
+        updateUserInfo({ nickname: response.data.nickname });
         onDismiss();
       },
       error => console.log(error),

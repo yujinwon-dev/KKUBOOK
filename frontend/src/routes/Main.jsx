@@ -11,6 +11,7 @@ import SearchList from '../components/main/SearchList';
 import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
+import logo from '../assets/kkubook-logo.png';
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -20,11 +21,10 @@ const GreenHeader = styled.header`
   position: absolute;
 
   .logo {
-    width: 100px;
-    height: 30px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: white;
+    display: block;
+    width: auto;
+    height: 50px;
+    margin: 0.6rem auto;
   }
 
   .wrapper {
@@ -115,7 +115,7 @@ function Main() {
       <Navbar />
       <FabButton />
       <GreenHeader>
-        <div className="logo"> Logo 위치 </div>
+        <img src={logo} className="logo" alt="kkubook logo" />
         <div className="wrapper">
           <p className="text-white">읽고 있는 책</p>
         </div>
