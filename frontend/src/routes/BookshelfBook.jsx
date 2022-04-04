@@ -1,39 +1,28 @@
 import React, { useCallback, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import useBookshelfStore from '../stores/bookshelf';
+import { useNavigate } from 'react-router-dom';
+import { selectedBookStore } from '../stores/book';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import BookDetail from '../components/bookshelf/BookDetail';
 import Button from '../components/common/Button';
 import useBottomSheetStore from '../stores/bottomSheet';
 import Warning from '../components/bookshelf/Warning';
-import { startReading } from '../api/bookshelf';
+import { startReading, deleteBook } from '../api/bookshelf';
 import useUserStore from '../stores/user';
 
 function BookshelfBook() {
   const navigate = useNavigate();
-  const { bookId } = useParams();
-  const book = useBookshelfStore(
-    useCallback(
-      state => {
-        return state.books.find(item => {
-          return item.bookId === Number(bookId);
-        });
-      },
-      [bookId],
-    ),
-  );
-
+  const book = selectedBookStore(useCallback(state => state.selectedBook, []));
   const userId = useUserStore(state => state.userInfo.userId);
 
   useEffect(() => {
     if (!book) {
-      navigate('/NotFound');
+      navigate('/');
     }
   }, []);
 
   const moveToReading = () => {
-    navigate(`/reading/${bookId}`);
+    navigate('/reading');
   };
 
   const getButtonByStatus = {
@@ -43,7 +32,7 @@ function BookshelfBook() {
         title="읽기 시작"
         width="90%"
         onClick={() => {
-          startReading(book.id, book.bookId, userId);
+          startReading(book.id, book.bookId, userId, book.bookStatus);
           moveToReading();
         }}
       />
@@ -53,7 +42,7 @@ function BookshelfBook() {
         title="읽기"
         width="90%"
         onClick={() => {
-          // update book status (3 -> 1)
+          startReading(book.id, book.bookId, userId, book.bookStatus);
           moveToReading();
         }}
       />
@@ -67,7 +56,6 @@ function BookshelfBook() {
     () => <Warning status={book.bookStatus} />,
     [],
   );
-  // const deleteBook = useBookStore(state => state.deleteBook); bookStore -> bookshelf store
 
   const getHeaderButton = status => {
     if (status === 2 || status === 3) {
@@ -79,11 +67,11 @@ function BookshelfBook() {
           width="initial"
           size="15px"
           padding="14px"
-          // onClick={() =>
-          //   openBottomSheet(warningDelete, '책을 삭제하시겠습니까?', () =>
-          //     deleteBook(Number(bookId)),
-          //   )
-          // }
+          onClick={() =>
+            openBottomSheet(warningDelete, '책을 삭제하시겠습니까?', () =>
+              deleteBook(book.id),
+            )
+          }
         />
       );
     }

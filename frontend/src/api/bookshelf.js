@@ -23,14 +23,17 @@ const addBook = async (bookId, userId) => {
   }
 };
 
-const startReading = async (bookshelfId, bookId, userId) => {
+const startReading = async (bookshelfId, bookId, userId, bookStatus) => {
   try {
     const body = {
       book: bookId,
       user: userId,
       book_status: 1,
-      start_date: getCurrentDate(),
     };
+
+    if (bookStatus === 2) {
+      body.start_date = getCurrentDate();
+    }
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
     return formatKey(data);
   } catch (err) {
@@ -44,6 +47,7 @@ const recordProgress = async (
   userId,
   currPage,
   isCompleted,
+  stopReading,
 ) => {
   try {
     const body = {
@@ -55,6 +59,10 @@ const recordProgress = async (
     if (isCompleted) {
       body.book_status = 0;
       body.end_date = getCurrentDate();
+    }
+
+    if (stopReading) {
+      body.book_status = 3;
     }
 
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
@@ -84,4 +92,12 @@ const commit = async (bookId, startTime) => {
   }
 };
 
-export { getBooks, addBook, startReading, recordProgress, commit };
+const deleteBook = async bookshelfId => {
+  try {
+    return await api.delete(`kkubooks/bookshelf/${bookshelfId}/`);
+  } catch (err) {
+    return err;
+  }
+};
+
+export { getBooks, addBook, startReading, recordProgress, commit, deleteBook };

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import tw, { styled } from 'twin.macro';
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -8,22 +8,9 @@ import Card from '../components/main/Card';
 import MainBook from '../components/main/MainBook';
 import BookCommit from '../components/main/BookCommit';
 import SearchList from '../components/main/SearchList';
-import useMainBookStore from '../stores/mainBook';
+import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
-
-const settings = {
-  dots: false,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  draggable: true,
-  arrows: false,
-  initialSlide: 1,
-  centerMode: true,
-  centerPadding: '4%',
-};
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -62,13 +49,31 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
+  const mainBooks = useBookStore(state => state.mainbooks);
+  const getMainBooks = useBookStore(state => state.getMainBooks);
   const [isLoading, setLoading] = useState(true);
   const [commits, setCommits] = useState([]);
-
-  const books = useMainBookStore(state => state.books);
-  const getMainBooks = useMainBookStore(state => state.getMainBooks);
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
+  );
+  const cardIndex = useBookStore(state => state.firstCardIndex);
+  const setCardIndex = useBookStore(state => state.setCardIndex);
+  const selectBook = selectedBookStore(state => state.setSelectedBook);
+
+  const sliderSetting = useMemo(
+    () => ({
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      draggable: true,
+      arrows: false,
+      initialSlide: cardIndex,
+      centerMode: true,
+      centerPadding: '4%',
+    }),
+    [cardIndex],
   );
 
   useEffect(() => {
@@ -79,6 +84,28 @@ function Main() {
     }
     getCommits();
     getMainBooks();
+
+    if (cardIndex >= mainBooks.length) {
+      setCardIndex(1);
+    }
+  }, []);
+
+  useEffect(() => {
+    const initKakao = () => {
+      if (window.Kakao) {
+        const kakao = window.Kakao;
+        if (!kakao.isInitialized()) {
+          kakao.init(process.env.REACT_APP_JS_KEY);
+        }
+
+        kakao.Channel.createAddChannelButton({
+          container: '#kakao-talk-channel-add-button',
+        });
+      }
+    };
+    initKakao();
+
+    return () => window.Kakao.Channel.cleanup();
   }, []);
 
   // slider에는 padding이 들어가면 안된다.
@@ -94,8 +121,8 @@ function Main() {
         </div>
       </GreenHeader>
       <StyledContent>
-        {books.length ? (
-          <Slider {...settings}>
+        {mainBooks.length ? (
+          <Slider {...sliderSetting}>
             <Card>
               <button
                 type="button"
@@ -104,9 +131,14 @@ function Main() {
                 책 추가하기
               </button>
             </Card>
-            {books.map(book => (
+            {mainBooks.map((book, index) => (
               <Card key={book.id}>
-                <MainBook book={book} />
+                <MainBook
+                  book={book}
+                  index={index}
+                  selectBook={selectBook}
+                  setCardIndex={setCardIndex}
+                />
               </Card>
             ))}
           </Slider>
@@ -125,6 +157,14 @@ function Main() {
             <BookCommit values={commits} />
           </div>
         )}
+        <div className="content-wrapper">
+          <div
+            id="kakao-talk-channel-add-button"
+            data-channel-public-id="_xcsqNb"
+            data-size="small"
+            data-support-multiple-densities="true"
+          />
+        </div>
       </StyledContent>
     </>
   );

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import tw, { styled } from 'twin.macro';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../../stores/mainBook';
 import ProgressBar from '../common/ProgressBar';
 
 const BookContainer = styled.div`
@@ -65,10 +64,9 @@ const BookContainer = styled.div`
   }
 `;
 
-function MainBook({ book }) {
+function MainBook({ book, index, selectBook, setCardIndex }) {
   const { id, bookId, currPage, startDate, bookInfo } = book;
   const navigate = useNavigate();
-  const updateOrder = useStore(state => state.updateOrder);
 
   return (
     <BookContainer>
@@ -91,8 +89,9 @@ function MainBook({ book }) {
           className="br-left-bottom"
           type="button"
           onClick={() => {
-            updateOrder(id);
-            navigate(`reading/${id}`);
+            setCardIndex(index + 1);
+            selectBook(book);
+            navigate('/reading');
           }}
         >
           <svg
@@ -116,11 +115,12 @@ function MainBook({ book }) {
         <button
           className="br-right-bottom v-line"
           type="button"
-          onClick={() =>
+          onClick={() => {
+            setCardIndex(index + 1);
             navigate('/creatememo', {
               state: { id: `${bookId}`, title: `${bookInfo.title}` },
-            })
-          }
+            });
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
