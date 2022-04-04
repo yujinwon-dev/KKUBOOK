@@ -6,7 +6,6 @@ import ProgressBar from '../common/ProgressBar';
 const BookContainer = styled.div`
   ${tw`text-dark-gray`}
   width: 100%;
-  padding: 5px;
 
   .title {
     overflow: hidden;
