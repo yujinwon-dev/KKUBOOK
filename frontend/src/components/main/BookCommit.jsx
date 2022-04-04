@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { styled } from 'twin.macro';
 import HeatMap from 'react-best-heatmap';
 import { getBookCommit } from '../../api/main';
-import styledCommits from '../../utils/commitDate';
 
 const CommitContainer = styled.div`
   margin-top: 2rem;
@@ -30,25 +29,14 @@ const setlegend = [
   },
 ];
 
-function BookCommit() {
-  const [commits, setCommits] = useState([]);
-
-  function getStyledCommits() {
-    return commits.map(commit => styledCommits(commit));
-  }
-
-  useEffect(() => {
-    getBookCommit(
-      response => setCommits(response.data),
-      error => console.log(error),
-    );
-  });
+function BookCommit({ values }) {
+  const commits = values;
 
   return (
     <CommitContainer>
       <HeatMap
         startDate={new Date(fstDay)}
-        values={getStyledCommits()}
+        values={commits}
         showWeekDays={setWeekDays}
         rangeDays={term + todayDate}
         legend={setlegend}
