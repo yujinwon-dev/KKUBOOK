@@ -71,6 +71,7 @@ const BookContainer = styled.div`
   .button-title {
     display: inline-block;
     vertical-align: top;
+    color: #000;
   }
 
   .v-line {

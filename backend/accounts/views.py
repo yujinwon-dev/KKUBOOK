@@ -21,8 +21,8 @@ User = get_user_model()
 @api_view(['POST'])
 def login_signup(request):
     '''
-    token 발급
-    DB에 없는 사용자일 경우, DB에 저장
+    POST: access_token 발급
+          DB에 없는 사용자일 경우, DB에 저장
     '''
     kakao_user_api = 'https://kapi.kakao.com/v2/user/me'
     kakao_token = request.data['access_token']
@@ -78,6 +78,7 @@ def login_signup(request):
 @api_view(['DELETE', 'PUT'])
 def signout(request):
     '''
+    PUT: 닉네임 수정
     DELETE: 사용자 정보 DB에서 삭제
     '''
     # user = get_object_or_404(User, pk=5)
@@ -94,5 +95,5 @@ def signout(request):
 
     elif request.method == 'DELETE':
         user.delete()
-    return Response(data='정상적으로 삭제되었습니다.', status=HTTP_204_NO_CONTENT)
+        return Response(data='정상적으로 삭제되었습니다.', status=HTTP_204_NO_CONTENT)
 
