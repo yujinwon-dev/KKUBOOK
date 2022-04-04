@@ -8,6 +8,7 @@ import MyInfo from './routes/MyInfo';
 import Settings from './routes/Settings';
 import Signout from './routes/Signout';
 import Reading from './routes/Reading';
+import Congratulations from './routes/Congratulations';
 import Bookshelf from './routes/Bookshelf';
 import Recommendation from './routes/Recommendation';
 import SearchRecommend from './components/recommendation/SearchRecommend';
@@ -49,6 +50,7 @@ function App() {
         <Route path="/scanbook" element={<ScanBook />} />
         <Route path="/bookDetail/:bookId" element={<BookDetail />} />
         <Route path="/reading/:bookId" element={<Reading />} />
+        <Route path="/congratulations" element={<Congratulations />} />
         <Route path="/review" element={<Review />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
