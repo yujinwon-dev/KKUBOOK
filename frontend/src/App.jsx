@@ -54,7 +54,10 @@ function App() {
           <Route path="/searchbook" element={<SearchBook />} />
           <Route path="/scanbook" element={<ScanBook />} />
           <Route path="/bookDetail/:bookId" element={<BookDetail />} />
-          <Route path="/congratulations" element={<Congratulations />} />
+          <Route
+            path="/congratulations/:bookStatus"
+            element={<Congratulations />}
+          />
           <Route path="/review" element={<Review />} />
         </Route>
         <Route path="/*" element={<Page404 />} />

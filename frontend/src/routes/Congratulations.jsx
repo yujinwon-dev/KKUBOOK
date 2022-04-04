@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import tw, { styled } from 'twin.macro';
 import happyKkubook from '../assets/happy-kkubook.png';
@@ -20,6 +21,7 @@ const CongratsMessage = styled.h1`
 `;
 
 function Congratulations() {
+  const { bookStatus } = useParams();
   const { innerWidth, innerHeight } = window;
   const width = innerWidth <= 500 ? innerWidth : 500;
   return (
@@ -27,7 +29,7 @@ function Congratulations() {
       <Confetti width={width} height={innerHeight} />
       <KkubookImg src={happyKkubook} alt="happy kkubook character" />
       <CongratsMessage>100일 달성!</CongratsMessage>
-      <CongratsInfo />
+      <CongratsInfo bookStatus={bookStatus} />
     </Page>
   );
 }

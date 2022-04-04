@@ -43,7 +43,7 @@ const KkubookImg = styled.img`
   height: auto;
 `;
 
-function CongratsInfo() {
+function CongratsInfo({ bookStatus }) {
   const navigate = useNavigate();
 
   return (
@@ -56,8 +56,17 @@ function CongratsInfo() {
         <br />
         우측 하단에 있는 꾸북이를 찾아주세요
       </p>
-      <GoHomeBtn type="button" onClick={() => navigate('/')}>
-        홈으로 가기
+      <GoHomeBtn
+        type="button"
+        onClick={() => {
+          if (bookStatus === '0') {
+            navigate('/review');
+          } else {
+            navigate('/bookshelf');
+          }
+        }}
+      >
+        확인
       </GoHomeBtn>
     </Info>
   );
