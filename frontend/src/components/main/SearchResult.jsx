@@ -34,12 +34,12 @@ const BookContainer = styled.div`
 `;
 
 function SearchResult({ book }) {
-  const { id, title, author, image, page } = book;
+  const { id, title, author, img_url } = book;
   const navigate = useNavigate();
 
   return (
     <BookContainer onClick={() => navigate(`/bookDetail/${id}`)}>
-      <img src={image} alt={title} />
+      <img src={img_url} alt={title} />
       <div className="book-info">
         <h4 className="book-title">{title}</h4>
         <p className="book-author">{author}</p>

@@ -8,6 +8,7 @@ const Btn = styled.button`
   border: 1px solid #848282;
   border-radius: 10px;
   margin: 0.5rem;
+  cursor: pointer;
 
   &.selected {
     color: #61b864;

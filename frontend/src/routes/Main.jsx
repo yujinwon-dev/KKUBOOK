@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import tw, { styled } from 'twin.macro';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -10,6 +10,7 @@ import BookCommit from '../components/main/BookCommit';
 import SearchList from '../components/main/SearchList';
 import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
+import { getBookCommit } from '../api/main';
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -50,6 +51,8 @@ const StyledContent = styled.div`
 function Main() {
   const mainBooks = useBookStore(state => state.mainbooks);
   const getMainBooks = useBookStore(state => state.getMainBooks);
+  const [isLoading, setLoading] = useState(true);
+  const [commits, setCommits] = useState([]);
   const openBottomSheet = useBottomSheetStore(
     useCallback(state => state.openSheet),
   );
@@ -74,6 +77,12 @@ function Main() {
   );
 
   useEffect(() => {
+    async function getCommits() {
+      const resData = await getBookCommit();
+      setCommits(resData);
+      setLoading(false);
+    }
+    getCommits();
     getMainBooks();
 
     if (cardIndex >= mainBooks.length) {
@@ -143,8 +152,12 @@ function Main() {
             </button>
           </Card>
         )}
+        {isLoading ? null : (
+          <div className="content-wrapper">
+            <BookCommit values={commits} />
+          </div>
+        )}
         <div className="content-wrapper">
-          <BookCommit />
           <div
             id="kakao-talk-channel-add-button"
             data-channel-public-id="_xcsqNb"

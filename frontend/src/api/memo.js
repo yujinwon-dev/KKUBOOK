@@ -4,8 +4,13 @@ export function apiPostMemo(reqData, success, fail) {
   apiInstance.post('kkubooks/memo/', reqData).then(success).catch(fail);
 }
 
-export function apiGetMemos(success, fail) {
-  apiInstance.get('kkubooks/memolist/').then(success).catch(fail);
+export async function apiGetMemos() {
+  try {
+    const response = await apiInstance.get('kkubooks/memolist/');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 }
 
 export function apiPutMemo({ memo_id }, reqData, success, fail) {

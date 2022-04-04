@@ -4,7 +4,6 @@ import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import MemoContainer from '../components/memo/MemoContainer';
-// import memos from '../data/memos';
 import { apiGetMemos } from '../api/memo';
 
 const MemoRoot = styled.div`
@@ -52,17 +51,37 @@ const CheckMark = styled.div`
 }
 `;
 
+const NoMemo = styled.div`
+  min-height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 function Memo() {
   const navigate = useNavigate();
   const [likedMemos, setLikedMemos] = useState(false);
-  const [memos, getMemos] = useState([]);
+  const [memos, setMemos] = useState([]);
+
+  async function getMemos() {
+    const resData = await apiGetMemos();
+    setMemos(resData);
+  }
+
+  async function getLikedMemos(likeStatus) {
+    const memoList = await apiGetMemos();
+    if (likeStatus) {
+      const likeStatusMemos = memoList.filter(
+        memo => memo.memo_mark === likeStatus,
+      );
+      return setMemos(likeStatusMemos);
+    }
+    return setMemos(memoList);
+  }
 
   useEffect(() => {
-    apiGetMemos(
-      response => setLikedMemos(response.data),
-      error => console.log(error),
-    );
-  });
+    getMemos();
+  }, []);
 
   return (
     <>
@@ -91,7 +110,10 @@ function Memo() {
           <div
             className="form-check"
             role="button"
-            onClick={() => setLikedMemos(!likedMemos)}
+            onClick={() => {
+              setLikedMemos(!likedMemos);
+              getLikedMemos(!likedMemos);
+            }}
             onKeyDown={() => ''}
             tabIndex={0}
           >
@@ -118,9 +140,17 @@ function Memo() {
             )}
             <p className="check-label">좋아하는 메모</p>
           </div>
-          {memos.map(memo => (
-            <MemoContainer key={memo.id} memo={memo} />
-          ))}
+          {memos.length ? (
+            <div>
+              {memos.map(memo => (
+                <MemoContainer key={memo.id} memo={memo} />
+              ))}
+            </div>
+          ) : (
+            <NoMemo>
+              <p>아직 작성한 메모가 없습니다</p>
+            </NoMemo>
+          )}
         </Container>
       </MemoRoot>
     </>

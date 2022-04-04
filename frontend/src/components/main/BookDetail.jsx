@@ -110,15 +110,15 @@ function BookDetail() {
         getPublisher(publisher);
         getImgUrl(img_url);
         getPage(page);
+        getNaverUrl(
+          { isbn: `${isbn}` },
+          response => getUrl(response.data.link),
+          error => console.log(error),
+        );
       },
       error => console.log(error),
     );
-    getNaverUrl(
-      { isbn: `${isbn}` },
-      response => getUrl(response.data.link),
-      error => console.log(error),
-    );
-  });
+  }, []);
 
   return (
     <>
