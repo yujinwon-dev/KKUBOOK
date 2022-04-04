@@ -94,15 +94,18 @@ function CreateMemo({ backClickHandler }) {
   const bookTitle = selectedBook.bookInfo.title || location.state.title;
 
   const [text, setText] = useState('');
-  const [image, setImage] = useState(null);
+  const [loadImg, setLoadImg] = useState(null);
+  const [showImg, setShowImg] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
 
   function handleImageChange(event) {
     if (event.target.files && event.target.files[0]) {
+      setLoadImg(event.target.files[0]);
+
       const reader = new FileReader();
 
       reader.onload = function (event) {
-        setImage(event.target.result);
+        setShowImg(event.target.result);
         setIsUploaded(true);
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -110,17 +113,20 @@ function CreateMemo({ backClickHandler }) {
   }
 
   function postMemo() {
-    const reqData = {
-      book: bookId,
-      content: text,
-      memo_img: image,
-    };
-    if (text !== '' || image !== null) {
-      apiPostMemo(
-        reqData,
-        response => console.log(response.data),
-        error => console.log(error),
-      );
+    const goBack = () => navigate(-1);
+    const goBackHandler = backClickHandler || goBack;
+
+    const formData = new FormData();
+    if (loadImg !== null) {
+      formData.append('memo_img', loadImg);
+    }
+    formData.append('book', bookId);
+    formData.append('content', text);
+    formData.append('enctype', 'multipart/form-data');
+
+    if (text !== '' || loadImg !== null) {
+      apiPostMemo(formData);
+      goBackHandler();
     } else {
       alert('메모를 입력해주세요');
     }
@@ -168,7 +174,8 @@ function CreateMemo({ backClickHandler }) {
                 fill="#848282"
                 onClick={() => {
                   setIsUploaded(false);
-                  setImage(null);
+                  setShowImg(null);
+                  setLoadImg(null);
                 }}
               >
                 <path
@@ -179,7 +186,7 @@ function CreateMemo({ backClickHandler }) {
               </svg>
               <img
                 className="uploaded-image"
-                src={image}
+                src={showImg}
                 alt="upload-img"
                 draggable={false}
               />

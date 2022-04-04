@@ -15,7 +15,7 @@ const StyledPageInput = styled.div`
     border-right: none;
     border-bottom: 1px solid gray;
     font-size: 16px;
-    margin: 2rem 0rem 1rem;
+    margin: 1rem 0rem;
   }
 
   input:focus {

@@ -28,9 +28,9 @@ const useStore = create(
             userId: null,
           },
         }),
-      changeUserNickname: newNickname =>
+      updateUserInfo: newData =>
         set(state => ({
-          userInfo: { ...state.userInfo, nickname: newNickname },
+          userInfo: { ...state.userInfo, ...newData },
         })),
       offKkubook: () =>
         set(state => ({

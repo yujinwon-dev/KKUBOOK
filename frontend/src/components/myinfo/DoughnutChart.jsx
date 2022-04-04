@@ -8,13 +8,13 @@ const MiddleText = styled.div`
   width: 100%;
   height: 40px;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 0;
   margin-top: 157px;
   line-height: 19px;
   text-align: center;
   font-size: 20px;
-  z-index: 9;
+  z-index: 1;
 `;
 
 const GenreList = styled.ol`
