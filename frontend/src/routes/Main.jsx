@@ -55,7 +55,7 @@ const StyledContent = styled.div`
     background: none;
   }
 
-  img {
+  .kkubook-img {
     width: 40%;
     margin: 10px auto;
   }
@@ -145,7 +145,11 @@ function Main() {
                 type="button"
                 onClick={() => openBottomSheet(SearchList, '책 등록하기')}
               >
-                <img src={transparentKKubook} alt="transparent-kkubook" />
+                <img
+                  className="kkubook-img"
+                  src={transparentKKubook}
+                  alt="transparent-kkubook"
+                />
                 읽을 책 추가하기
               </button>
             </Card>
