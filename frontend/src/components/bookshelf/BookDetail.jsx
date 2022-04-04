@@ -3,6 +3,7 @@ import { Rating } from 'react-simple-star-rating';
 import Pregress from './Progress';
 import Memo from './Memo';
 import mock_memos from '../../data/memos';
+import bookshelfCategories from '../../constants/bookShelf';
 
 const BookDetailPage = styled.div`
   padding: 4rem 1rem;
@@ -60,7 +61,11 @@ function BookDetail({ book, finishedReading, startedReading, isReading }) {
         <Rating readonly ratingValue={book.rating * 10} size={25} />
       )}
       <br />
-      <p className="tag">선택된 카테고리</p>
+      <p className="tag">
+        {book.bookStatus
+          ? bookshelfCategories[book.bookStatus].name
+          : '다 읽은 책'}
+      </p>
       {startedReading && (
         <>
           <p className="subject">독서기간</p>
