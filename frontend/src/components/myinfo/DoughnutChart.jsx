@@ -14,7 +14,7 @@ const MiddleText = styled.div`
   line-height: 19px;
   text-align: center;
   font-size: 20px;
-  z-index: 9;
+  z-index: 1;
 `;
 
 const GenreList = styled.ol`
