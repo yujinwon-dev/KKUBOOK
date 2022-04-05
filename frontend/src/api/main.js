@@ -1,5 +1,5 @@
 import apiInstance from '../utils/apiInstance';
-import formatKey from '../utils/snakeToCamel';
+import { snakeToCamel } from '../utils/formatKey';
 import commitDate from '../utils/commitDate';
 
 // 책 검색하기 (index 0: 책 제목 / index 1: 작가 / index 2: isbn)
@@ -37,7 +37,7 @@ export function getNaverUrl(reqData, success, fail) {
 export async function getBooklist() {
   try {
     const { data } = await apiInstance.get('kkubooks/main/booklist/');
-    return data.map(item => formatKey(item));
+    return data.map(item => snakeToCamel(item));
   } catch (err) {
     return err;
   }

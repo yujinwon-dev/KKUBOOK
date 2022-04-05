@@ -1,13 +1,13 @@
 import api from '../utils/apiInstance';
-import formatKey from '../utils/snakeToCamel';
+import { snakeToCamel } from '../utils/formatKey';
 import getCurrentDate from '../utils/currentDate';
 
 const getBooks = async () => {
   try {
     const { data } = await api.get('kkubooks/bookshelf/booklist');
-    return data.map(bookObj => formatKey(bookObj));
+    return data.map(bookObj => snakeToCamel(bookObj));
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -17,9 +17,9 @@ const addBook = async (bookId, userId) => {
       book: bookId,
       user: userId,
     });
-    return formatKey(data);
+    return snakeToCamel(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -35,9 +35,9 @@ const startReading = async (bookshelfId, bookId, userId, bookStatus) => {
       body.start_date = getCurrentDate();
     }
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
-    return formatKey(data);
+    return snakeToCamel(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -66,9 +66,9 @@ const recordProgress = async (
     }
 
     const { data } = await api.put(`kkubooks/bookshelf/${bookshelfId}/`, body);
-    return formatKey(data);
+    return snakeToCamel(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -86,9 +86,9 @@ const commit = async (bookId, startTime) => {
       end_time: endTime,
     });
 
-    return formatKey(data);
+    return snakeToCamel(data);
   } catch (err) {
-    return console.error(err);
+    return err;
   }
 };
 
@@ -100,4 +100,21 @@ const deleteBook = async bookshelfId => {
   }
 };
 
-export { getBooks, addBook, startReading, recordProgress, commit, deleteBook };
+const getMemoList = async () => {
+  try {
+    const { data } = await api.get('kkubooks/memolist/');
+    return data.map(bookObj => snakeToCamel(bookObj));
+  } catch (err) {
+    return err;
+  }
+};
+
+export {
+  getBooks,
+  addBook,
+  startReading,
+  recordProgress,
+  commit,
+  deleteBook,
+  getMemoList,
+};

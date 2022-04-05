@@ -4,18 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import ProgressBar from '../common/ProgressBar';
 
 const BookContainer = styled.div`
+  ${tw`text-dark-gray`}
   width: 100%;
-  padding: 5px;
 
   .title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #1f1f1f;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 5px;
+  }
+  .author {
+    font-size: 15px;
   }
 
   .contents {
-    margin: 15px auto;
+    margin: 10px auto;
     display: flex;
+    width: 100%;
+  }
+
+  .start-date {
+    font-size: 12px;
+    margin-bottom: 10px;
   }
 
   .progress {
@@ -25,8 +38,8 @@ const BookContainer = styled.div`
   }
 
   img {
-    width: 80px;
-    height: 120px;
+    width: 30%;
+    margin-bottom: auto;
   }
 
   .buttons {
@@ -63,6 +76,13 @@ const BookContainer = styled.div`
   .v-line {
     border-left: 1px solid #d4d4d4;
   }
+
+  .page-info {
+    margin-top: 4px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 function MainBook({ book, index, selectBook, setCardIndex }) {
@@ -71,17 +91,20 @@ function MainBook({ book, index, selectBook, setCardIndex }) {
 
   return (
     <BookContainer>
-      <h3 className="title">{bookInfo.title}</h3>
-      <h5>{bookInfo.author}</h5>
+      <p className="title">{bookInfo.title}</p>
+      <p className="author">{bookInfo.author}</p>
       <div className="contents">
         <img src={bookInfo.img_url} alt={bookInfo.title} />
         <div className="progress">
           <div className="progress-items">
-            <p>시작일 {startDate}</p>
+            <p className="start-date">시작일 {startDate}</p>
             <ProgressBar value={currPage} totalValue={bookInfo.page} />
-            <p>
-              {bookInfo.page} 중에 {currPage} 페이지
-            </p>
+            <div className="page-info">
+              <p>{Math.round((currPage / bookInfo.page) * 100)}%</p>
+              <p>
+                {bookInfo.page} / {currPage} 페이지
+              </p>
+            </div>
           </div>
         </div>
       </div>

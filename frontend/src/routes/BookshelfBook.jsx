@@ -1,23 +1,65 @@
 import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { selectedBookStore } from '../stores/book';
+import tw, { styled } from 'twin.macro';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import BookDetail from '../components/bookshelf/BookDetail';
 import Button from '../components/common/Button';
-import useBottomSheetStore from '../stores/bottomSheet';
 import Warning from '../components/bookshelf/Warning';
-import { startReading, deleteBook } from '../api/bookshelf';
+import Memo from '../components/bookshelf/Memo';
+import useBottomSheetStore from '../stores/bottomSheet';
 import useUserStore from '../stores/user';
+import { selectedBookStore } from '../stores/book';
+import { startReading, deleteBook } from '../api/bookshelf';
+
+const StyledBookshelf = styled.div`
+  padding: 4rem 1rem;
+  margin: 0px auto;
+  text-align: center;
+
+  img {
+    height: 30%;
+    width: 50%;
+    margin: 20px auto;
+  }
+
+  .subject {
+    margin: 15px 0px;
+    text-align: left;
+  }
+
+  .memo-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .memo-button {
+    ${tw`text-dark-green`}
+    margin-left: auto;
+    height: 20px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+  }
+`;
 
 function BookshelfBook() {
   const navigate = useNavigate();
   const book = selectedBookStore(useCallback(state => state.selectedBook, []));
   const userId = useUserStore(state => state.userInfo.userId);
+  const memos = selectedBookStore(
+    useCallback(
+      state => state.memos.filter(memo => memo.bookInfo.id === book.bookId),
+      [],
+    ),
+  );
+  const getMemos = selectedBookStore(state => state.getMemos);
 
   useEffect(() => {
     if (!book) {
       navigate('/');
+    } else {
+      getMemos();
     }
   }, []);
 
@@ -83,12 +125,27 @@ function BookshelfBook() {
     return (
       <>
         <Header>{getHeaderButton(book.bookStatus)}</Header>
-        <BookDetail
-          book={book}
-          finishedReading={book.bookStatus === 0}
-          startedReading={book.bookStatus !== 2}
-          isReading={book.bookStatus === 1}
-        />
+        <StyledBookshelf>
+          <BookDetail
+            book={book}
+            finishedReading={book.bookStatus === 0}
+            startedReading={book.bookStatus !== 2}
+            isReading={book.bookStatus === 1}
+          />
+          <div className="memo-title">
+            <p className="subject">내 메모</p>
+            <button
+              type="button"
+              className="subject memo-button"
+              onClick={() => navigate('/creatememo')}
+            >
+              메모 작성
+            </button>
+          </div>
+          {memos.map(memo => (
+            <Memo key={memo.id} memo={memo} navigate={navigate} />
+          ))}
+        </StyledBookshelf>
         {book.bookStatus !== 0 && (
           <Footer>{getButtonByStatus[book.bookStatus]}</Footer>
         )}

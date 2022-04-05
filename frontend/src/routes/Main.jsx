@@ -11,6 +11,7 @@ import SearchList from '../components/main/SearchList';
 import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
+import transparentKKubook from '../assets/transparent-kkubook.png';
 import logo from '../assets/kkubook-logo.png';
 
 const GreenHeader = styled.header`
@@ -26,25 +27,37 @@ const GreenHeader = styled.header`
     height: 50px;
     margin: 0.6rem auto;
   }
-
-  .wrapper {
-    padding: 0 1rem;
-    position: relative;
-    top: 10vh;
-  }
-
-  .text-white {
-    color: white;
-    font-size: 20px;
-  }
 `;
 
 const StyledContent = styled.div`
   position: relative;
-  top: 17vh;
+  top: 16vh;
+  overflow: auto;
 
   .content-wrapper {
     padding: 0 1rem;
+  }
+
+  .main-title {
+    color: white;
+    font-size: 20px;
+    margin: 0.5rem 1.5rem;
+  }
+
+  button {
+    ${tw`text-dark-gray`}
+    outline: none;
+    border: none;
+    background: none;
+  }
+
+  .kkubook-img {
+    width: 40%;
+    margin: 10px auto;
+  }
+
+  .kakao-button {
+    width: 200px;
   }
 `;
 
@@ -116,11 +129,9 @@ function Main() {
       <FabButton />
       <GreenHeader>
         <img src={logo} className="logo" alt="kkubook logo" />
-        <div className="wrapper">
-          <p className="text-white">읽고 있는 책</p>
-        </div>
       </GreenHeader>
       <StyledContent>
+        <p className="main-title">읽고 있는 책</p>
         {mainBooks.length ? (
           <Slider {...sliderSetting}>
             <Card>
@@ -128,7 +139,12 @@ function Main() {
                 type="button"
                 onClick={() => openBottomSheet(SearchList, '책 등록하기')}
               >
-                책 추가하기
+                <img
+                  className="kkubook-img"
+                  src={transparentKKubook}
+                  alt="transparent-kkubook"
+                />
+                읽을 책 추가하기
               </button>
             </Card>
             {mainBooks.map((book, index) => (
@@ -159,6 +175,7 @@ function Main() {
         )}
         <div className="content-wrapper">
           <div
+            className="kakao-button"
             id="kakao-talk-channel-add-button"
             data-channel-public-id="_xcsqNb"
             data-size="small"
