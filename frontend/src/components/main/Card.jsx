@@ -1,11 +1,13 @@
 import tw, { styled } from 'twin.macro';
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div(({ padding }) => [
+  `
   background-color: transparent;
-  padding: 0rem 0.5rem;
+  padding: ${padding || '0rem 0.5rem'};
   width: 100%;
   height: 35vh;
-`;
+  `,
+]);
 
 const StyledCard = styled.div`
   position: relative;
@@ -19,9 +21,9 @@ const StyledCard = styled.div`
   height: 99%;
 `;
 
-function Card({ children }) {
+function Card({ children, wrapperPadding }) {
   return (
-    <CardWrapper id="card-wrapper">
+    <CardWrapper padding={wrapperPadding}>
       <StyledCard>{children}</StyledCard>
     </CardWrapper>
   );

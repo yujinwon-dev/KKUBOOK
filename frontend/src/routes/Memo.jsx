@@ -60,6 +60,7 @@ const NoMemo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 5rem;
 
   img {
     display: block;
@@ -73,10 +74,14 @@ function Memo() {
   const navigate = useNavigate();
   const [likedMemos, setLikedMemos] = useState(false);
   const [memos, setMemos] = useState([]);
+  const [isEmpty, setEmpty] = useState(false);
 
   async function getMemos() {
     const resData = await apiGetMemos();
     setMemos(resData);
+    if (resData.length === 0) {
+      setEmpty(true);
+    }
   }
 
   async function getLikedMemos(likeStatus) {
@@ -150,17 +155,21 @@ function Memo() {
             )}
             <p className="check-label">좋아하는 메모</p>
           </div>
-          {memos.length ? (
-            <div>
-              {memos.map(memo => (
-                <MemoContainer key={memo.id} memo={memo} />
-              ))}
-            </div>
-          ) : (
+          {isEmpty ? (
             <NoMemo>
               <img src={backKkubook} alt="back of kkubook character" />
               <p>아직 작성한 메모가 없습니다.</p>
             </NoMemo>
+          ) : (
+            <div>
+              {memos.length ? (
+                <div>
+                  {memos.map(memo => (
+                    <MemoContainer key={memo.id} memo={memo} />
+                  ))}
+                </div>
+              ) : null}
+            </div>
           )}
         </Container>
       </MemoRoot>
