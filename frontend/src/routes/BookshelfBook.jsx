@@ -49,7 +49,7 @@ function BookshelfBook() {
   const userId = useUserStore(state => state.userInfo.userId);
   const memos = selectedBookStore(
     useCallback(
-      state => state.memos.filter(memo => memo.bookInfo.id === book.bookId),
+      state => state.memos.filter(memo => memo.book_info.id === book.bookId),
       [],
     ),
   );
