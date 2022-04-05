@@ -7,8 +7,8 @@ import currentDate from '../../utils/currentDate';
 const Container = styled.div`
   background-color: #f2f2f2;
   border-radius: 10px;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 `;
 const MemoInfo = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const MemoInfo = styled.div`
     
     .book-info-img {
       margin-right: 10px;
-      width: 60px;
+      width: 10rem;
       img {
         width: 100%;
       }
@@ -61,7 +61,8 @@ const MemoContnet = styled.div`
 
 function MemoContainer({ memo }) {
   const navigate = useNavigate();
-  const { book_info, id, content, created_at, memo_img, memo_mark } = memo;
+  const { book_info, id, content, created_at, is_img, memo_img, memo_mark } =
+    memo;
   const [isLiked, setLiked] = useState(memo_mark);
 
   function putLikeMemo() {
@@ -132,7 +133,7 @@ function MemoContainer({ memo }) {
         <div className="memo-text">
           <p>{content}</p>
         </div>
-        {memo_img !== null ? (
+        {is_img !== null ? (
           <div className="memo-img">
             <img src={memo_img} alt="memo-img" />
           </div>

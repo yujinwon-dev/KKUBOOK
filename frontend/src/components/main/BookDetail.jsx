@@ -77,10 +77,6 @@ const Button = styled.button`
   border: ${props => (props.left ? '1px solid #61B864' : 'none')};
   border-radius: 10px;
   background-color: ${props => (props.left ? '#ffffff' : '#8DCD84')};
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
 `;
 
 function BookDetail() {
@@ -96,6 +92,10 @@ function BookDetail() {
   const [imgUrl, getImgUrl] = useState('');
   const [page, getPage] = useState('');
   const [naverUrl, getUrl] = useState('');
+
+  function openPortalDetail() {
+    window.open(`${naverUrl}`, '_blank');
+  }
 
   useEffect(() => {
     getBookDetail(
@@ -149,10 +149,8 @@ function BookDetail() {
         <Content title="페이지" content={page} />
       </BookInfo>
       <Buttons>
-        <Button left>
-          <a href={naverUrl}>
-            <p>책 상세내용 보기</p>
-          </a>
+        <Button left onClick={() => openPortalDetail()}>
+          <p>책 상세내용 보기</p>
         </Button>
         <Button
           onClick={() => {

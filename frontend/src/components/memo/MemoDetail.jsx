@@ -83,7 +83,7 @@ function MemoDetail() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { id, title, content, memo_img } = location.state.memo;
+  const { id, title, content, is_img, memo_img } = location.state.memo;
   const [text, setText] = useState(content);
 
   const openBottomSheet = useBottomSheetStore(
@@ -142,7 +142,7 @@ function MemoDetail() {
         </div>
       </Bar>
       <MemoForm>
-        {memo_img !== null ? (
+        {is_img !== null ? (
           <ImageBox>
             <img src={memo_img} alt="memo-img" draggable={false} />
           </ImageBox>
