@@ -96,7 +96,7 @@ function MemoDetail() {
       content: text,
     };
     apiPutMemo({ memo_id: id }, reqData);
-    navigate('/memo');
+    navigate(-1);
   }
 
   useEffect(() => {
