@@ -1,33 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
-
-const MainText = styled.p`
-  ${tw`text-[20px] font-medium mb-4`}
-`;
-
-const SubText = styled.p`
-  ${tw`text-[#848282] text-[15px] mb-[6rem]`}
-`;
+import SurveyHeader from './SurveyHeader';
+import Footer from '../common/Footer';
+import SurveyContent from './SurveyContent';
 
 const H1 = styled.h1`
   ${tw`text-[20px] font-semibold`}
-  margin: 0 auto 0 2rem;
-`;
-
-const BtnDiv = styled.div`
-  margin: 1rem 3rem 3rem 3rem;
-
-  .grid-box {
-    display: grid;
-    grid-template-columns: 200px 200px;
-    justify-items: center;
-
-    .input-btn {
-      width: 60%;
-    }
-  }
+  position: absolute;
+  top: -2rem;
+  left: 2.4rem;
 `;
 
 function Survey1({ setNextPage, addSurveyResult, age }) {
@@ -46,26 +29,24 @@ function Survey1({ setNextPage, addSurveyResult, age }) {
 
   return (
     <>
-      <div>
-        <MainText>당신에 대해 조금 더 알려주세요.</MainText>
-        <SubText>본 응답은 책 추천 목적으로만 사용됩니다.</SubText>
-      </div>
+      <SurveyHeader
+        mainText="당신에 대해 조금 더 알려주세요."
+        subText="본 응답은 책 추천 목적으로만 사용됩니다."
+      />
 
-      <H1>나이</H1>
-      <BtnDiv>
-        <div className="grid-box">
-          {ageList.map(age => (
-            <InputBtn
-              key={age}
-              id={age}
-              onClick={() => addSurveyResult('age', ageList.indexOf(age))}
-            >
-              {age}
-            </InputBtn>
-          ))}
-        </div>
-      </BtnDiv>
-      <div>
+      <SurveyContent repeat={2} buttonWidth="60%" marginTop="8rem">
+        <H1>나이</H1>
+        {ageList.map(age => (
+          <InputBtn
+            key={age}
+            id={age}
+            onClick={() => addSurveyResult('age', ageList.indexOf(age))}
+          >
+            {age}
+          </InputBtn>
+        ))}
+      </SurveyContent>
+      <Footer>
         <PrevNextBtn
           btnClass="next"
           onClick={() =>
@@ -74,7 +55,7 @@ function Survey1({ setNextPage, addSurveyResult, age }) {
         >
           다음
         </PrevNextBtn>
-      </div>
+      </Footer>
     </>
   );
 }

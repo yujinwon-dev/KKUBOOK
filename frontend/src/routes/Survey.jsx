@@ -12,7 +12,6 @@ import useStore from '../stores/survey';
 
 const Page = styled.div`
   ${tw`flex flex-col items-center`}
-  padding: 4rem 2rem;
 `;
 
 function Survey() {
