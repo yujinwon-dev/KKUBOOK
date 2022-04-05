@@ -22,7 +22,6 @@ User = get_user_model()
 def recomm_similar(request):
     if request.method == 'GET':
         user = get_request_user(request)
-        user = User.objects.get(pk=1)
 
         if not user:
             return Response(status=HTTP_401_UNAUTHORIZED)
@@ -59,7 +58,7 @@ def recomm_similar(request):
                 if (similar_bookshelf[id].book_id not in my_book_id_list) and (book not in result_book_list): # 나의 책정보와 일치하는 책 거르기 & 이미 있는 책 거르기
                     result_book_list.append(book)
         
-        
+
         if len(result_book_list) < 10:
             res = result_book_list
         else:
