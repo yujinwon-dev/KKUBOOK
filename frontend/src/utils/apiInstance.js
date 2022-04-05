@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+// export const API_BASE_URL = 'http://localhost:8000';
+export const API_BASE_URL = 'http://j6b204.p.ssafy.io';
 
 const apiInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: `${API_BASE_URL}/api/v1`,
   headers: {
     'Content-type': 'application/json',
   },

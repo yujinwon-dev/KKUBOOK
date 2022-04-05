@@ -100,21 +100,4 @@ const deleteBook = async bookshelfId => {
   }
 };
 
-const getMemoList = async () => {
-  try {
-    const { data } = await api.get('kkubooks/memolist/');
-    return data.map(bookObj => snakeToCamel(bookObj));
-  } catch (err) {
-    return err;
-  }
-};
-
-export {
-  getBooks,
-  addBook,
-  startReading,
-  recordProgress,
-  commit,
-  deleteBook,
-  getMemoList,
-};
+export { getBooks, addBook, startReading, recordProgress, commit, deleteBook };

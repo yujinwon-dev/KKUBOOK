@@ -2,6 +2,7 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { getBooklist } from '../api/main';
 import { getBooks, getMemoList } from '../api/bookshelf';
+import { apiGetMemos } from '../api/memo';
 
 const useStore = create((set, get) => ({
   // main
@@ -35,7 +36,7 @@ const selectedBookStore = create(
       },
       memos: [],
       getMemos: async () => {
-        const memos = await getMemoList();
+        const memos = await apiGetMemos();
         return set({ memos });
       },
     }),

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import tw, { styled, css } from 'twin.macro';
 import Svg from './Svg';
@@ -106,4 +107,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);
