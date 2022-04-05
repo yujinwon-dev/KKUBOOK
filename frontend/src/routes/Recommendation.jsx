@@ -1,15 +1,18 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
-import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import SelectEmotion from '../components/recommendation/SelectEmotion';
-import BookResult from '../components/recommendation/BookResult';
-import books from '../data/books';
+import RecommendCategory from '../components/recommendation/RecommendCategory';
 import useStoreUserInfo from '../stores/user';
-import { getUserBooks, getBestBooks } from '../api/recommend';
+import useStoreFeelingBooks from '../stores/recommend';
+import {
+  getUserBooks,
+  getBestBooks,
+  getSimilarBooks,
+  getFeelingBooks,
+} from '../api/recommend';
 
 const RecommendRoot = styled.div`
   padding: 1rem;
@@ -31,42 +34,45 @@ const Header = styled.div`
   }
 `;
 
-const Categories = styled.div`
-  .category {
-    padding-bottom: 1rem;
-    p {
-      font-size: 25px;
-      padding-bottom: 1rem;
-    }
-  }
-`;
-
 function Recommendation() {
   const navigate = useNavigate();
   const userNickname = useStoreUserInfo(state => state.userInfo.nickname);
+  const userTitle = `${userNickname} 님을 위한 추천`;
+  const bestTitle = '베스트셀러';
+  const similarTitle = '비슷한 독자의 책장';
+  const feelingTitle = '지금 감성엔 이런 책';
+
   const [userBooks, setUserBooks] = useState([]);
   const [bestBooks, setBestBooks] = useState([]);
-
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    draggable: true,
-    arrows: false,
-  };
+  const [similarBooks, setSimilarBooks] = useState([]);
+  const storeFeelingBooks = useStoreFeelingBooks(
+    useCallback(state => state.setBooks),
+  );
+  const feelingBooks = useStoreFeelingBooks(state => state.books);
+  async function apiUserBooks() {
+    const getBooks = await getUserBooks();
+    return setUserBooks(getBooks);
+  }
+  async function apiBestBooks() {
+    const getBooks = await getBestBooks();
+    return setBestBooks(getBooks);
+  }
+  async function apiSimilarBooks() {
+    const getBooks = await getSimilarBooks();
+    return setSimilarBooks(getBooks);
+  }
+  async function apiFeelingBooks() {
+    const getBooks = await getFeelingBooks();
+    return storeFeelingBooks(getBooks);
+  }
 
   useEffect(() => {
-    getUserBooks(
-      response => setUserBooks(response.data),
-      error => console.log(error),
-    );
-    getBestBooks(
-      response => setBestBooks(response.data),
-      error => console.log(error),
-    );
-  });
+    apiUserBooks();
+    apiBestBooks();
+    apiSimilarBooks();
+    apiFeelingBooks();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -91,16 +97,16 @@ function Recommendation() {
           </svg>
         </Header>
         <SelectEmotion />
-        <Categories>
-          <div className="category">
-            <p>{userNickname} 님을 위한 추천</p>
-            <Slider {...settings}>
-              {books.map(book => (
-                <BookResult key={book.id} book={book} />
-              ))}
-            </Slider>
-          </div>
-        </Categories>
+        <div>
+          {userBooks.length ? (
+            <RecommendCategory title={userTitle} books={userBooks} />
+          ) : null}
+          <RecommendCategory title={bestTitle} books={bestBooks} />
+          {similarBooks.length ? (
+            <RecommendCategory title={similarTitle} books={similarBooks} />
+          ) : null}
+          <RecommendCategory title={feelingTitle} books={feelingBooks} />
+        </div>
       </RecommendRoot>
     </>
   );
