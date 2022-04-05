@@ -42,7 +42,6 @@ user_list = user_list.values.tolist()
 users = []
 for user in user_list:
      users.append(user[0])
-print(users)
 
 df = pd.merge(
     df_book, df_bookshelf, left_on='id', right_on='book_id', how='left'
@@ -104,7 +103,5 @@ with open('predict_result', 'wb') as f:
      pickle.dump(predict_result, f, pickle.HIGHEST_PROTOCOL)
 
 # 결과값 pickle 읽기
-with open('predict_result', 'rb') as f:
-     data = pickle.load(f)
-
-print(data)
+# with open('predict_result', 'rb') as f:
+#      data = pickle.load(f)s

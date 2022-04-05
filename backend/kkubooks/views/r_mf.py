@@ -31,11 +31,9 @@ def recomm_mf(request):
         if(Bookshelf.objects.filter(user_id=user).count()>=3):  # mf 기반
             pickle_path = 'kkubooks/predict_result'
             recomm_result = pickle.load(open(pickle_path, 'rb'))
-            print(recomm_result)
 
             recomm_result = recomm_result[recomm_result['user_id']==user.pk]
             recomm_result = recomm_result['id'].values.tolist()
-            print(recomm_result)
 
             recomm_booklist = []
             for book_id in range(len(recomm_result)):
@@ -71,16 +69,8 @@ def recomm_mf(request):
             # 장르 : 아무거나(0)/ 문학(1)/ 과학(2)/ 사회(3)/ 예술(4)/ 자기계발(5) 
             if survey.category==0:  
                 recomm_category = Category.objects.all().filter(q).order_by('?')
-            elif survey.category==1:  
-                recomm_category = Category.objects.filter(survey_category=1).filter(Q(book__description__contains=interest_list[0]) | Q(book__description__contains=interest_list[1]) | Q(book__description__contains=interest_list[2]) | Q(book__description__contains=interest_list[3]) | Q(book__description__contains=interest_list[4])).filter(q).order_by('?')
-            elif survey.category==2:  
-                recomm_category = Category.objects.filter(survey_category=2).filter(Q(book__description__contains=interest_list[0]) | Q(book__description__contains=interest_list[1]) | Q(book__description__contains=interest_list[2]) | Q(book__description__contains=interest_list[3]) | Q(book__description__contains=interest_list[4])).filter(q).order_by('?')
-            elif survey.category==3:  
-                recomm_category = Category.objects.filter(survey_category=3).filter(Q(book__description__contains=interest_list[0]) | Q(book__description__contains=interest_list[1]) | Q(book__description__contains=interest_list[2]) | Q(book__description__contains=interest_list[3]) | Q(book__description__contains=interest_list[4])).filter(q).order_by('?')
-            elif survey.category==4:  
-                recomm_category = Category.objects.filter(survey_category=4).filter(Q(book__description__contains=interest_list[0]) | Q(book__description__contains=interest_list[1]) | Q(book__description__contains=interest_list[2]) | Q(book__description__contains=interest_list[3]) | Q(book__description__contains=interest_list[4])).filter(q).order_by('?')
-            elif survey.category==5:  
-                recomm_category = Category.objects.filter(survey_category=5).filter(Q(book__description__contains=interest_list[0]) | Q(book__description__contains=interest_list[1]) | Q(book__description__contains=interest_list[2]) | Q(book__description__contains=interest_list[3]) | Q(book__description__contains=interest_list[4])).filter(q).order_by('?')
+            else:
+                recomm_category = Category.objects.filter(survey_category=survey.category).filter(Q(book__description__contains=interest_list[0]) | Q(book__description__contains=interest_list[1]) | Q(book__description__contains=interest_list[2]) | Q(book__description__contains=interest_list[3]) | Q(book__description__contains=interest_list[4])).filter(q).order_by('?')
             
 
             # 내 서재에 있는 책 제외
