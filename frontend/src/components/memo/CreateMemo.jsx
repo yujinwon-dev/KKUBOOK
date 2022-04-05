@@ -7,6 +7,7 @@ import { selectedBookStore } from '../../stores/book';
 
 const BarButton = styled.button`
   font-size: 17px;
+  width: 3rem;
   color: #848282;
   border: none;
   background-color: #ffffff;
@@ -22,7 +23,7 @@ const MemoForm = styled.div`
 
 const ImageBox = styled.div`
   width: 100%;
-  height: 20rem;
+  height: 40vh;
   margin-bottom: 1rem;
   :hover {
     opacity: 0.6;
@@ -51,12 +52,14 @@ const ImageBox = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .uploaded-image {
       border-radius: 10px;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      object-fit: fit;
     }
 
     #close-icon {
@@ -72,7 +75,7 @@ const ImageBox = styled.div`
 
 const TextBox = styled.div`
   width: 100%;
-  height: 20rem;
+  height: 40vh;
   textarea {
     padding: 1rem;
     line-height: 1.5rem;

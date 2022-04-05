@@ -53,7 +53,6 @@ const MemoForm = styled.div`
 
 const ImageBox = styled.div`
   width: 100%;
-  height: 20rem;
   margin-bottom: 1rem;
   img {
     width: 100%;
@@ -65,7 +64,7 @@ const ImageBox = styled.div`
 
 const TextBox = styled.div`
   width: 100%;
-  height: 20rem;
+  height: 40vh;
   textarea {
     padding: 1rem;
     line-height: 1.5rem;

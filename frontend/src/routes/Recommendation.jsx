@@ -1,11 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
+import Slider from 'react-slick';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
 import SelectEmotion from '../components/recommendation/SelectEmotion';
 import BookResult from '../components/recommendation/BookResult';
 import books from '../data/books';
+import useStoreUserInfo from '../stores/user';
 import { getUserBooks, getBestBooks } from '../api/recommend';
 
 const RecommendRoot = styled.div`
@@ -36,20 +39,23 @@ const Categories = styled.div`
       padding-bottom: 1rem;
     }
   }
-  .book-results {
-    display: flex;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  }
 `;
 
 function Recommendation() {
   const navigate = useNavigate();
+  const userNickname = useStoreUserInfo(state => state.userInfo.nickname);
   const [userBooks, setUserBooks] = useState([]);
   const [bestBooks, setBestBooks] = useState([]);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    draggable: true,
+    arrows: false,
+  };
 
   useEffect(() => {
     getUserBooks(
@@ -87,28 +93,12 @@ function Recommendation() {
         <SelectEmotion />
         <Categories>
           <div className="category">
-            <p>테스트</p>
-            <div className="book-results">
+            <p>{userNickname} 님을 위한 추천</p>
+            <Slider {...settings}>
               {books.map(book => (
                 <BookResult key={book.id} book={book} />
               ))}
-            </div>
-          </div>
-          <div className="category">
-            <p>님을 위한 추천</p>
-            <div className="book-results">
-              {userBooks.map(book => (
-                <BookResult key={book.id} book={book} />
-              ))}
-            </div>
-          </div>
-          <div className="category">
-            <p>베스트셀러</p>
-            <div className="book-results">
-              {bestBooks.map(book => (
-                <BookResult key={book.id} book={book} />
-              ))}
-            </div>
+            </Slider>
           </div>
         </Categories>
       </RecommendRoot>
