@@ -14,6 +14,7 @@ from ..models import (
 from ..serializers.book import BookSearchSerializer
 from accounts.token import get_request_user
 from django.db.models import Q
+import random
 
 User = get_user_model()
 
@@ -21,6 +22,7 @@ User = get_user_model()
 def recomm_similar(request):
     if request.method == 'GET':
         user = get_request_user(request)
+        user = User.objects.get(pk=1)
 
         if not user:
             return Response(status=HTTP_401_UNAUTHORIZED)
@@ -38,9 +40,10 @@ def recomm_similar(request):
                 if q in you_interest:
                     similar_user_list.append(p)
                     break
+
         
         # 내가 가지고 있는 책 정보 (읽은 책, 읽고 싶은 책, 읽는 중인 책, 그만 본 책 모두)
-        my_bookshelf = get_list_or_404(Bookshelf, user_id=user.pk)
+        my_bookshelf = Bookshelf.objects.filter(user_id=user.pk)
         
         my_book_id_list = []
         for id in range(len(my_bookshelf)):
@@ -49,13 +52,18 @@ def recomm_similar(request):
 
         result_book_list = [] # 최종 추천해줄 책 리스트
         for similar in similar_user_list: # 몇명의 비슷한 사람이 나올지 모름...
-            similar_bookshelf = get_list_or_404(Bookshelf, Q(book_status=0) | Q(book_status=1), user_id=similar.user_id) # 비슷한 사람이 읽은 책 정보 뽑아오기
+            similar_bookshelf = Bookshelf.objects.filter(Q(book_status=0) | Q(book_status=1), user_id=similar.user_id) # 비슷한 사람이 읽은 책 정보 뽑아오기
 
             for id in range(len(similar_bookshelf)):
-                if similar_bookshelf[id].book_id not in my_book_id_list: # 나의 책정보와 일치하는 책 거르기
-                    book = Book.objects.get(pk=similar_bookshelf[id].book_id) # 책 object 불러오기
+                book = Book.objects.get(pk=similar_bookshelf[id].book_id) # 책 object 불러오기
+                if (similar_bookshelf[id].book_id not in my_book_id_list) and (book not in result_book_list): # 나의 책정보와 일치하는 책 거르기 & 이미 있는 책 거르기
                     result_book_list.append(book)
-
-        serializer = BookSearchSerializer(result_book_list, many=True)
+        
+        
+        if len(result_book_list) < 10:
+            res = result_book_list
+        else:
+            res = random.sample(result_book_list, 10)
+        serializer = BookSearchSerializer(res, many=True)
         return Response(serializer.data)
  
