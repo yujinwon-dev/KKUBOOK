@@ -6,6 +6,7 @@ import FabButton from '../components/common/FabButton';
 import SelectEmotion from '../components/recommendation/SelectEmotion';
 import BookResult from '../components/recommendation/BookResult';
 import books from '../data/books';
+import useStoreUserInfo from '../stores/user';
 import { getUserBooks, getBestBooks } from '../api/recommend';
 
 const RecommendRoot = styled.div`
@@ -48,6 +49,7 @@ const Categories = styled.div`
 
 function Recommendation() {
   const navigate = useNavigate();
+  const userNickname = useStoreUserInfo(state => state.userInfo.nickname);
   const [userBooks, setUserBooks] = useState([]);
   const [bestBooks, setBestBooks] = useState([]);
 
@@ -95,7 +97,7 @@ function Recommendation() {
             </div>
           </div>
           <div className="category">
-            <p>님을 위한 추천</p>
+            <p>{userNickname} 님을 위한 추천</p>
             <div className="book-results">
               {userBooks.map(book => (
                 <BookResult key={book.id} book={book} />
