@@ -72,6 +72,7 @@ function Main() {
   const cardIndex = useBookStore(state => state.firstCardIndex);
   const setCardIndex = useBookStore(state => state.setCardIndex);
   const selectBook = selectedBookStore(state => state.setSelectedBook);
+  const centerPadding = mainBooks.length ? '4%' : '0%';
 
   const sliderSetting = useMemo(
     () => ({
@@ -84,9 +85,9 @@ function Main() {
       arrows: false,
       initialSlide: cardIndex,
       centerMode: true,
-      centerPadding: '4%',
+      centerPadding,
     }),
-    [cardIndex],
+    [cardIndex, centerPadding],
   );
 
   useEffect(() => {
@@ -132,42 +133,31 @@ function Main() {
       </GreenHeader>
       <StyledContent>
         <p className="main-title">읽고 있는 책</p>
-        {mainBooks.length ? (
-          <Slider {...sliderSetting}>
-            <Card>
-              <button
-                type="button"
-                onClick={() => openBottomSheet(SearchList, '책 등록하기')}
-              >
-                <img
-                  className="kkubook-img"
-                  src={transparentKKubook}
-                  alt="transparent-kkubook"
-                />
-                읽을 책 추가하기
-              </button>
-            </Card>
-            {mainBooks.map((book, index) => (
-              <Card key={book.id}>
-                <MainBook
-                  book={book}
-                  index={index}
-                  selectBook={selectBook}
-                  setCardIndex={setCardIndex}
-                />
-              </Card>
-            ))}
-          </Slider>
-        ) : (
-          <Card>
+        <Slider {...sliderSetting}>
+          <Card wrapperPadding={!mainBooks.length && '1rem'}>
             <button
               type="button"
               onClick={() => openBottomSheet(SearchList, '책 등록하기')}
             >
-              책 추가하기
+              <img
+                className="kkubook-img"
+                src={transparentKKubook}
+                alt="transparent-kkubook"
+              />
+              읽을 책 추가하기
             </button>
           </Card>
-        )}
+          {mainBooks.map((book, index) => (
+            <Card key={book.id}>
+              <MainBook
+                book={book}
+                index={index}
+                selectBook={selectBook}
+                setCardIndex={setCardIndex}
+              />
+            </Card>
+          ))}
+        </Slider>
         {isLoading ? null : (
           <div className="content-wrapper">
             <BookCommit values={commits} />
