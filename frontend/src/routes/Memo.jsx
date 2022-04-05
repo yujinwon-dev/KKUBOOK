@@ -89,7 +89,6 @@ function Memo() {
     }
     return setMemos(memoList);
   }
-
   useEffect(() => {
     getMemos();
   }, []);

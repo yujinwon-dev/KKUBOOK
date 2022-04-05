@@ -84,7 +84,6 @@ function MemoDetail() {
   const location = useLocation();
 
   const { id, title, content, memo_img } = location.state.memo;
-  const URLmemo_img = `http://127.0.0.1:8000${memo_img}`;
   const [text, setText] = useState(content);
 
   const openBottomSheet = useBottomSheetStore(
@@ -145,7 +144,7 @@ function MemoDetail() {
       <MemoForm>
         {memo_img !== null ? (
           <ImageBox>
-            <img src={URLmemo_img} alt="memo-img" draggable={false} />
+            <img src={memo_img} alt="memo-img" draggable={false} />
           </ImageBox>
         ) : null}
         <TextBox>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import InputBtn from '../survey/InputBtn';
-import { submitFeeling } from '../../api/survey';
+import { getFeeling, submitFeeling } from '../../api/survey';
 
 const ScrollEmotion = styled.div`
   padding-top: 0.5rem;
@@ -19,7 +19,7 @@ const BtnDiv = styled.div`
 `;
 
 function SearchRecommend() {
-  const [nowFeelingIdx, setFeelingIdx] = useState(1);
+  const [nowFeelingIdx, setFeelingIdx] = useState(null);
   const feelingList = [
     '💧  슬퍼요',
     '🛫 떠나고 싶어요',
@@ -29,16 +29,24 @@ function SearchRecommend() {
     '💊 고민이 있어요',
   ];
 
-  useEffect(() => {
-    const currentSelected = document.getElementById(feelingList[nowFeelingIdx]);
+  async function showDefaultFeeling() {
+    const feelingIdx = await getFeeling();
+    setFeelingIdx(feelingIdx);
+    const currentSelected = document.getElementById(feelingList[feelingIdx]);
     currentSelected.classList.add('selected');
-  });
+  }
+
+  useEffect(() => {
+    showDefaultFeeling();
+  }, []);
 
   function changeFeeling(newFeelingIdx) {
     const prevSelected = document.querySelector('.selected');
     prevSelected.classList.remove('selected');
     setFeelingIdx(newFeelingIdx);
-    submitFeeling(nowFeelingIdx);
+    const currentSelected = document.getElementById(feelingList[newFeelingIdx]);
+    currentSelected.classList.add('selected');
+    submitFeeling(newFeelingIdx);
   }
 
   return (
