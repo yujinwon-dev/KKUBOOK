@@ -69,8 +69,6 @@ function Reading() {
     ),
     memo: (
       <CreateMemo
-        id={book.bookId}
-        title={book.bookInfo.title}
         backClickHandler={useCallback(() => setCurrentPage('reading'), [])}
       />
     ),

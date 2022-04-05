@@ -232,7 +232,7 @@ function SearchBook() {
               <div className="kkubook-img">
                 <img src={worryingKkubook} alt="kkubook character" />
               </div>
-              <p>찾으시는 책이 없으면 관리자에게 문의하세요</p>
+              <p>찾으시는 책이 없으면 관리자에게 문의해주세요.</p>
             </NoResult>
           )}
         </div>

@@ -11,6 +11,8 @@ import SearchList from '../components/main/SearchList';
 import useBookStore, { selectedBookStore } from '../stores/book';
 import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
+import transparentKKubook from '../assets/transparent-kkubook.png';
+import logo from '../assets/kkubook-logo.png';
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -20,31 +22,46 @@ const GreenHeader = styled.header`
   position: absolute;
 
   .logo {
-    width: 100px;
-    height: 30px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: white;
-  }
-
-  .wrapper {
-    padding: 0 1rem;
-    position: relative;
-    top: 10vh;
-  }
-
-  .text-white {
-    color: white;
-    font-size: 20px;
+    display: block;
+    width: auto;
+    height: 50px;
+    margin: 0.6rem auto;
   }
 `;
 
 const StyledContent = styled.div`
   position: relative;
-  top: 17vh;
+  top: 16vh;
+  overflow: auto;
 
   .content-wrapper {
     padding: 0 1rem;
+  }
+
+  .main-title {
+    color: white;
+    font-size: 20px;
+    margin: 0.5rem 1.5rem;
+  }
+
+  button {
+    ${tw`text-dark-gray`}
+    outline: none;
+    border: none;
+    background: none;
+  }
+
+  .add-book-btn {
+    ${tw`flex flex-col justify-center items-center`}
+  }
+
+  .kkubook-img {
+    width: 40%;
+    margin: 10px auto;
+  }
+
+  .kakao-button {
+    width: 200px;
   }
 `;
 
@@ -59,6 +76,7 @@ function Main() {
   const cardIndex = useBookStore(state => state.firstCardIndex);
   const setCardIndex = useBookStore(state => state.setCardIndex);
   const selectBook = selectedBookStore(state => state.setSelectedBook);
+  const centerPadding = mainBooks.length ? '4%' : '0%';
 
   const sliderSetting = useMemo(
     () => ({
@@ -71,9 +89,9 @@ function Main() {
       arrows: false,
       initialSlide: cardIndex,
       centerMode: true,
-      centerPadding: '4%',
+      centerPadding,
     }),
-    [cardIndex],
+    [cardIndex, centerPadding],
   );
 
   useEffect(() => {
@@ -115,43 +133,36 @@ function Main() {
       <Navbar />
       <FabButton />
       <GreenHeader>
-        <div className="logo"> Logo 위치 </div>
-        <div className="wrapper">
-          <p className="text-white">읽고 있는 책</p>
-        </div>
+        <img src={logo} className="logo" alt="kkubook logo" />
       </GreenHeader>
       <StyledContent>
-        {mainBooks.length ? (
-          <Slider {...sliderSetting}>
-            <Card>
-              <button
-                type="button"
-                onClick={() => openBottomSheet(SearchList, '책 등록하기')}
-              >
-                책 추가하기
-              </button>
-            </Card>
-            {mainBooks.map((book, index) => (
-              <Card key={book.id}>
-                <MainBook
-                  book={book}
-                  index={index}
-                  selectBook={selectBook}
-                  setCardIndex={setCardIndex}
-                />
-              </Card>
-            ))}
-          </Slider>
-        ) : (
-          <Card>
+        <p className="main-title">읽고 있는 책</p>
+        <Slider {...sliderSetting}>
+          <Card wrapperPadding={!mainBooks.length && '1rem'}>
             <button
               type="button"
+              className="add-book-btn"
               onClick={() => openBottomSheet(SearchList, '책 등록하기')}
             >
-              책 추가하기
+              <img
+                className="kkubook-img"
+                src={transparentKKubook}
+                alt="transparent-kkubook"
+              />
+              {mainBooks.length ? '읽을 책 추가하기' : '책 추가하기'}
             </button>
           </Card>
-        )}
+          {mainBooks.map((book, index) => (
+            <Card key={book.id}>
+              <MainBook
+                book={book}
+                index={index}
+                selectBook={selectBook}
+                setCardIndex={setCardIndex}
+              />
+            </Card>
+          ))}
+        </Slider>
         {isLoading ? null : (
           <div className="content-wrapper">
             <BookCommit values={commits} />
@@ -159,6 +170,7 @@ function Main() {
         )}
         <div className="content-wrapper">
           <div
+            className="kakao-button"
             id="kakao-talk-channel-add-button"
             data-channel-public-id="_xcsqNb"
             data-size="small"
