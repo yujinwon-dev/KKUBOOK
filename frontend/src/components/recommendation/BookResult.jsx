@@ -6,7 +6,7 @@ const BookContainer = styled.div`
   margin-right: 1rem;
   .book-img {
     margin-bottom: 1rem;
-    min-height: 23vh;
+    min-height: 20vh;
     display: flex;
     align-items: end;
     img {
