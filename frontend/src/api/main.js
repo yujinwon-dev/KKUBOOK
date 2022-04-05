@@ -5,7 +5,7 @@ import commitDate from '../utils/commitDate';
 // 책 검색하기 (index 0: 책 제목 / index 1: 작가 / index 2: isbn)
 export function apiSearchBook({ word, index }, success, fail) {
   apiInstance
-    .get(`kkubooks/main/search/?word=${word}&index=${index}/`)
+    .get(`kkubooks/main/search/?word=${word}&index=${index}`)
     .then(success)
     .catch(fail);
 }
