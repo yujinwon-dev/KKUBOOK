@@ -36,7 +36,7 @@ urlpatterns = [
     path('survey/', survey.create_survey),
     path('survey/feeling/', survey.feeling),
 
-    # path('recommend/mf/',),
+    path('recommend/mf/',r_mf.recomm_mf),
     path('recommend/similar/', r_similar.recomm_similar),
     # path('recommend/feeling/',),
 ]

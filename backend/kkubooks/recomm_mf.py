@@ -36,12 +36,13 @@ def query_MariaDB(query):
 
 df_book = query_MariaDB("SELECT id from kkubooks_book limit 100")
 df_bookshelf = query_MariaDB("SELECT book_id, rating, user_id from kkubooks_bookshelf where book_status=0")
-user_list = query_MariaDB("SELECT distinct user_id from kkubooks_bookshelf")  # TODO: user_id list로 가져오기
+user_list = query_MariaDB("SELECT distinct user_id from kkubooks_bookshelf")
 user_list = user_list.values.tolist()
 
 users = []
 for user in user_list:
      users.append(user[0])
+print(users)
 
 df = pd.merge(
     df_book, df_bookshelf, left_on='id', right_on='book_id', how='left'
@@ -70,11 +71,9 @@ sigma = np.diag(sigma)  # 0이 포함된 대칭행렬로 변환
 # U, Sigma, Vt의 내적을 수행하면, 다시 원본 행렬로 복원이 된다
 # 거기에 + 사용자 평균 rating을 적용한다
 svd_user_predicted_book = np.dot(np.dot(U, sigma), Vt) + user_ratings_mean.reshape(-1, 1)
-#print(svd_user_predicted_book)
 
 # 예측 평점 table
 df_svd_preds = pd.DataFrame(svd_user_predicted_book,columns=df_user_book_pivot.columns)
-#print(df_svd_preds)
 
 # 사용자 아이디, 책 정보 테이블, 평점 테이블 => 사용자가 안 본 책에서 평점이 높은 것 추천
 def recomm_books(df_svd_preds, index, user_id, ori_book_df, ori_bookshelf_df):
@@ -82,12 +81,6 @@ def recomm_books(df_svd_preds, index, user_id, ori_book_df, ori_bookshelf_df):
      sorted_user_preds = df_svd_preds.iloc[index].sort_values(ascending=False)
 
      user_data = ori_bookshelf_df[ori_bookshelf_df.user_id == user_id]
-     # print('user data --------------------------------------------------')
-     # print('ori_bookshelf_df')
-     # print(ori_bookshelf_df)
-     # print(user_data)
-     # print(user_data.columns)
-     # print('-----------------------------------------------------------')
 
      # 사용자가 본 데이터 제외
      recomm = ori_book_df[~ori_book_df['id'].isin(user_data['book_id'])]
@@ -103,10 +96,7 @@ for i,user in enumerate(users):
      user_result = recomm_books(df_svd_preds, i, user, df_book, df_bookshelf)
      user_result.insert(2, 'user_id', user)
      user_result = user_result[0:10]
-     # print('user_result----------')
-     # print(user_result)
-     # print('개수 : ', len(user_result.index))
-     # 데이터 추가해서 원래 데이터프레임에 저장하기
+
      predict_result = pd.concat([predict_result, user_result])
      
 # 결과값 pickle 저장
