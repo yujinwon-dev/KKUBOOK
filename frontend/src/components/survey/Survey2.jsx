@@ -1,24 +1,9 @@
 import { useEffect } from 'react';
-import tw, { styled } from 'twin.macro';
 import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
-
-const Header = styled.h1`
-  ${tw`text-[20px] font-medium mb-[9rem]`}
-`;
-
-const BtnDiv = styled.div`
-  margin: 1rem 3rem 3rem 3rem;
-  .grid-box {
-    display: grid;
-    grid-template-columns: 200px 200px;
-    justify-items: center;
-
-    .input-btn {
-      width: 70%;
-    }
-  }
-`;
+import SurveyHeader from './SurveyHeader';
+import SurveyContent from './SurveyContent';
+import Footer from '../common/Footer';
 
 function Survey2({ setPrevPage, setNextPage, addSurveyResult, amount }) {
   const amountList = ['얇은 책', '보통인 책', '두꺼운 책', '아무거나'];
@@ -36,23 +21,21 @@ function Survey2({ setPrevPage, setNextPage, addSurveyResult, amount }) {
 
   return (
     <>
-      <Header>분량이 어떤 책을 선호하시나요?</Header>
-      <BtnDiv>
-        <div className="grid-box">
-          {amountList.map(amount => (
-            <InputBtn
-              key={amount}
-              id={amount}
-              onClick={() =>
-                addSurveyResult('amount', amountList.indexOf(amount))
-              }
-            >
-              {amount}
-            </InputBtn>
-          ))}
-        </div>
-      </BtnDiv>
-      <div>
+      <SurveyHeader mainText="분량이 어떤 책을 선호하시나요?" />
+      <SurveyContent repeat={1} buttonWidth="50%" marginTop="7rem">
+        {amountList.map(amount => (
+          <InputBtn
+            key={amount}
+            id={amount}
+            onClick={() =>
+              addSurveyResult('amount', amountList.indexOf(amount))
+            }
+          >
+            {amount}
+          </InputBtn>
+        ))}
+      </SurveyContent>
+      <Footer>
         <PrevNextBtn btnClass="prev" onClick={() => setPrevPage()}>
           이전
         </PrevNextBtn>
@@ -64,7 +47,7 @@ function Survey2({ setPrevPage, setNextPage, addSurveyResult, amount }) {
         >
           다음
         </PrevNextBtn>
-      </div>
+      </Footer>
     </>
   );
 }

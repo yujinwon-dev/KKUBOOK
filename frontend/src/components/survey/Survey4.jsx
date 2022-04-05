@@ -1,16 +1,9 @@
 import { useEffect } from 'react';
-import tw, { styled } from 'twin.macro';
 import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
-
-const Header = styled.h1`
-  ${tw`text-[20px] font-medium mb-[2rem]`}
-`;
-
-const BtnDiv = styled.div`
-  ${tw`flex flex-col`}
-  margin: 1rem 3rem 3rem 3rem;
-`;
+import SurveyHeader from './SurveyHeader';
+import SurveyContent from './SurveyContent';
+import Footer from '../common/Footer';
 
 function Survey4({ setPrevPage, setNextPage, addSurveyResult, feeling }) {
   const feelingList = [
@@ -35,8 +28,8 @@ function Survey4({ setPrevPage, setNextPage, addSurveyResult, feeling }) {
 
   return (
     <>
-      <Header>요즘 기분은 어떠신가요?</Header>
-      <BtnDiv>
+      <SurveyHeader mainText="요즘 기분은 어떠신가요?" />
+      <SurveyContent repeat={1} buttonWidth="40%" marginTop="4rem">
         {feelingList.map(feeling => (
           <InputBtn
             key={feeling}
@@ -48,8 +41,8 @@ function Survey4({ setPrevPage, setNextPage, addSurveyResult, feeling }) {
             {feeling}
           </InputBtn>
         ))}
-      </BtnDiv>
-      <div>
+      </SurveyContent>
+      <Footer>
         <PrevNextBtn btnClass="prev" onClick={() => setPrevPage()}>
           이전
         </PrevNextBtn>
@@ -61,7 +54,7 @@ function Survey4({ setPrevPage, setNextPage, addSurveyResult, feeling }) {
         >
           다음
         </PrevNextBtn>
-      </div>
+      </Footer>
     </>
   );
 }

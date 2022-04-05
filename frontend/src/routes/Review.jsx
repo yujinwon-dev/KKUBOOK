@@ -56,13 +56,13 @@ function Review() {
   const { innerWidth, innerHeight } = window;
   const width = innerWidth <= 500 ? innerWidth : 500;
 
-  useEffect(
-    () =>
-      setTimeout(() => {
-        setNumOfPieces(0);
-      }, 2500),
-    [],
-  );
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setNumOfPieces(0);
+    }, 2500);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <>

@@ -1,25 +1,9 @@
 import { useEffect } from 'react';
-import tw, { styled } from 'twin.macro';
 import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
-
-const Header = styled.h1`
-  ${tw`text-[20px] font-medium`}
-`;
-
-const BtnDiv = styled.div`
-  margin: 1rem 3rem 3rem 3rem;
-
-  .grid-box {
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
-    justify-items: center;
-
-    .input-btn {
-      width: 80%;
-    }
-  }
-`;
+import SurveyHeader from './SurveyHeader';
+import SurveyContent from './SurveyContent';
+import Footer from '../common/Footer';
 
 function Survey5({
   setPrevPage,
@@ -81,22 +65,24 @@ function Survey5({
 
   return (
     <>
-      <Header>요즘 관심사는 무엇인가요?</Header>
-      <span>(최대 5개)</span>
-      <BtnDiv>
-        <div className="grid-box">
-          {interestList.map(interestItem => (
-            <InputBtn
-              key={interestItem}
-              id={interestItem}
-              onClick={() => handleAddInterest(interestItem)}
-            >
-              {interestItem}
-            </InputBtn>
-          ))}
-        </div>
-      </BtnDiv>
-      <div>
+      <SurveyHeader mainText="요즘 관심사는 무엇인가요?" subText="(최대 5개)" />
+      <SurveyContent
+        repeat={3}
+        buttonWidth="70%"
+        marginTop="2rem"
+        paddingBottom="5rem"
+      >
+        {interestList.map(interestItem => (
+          <InputBtn
+            key={interestItem}
+            id={interestItem}
+            onClick={() => handleAddInterest(interestItem)}
+          >
+            {interestItem}
+          </InputBtn>
+        ))}
+      </SurveyContent>
+      <Footer>
         <PrevNextBtn btnClass="prev" onClick={() => setPrevPage()}>
           이전
         </PrevNextBtn>
@@ -108,7 +94,7 @@ function Survey5({
         >
           다음
         </PrevNextBtn>
-      </div>
+      </Footer>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // export const API_BASE_URL = 'http://localhost:8000';
-export const API_BASE_URL = 'http://j6b204.p.ssafy.io';
+export const API_BASE_URL = 'http://j6b204.p.ssafy.io:8070';
 
 const apiInstance = axios.create({
   baseURL: `${API_BASE_URL}/api/v1`,

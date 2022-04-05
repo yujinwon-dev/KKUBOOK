@@ -1,19 +1,11 @@
 import { styled } from 'twin.macro';
 
-const BtnDiv = styled.div`
-  position: fixed;
-  bottom: 0;
-  max-width: 500px;
-  width: 100%;
-  transform: translate(-50%, -50%);
-`;
-
 const Btn = styled.button`
-  position: absolute;
   bottom: 2rem;
   width: 9rem;
   height: 3rem;
   border-radius: 10px;
+  margin: 0px 10px;
 
   &.prev {
     left: 2rem;
@@ -32,11 +24,9 @@ const Btn = styled.button`
 
 function InputBtn({ children, btnClass, onClick }) {
   return (
-    <BtnDiv>
-      <Btn type="button" className={btnClass} onClick={onClick}>
-        {children}
-      </Btn>
-    </BtnDiv>
+    <Btn type="button" className={btnClass} onClick={onClick}>
+      {children}
+    </Btn>
   );
 }
 

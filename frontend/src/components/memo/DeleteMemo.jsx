@@ -54,7 +54,7 @@ function DeleteMemo() {
           onClick={() => {
             actionDeleteMemo();
             onDismiss();
-            navigate('/memo');
+            navigate(-1);
           }}
         >
           메모 삭제하기
@@ -63,7 +63,7 @@ function DeleteMemo() {
           type="button"
           onClick={() => {
             onDismiss();
-            navigate('/memo');
+            navigate(-1);
           }}
         >
           취소

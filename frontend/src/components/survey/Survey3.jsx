@@ -1,25 +1,9 @@
 import { useEffect } from 'react';
-import tw, { styled } from 'twin.macro';
 import InputBtn from './InputBtn';
 import PrevNextBtn from './PrevNextBtn';
-
-const Header = styled.h1`
-  ${tw`text-[20px] font-medium mb-[2rem]`}
-`;
-
-const BtnDiv = styled.div`
-  margin: 1rem 3rem 3rem 3rem;
-
-  .grid-box {
-    display: grid;
-    grid-template-columns: 200px 200px;
-    justify-items: center;
-
-    .input-btn {
-      width: 80%;
-    }
-  }
-`;
+import SurveyHeader from './SurveyHeader';
+import SurveyContent from './SurveyContent';
+import Footer from '../common/Footer';
 
 function Survey3({ setPrevPage, setNextPage, addSurveyResult, job }) {
   const jobList = [
@@ -50,21 +34,20 @@ function Survey3({ setPrevPage, setNextPage, addSurveyResult, job }) {
 
   return (
     <>
-      <Header>어떤 일을 하고 있으세요?</Header>
-      <BtnDiv>
-        <div className="grid-box">
-          {jobList.map(job => (
-            <InputBtn
-              key={job}
-              id={job}
-              onClick={() => addSurveyResult('job', jobList.indexOf(job))}
-            >
-              {job}
-            </InputBtn>
-          ))}
-        </div>
-      </BtnDiv>
-      <div>
+      <SurveyHeader mainText="어떤 일을 하고 있으신가요?" />
+      <SurveyContent repeat={2} buttonWidth="80%" marginTop="2rem">
+        {jobList.map(job => (
+          <InputBtn
+            key={job}
+            id={job}
+            onClick={() => addSurveyResult('job', jobList.indexOf(job))}
+          >
+            {job}
+          </InputBtn>
+        ))}
+      </SurveyContent>
+
+      <Footer>
         <PrevNextBtn btnClass="prev" onClick={() => setPrevPage()}>
           이전
         </PrevNextBtn>
@@ -76,7 +59,7 @@ function Survey3({ setPrevPage, setNextPage, addSurveyResult, job }) {
         >
           다음
         </PrevNextBtn>
-      </div>
+      </Footer>
     </>
   );
 }
