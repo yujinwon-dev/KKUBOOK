@@ -45,7 +45,7 @@ const StyledContent = styled.div`
   }
 
   button {
-    ${tw`text-dark-gray`}
+    ${tw`flex flex-col justify-center items-center text-dark-gray`}
     outline: none;
     border: none;
     background: none;
@@ -164,6 +164,11 @@ function Main() {
               type="button"
               onClick={() => openBottomSheet(SearchList, '책 등록하기')}
             >
+              <img
+                className="kkubook-img"
+                src={transparentKKubook}
+                alt="transparent-kkubook"
+              />
               책 추가하기
             </button>
           </Card>
