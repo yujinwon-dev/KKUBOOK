@@ -4,7 +4,7 @@ import getCurrentDate from '../utils/currentDate';
 
 const getBooks = async () => {
   try {
-    const { data } = await api.get('kkubooks/bookshelf/booklist');
+    const { data } = await api.get('kkubooks/bookshelf/booklist/');
     return data.map(bookObj => snakeToCamel(bookObj));
   } catch (err) {
     return err;
