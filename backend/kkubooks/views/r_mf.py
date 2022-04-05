@@ -53,8 +53,6 @@ def recomm_mf(request):
                 interest_list[index] = i
                 index += 1
             
-            print(interest_list)
-            
             # 분량 : 얇은 책/보통인 책/두꺼운 책/아무거나
             q=Q()
             if survey.amount==0:  # 얇은 책:0
