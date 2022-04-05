@@ -46,28 +46,12 @@ const ReviewPage = styled.div`
   }
 `;
 
-const book = {
-  id: 2,
-  book: 2,
-  title: '어린 왕자',
-  author: '생택쥐페리',
-  imgUrl: 'https://image.yes24.com/goods/49855699/XL',
-  startDate: '2022.02.22',
-  endDate: null,
-  rating: 10,
-  page: 180,
-  currPage: 50,
-  bookStatus: 2,
-  isbn: 9788931021295,
-};
-
 function Review() {
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
-  const changeRating = value => {
-    setRating(value);
-  };
+  const changeRating = value => setRating(value);
   const selectedBook = selectedBookStore(state => state.selectedBook);
+  const { id, bookInfo } = selectedBook;
   const [numOfPieces, setNumOfPieces] = useState(200);
   const { innerWidth, innerHeight } = window;
   const width = innerWidth <= 500 ? innerWidth : 500;
@@ -90,8 +74,8 @@ function Review() {
       <ReviewPage>
         <p className="title">다 읽었어요!</p>
         <div className="content">
-          <img src={book.imgUrl} alt={book.title} />
-          <p className="book-title">{book.title}</p>
+          <img src={bookInfo.img_url} alt={bookInfo.title} />
+          <p className="book-title">{bookInfo.title}</p>
           <Rating
             onClick={changeRating}
             ratingValue={rating}
@@ -104,14 +88,14 @@ function Review() {
             background="white"
             color="#8DCD84"
             onClick={() => {
-              submitRating(selectedBook.id, rating / 10);
+              submitRating(id, rating / 10);
               navigate('/bookshelf');
             }}
           />
           <Button
             title="다음에 읽을 책 추천 받기"
             onClick={() => {
-              submitRating(selectedBook.id, rating / 10);
+              submitRating(id, rating / 10);
               navigate('/recommendation');
             }}
           />
