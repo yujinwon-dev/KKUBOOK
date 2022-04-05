@@ -23,7 +23,7 @@ const Li = styled.li`
     props.selected &&
     css`
       .dot-wrapper:before {
-        content: '▪';
+        content: '•';
         display: block;
         position: absolute;
         color: #61b864;

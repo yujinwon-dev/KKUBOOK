@@ -51,6 +51,10 @@ const StyledContent = styled.div`
     background: none;
   }
 
+  .add-book-btn {
+    ${tw`flex flex-col justify-center items-center`}
+  }
+
   .kkubook-img {
     width: 40%;
     margin: 10px auto;
@@ -137,6 +141,7 @@ function Main() {
             <Card>
               <button
                 type="button"
+                className="add-book-btn"
                 onClick={() => openBottomSheet(SearchList, '책 등록하기')}
               >
                 <img
@@ -162,8 +167,14 @@ function Main() {
           <Card>
             <button
               type="button"
+              className="add-book-btn"
               onClick={() => openBottomSheet(SearchList, '책 등록하기')}
             >
+              <img
+                className="kkubook-img"
+                src={transparentKKubook}
+                alt="transparent-kkubook"
+              />
               책 추가하기
             </button>
           </Card>
