@@ -51,6 +51,10 @@ const StyledContent = styled.div`
     background: none;
   }
 
+  .add-book-btn {
+    ${tw`flex flex-col justify-center items-center`}
+  }
+
   .kkubook-img {
     width: 40%;
     margin: 10px auto;
@@ -137,6 +141,7 @@ function Main() {
           <Card wrapperPadding={!mainBooks.length && '1rem'}>
             <button
               type="button"
+              className="add-book-btn"
               onClick={() => openBottomSheet(SearchList, '책 등록하기')}
             >
               <img
@@ -144,7 +149,7 @@ function Main() {
                 src={transparentKKubook}
                 alt="transparent-kkubook"
               />
-              읽을 책 추가하기
+              {mainBooks.length ? '읽을 책 추가하기' : '책 추가하기'}
             </button>
           </Card>
           {mainBooks.map((book, index) => (
