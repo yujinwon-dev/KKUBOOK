@@ -25,7 +25,7 @@ const GreenHeader = styled.header`
     display: block;
     width: auto;
     height: 50px;
-    margin: 0.6rem auto;
+    margin: 2.5rem auto;
   }
 `;
 
