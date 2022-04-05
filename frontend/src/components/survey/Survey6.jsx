@@ -6,7 +6,7 @@ import SurveyContent from './SurveyContent';
 import Footer from '../common/Footer';
 
 function Survey6({ setPrevPage, completeSurvey, addSurveyResult, category }) {
-  const categoryList = ['문학', '과학', '사회', '예술', '자기계발', '아무거나'];
+  const categoryList = ['아무거나', '문학', '과학', '사회', '예술', '자기계발'];
 
   useEffect(() => {
     const prevSelected = document.querySelector('.selected');
