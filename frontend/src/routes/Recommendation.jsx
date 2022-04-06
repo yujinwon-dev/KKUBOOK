@@ -37,7 +37,7 @@ function Recommendation() {
   const userNickname = useStoreUserInfo(state => state.userInfo.nickname);
   const userTitle = `${userNickname} 님을 위한 추천`;
   const bestTitle = '꾸북 베스트';
-  const similarTitle = '비슷한 독자는';
+  const similarTitle = `${userNickname} 님과 비슷한 독자는`;
   const feelingTitle = '지금 감성엔';
 
   const [userBooks, setUserBooks] = useState([]);
