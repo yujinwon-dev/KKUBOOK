@@ -10,6 +10,10 @@ const StyledBottomSheet = styled(BottomSheet)`
     max-width: 500px;
     margin: 0px auto;
   }
+  ,
+  [data-rsbs-scroll] {
+    -webkit-overflow-scrolling: auto;
+  }
 `;
 
 function BottomSheetBase() {
