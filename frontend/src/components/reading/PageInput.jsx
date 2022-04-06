@@ -33,7 +33,7 @@ const StyledPageInput = styled.div`
   }
 
   .submit-button {
-    ${tw`bg-main-green`}
+    ${tw`bg-main-green text-black`}
     width: 100%;
     height: 2.5rem;
   }
