@@ -81,6 +81,7 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
+  const isKkubook = useStore(state => state.userInfo.isKkubook);
   const kkubookDays = useStore(state => state.userInfo.kkubookDays);
   const mainBooks = useBookStore(state => state.mainbooks);
   const getMainBooks = useBookStore(state => state.getMainBooks);
@@ -134,11 +135,13 @@ function Main() {
         <img src={logo} className="logo" alt="kkubook logo" />
       </GreenHeader>
       <StyledContent>
-        <CommitAlert>
-          <p>
-            꾸북모드 시작한지 <span>{kkubookDays}</span> 일째
-          </p>
-        </CommitAlert>
+        {isKkubook ? (
+          <CommitAlert>
+            <p>
+              꾸북모드 시작한지 <span>{kkubookDays}</span> 일째
+            </p>
+          </CommitAlert>
+        ) : null}
         <p className="main-title">읽고 있는 책</p>
         <Slider {...sliderSetting}>
           <Card wrapperPadding={!mainBooks.length && '1rem'}>
