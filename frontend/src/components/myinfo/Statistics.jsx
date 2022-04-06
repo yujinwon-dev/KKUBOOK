@@ -62,6 +62,7 @@ const Dl = styled.dl`
 
 const Box = styled.div`
   ${tw`flex flex-col items-center bg-white p-3 mb-3`}
+  position: relative;
   border: 0.1px solid #a1a1a1;
   border-radius: 10px;
   box-shadow: 0px 2px 4px 0px #00000040;
