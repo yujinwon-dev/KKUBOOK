@@ -13,6 +13,7 @@ import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
 import transparentKKubook from '../assets/transparent-kkubook.png';
 import logo from '../assets/kkubook-logo.png';
+import useStore from '../stores/user';
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
@@ -80,6 +81,7 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
+  const kkubookDays = useStore(state => state.userInfo.kkubookDays);
   const mainBooks = useBookStore(state => state.mainbooks);
   const getMainBooks = useBookStore(state => state.getMainBooks);
   const [isLoading, setLoading] = useState(true);
@@ -134,7 +136,7 @@ function Main() {
       <StyledContent>
         <CommitAlert>
           <p>
-            꾸북모드 시작한지 <span>25</span> 일째
+            꾸북모드 시작한지 <span>{kkubookDays}</span> 일째
           </p>
         </CommitAlert>
         <p className="main-title">읽고 있는 책</p>
