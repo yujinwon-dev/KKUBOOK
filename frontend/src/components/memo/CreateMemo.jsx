@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { styled } from 'twin.macro';
+import { styled, css } from 'twin.macro';
 import Header from '../common/Header';
 import { apiPostMemo } from '../../api/memo';
 import { selectedBookStore } from '../../stores/book';
@@ -49,18 +49,7 @@ const ImageBox = styled.div`
     display: none;
   }
   .image-preview {
-    width: 100%;
-    height: 100%;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .uploaded-image {
-      border-radius: 10px;
-      width: 100%;
-      object-fit: fit;
-    }
 
     #close-icon {
       position: absolute;
@@ -69,8 +58,25 @@ const ImageBox = styled.div`
       cursor: pointer;
       width: 30px;
       height: 30px;
+      z-index: 1;
     }
   }
+`;
+
+const MemoImg = styled.div`
+  ${props =>
+    props.value &&
+    css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('${props.value}');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+    `}
 `;
 
 const TextBox = styled.div`
@@ -168,7 +174,7 @@ function CreateMemo({ backClickHandler }) {
               />
             </>
           ) : (
-            <div className="image-preview">
+            <div className="image-upload image-preview">
               <svg
                 id="close-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -180,6 +186,7 @@ function CreateMemo({ backClickHandler }) {
                   setShowImg(null);
                   setLoadImg(null);
                 }}
+                aria-label="닫기"
               >
                 <path
                   fillRule="evenodd"
@@ -187,12 +194,7 @@ function CreateMemo({ backClickHandler }) {
                   clipRule="evenodd"
                 />
               </svg>
-              <img
-                className="uploaded-image"
-                src={showImg}
-                alt="upload-img"
-                draggable={false}
-              />
+              <MemoImg value={showImg} aria-label="메모 이미지" />
             </div>
           )}
         </ImageBox>
