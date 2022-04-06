@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import Navbar from '../components/common/Navbar';
 import FabButton from '../components/common/FabButton';
@@ -35,12 +34,11 @@ const Header = styled.div`
 `;
 
 function Recommendation() {
-  const navigate = useNavigate();
   const userNickname = useStoreUserInfo(state => state.userInfo.nickname);
   const userTitle = `${userNickname} 님을 위한 추천`;
-  const bestTitle = '베스트셀러';
-  const similarTitle = '비슷한 독자의 책장';
-  const feelingTitle = '지금 감성엔 이런 책';
+  const bestTitle = '꾸북 베스트';
+  const similarTitle = '비슷한 독자는';
+  const feelingTitle = '지금 감성엔';
 
   const [userBooks, setUserBooks] = useState([]);
   const [bestBooks, setBestBooks] = useState([]);

@@ -3,7 +3,7 @@ import apiInstance from '../utils/apiInstance';
 // 사용자 기반 추천 목록
 export async function getUserBooks() {
   try {
-    const response = await apiInstance.get('kkubooks/recommend/userbased/');
+    const response = await apiInstance.get('kkubooks/recommend/mf/');
     return response.data;
   } catch (error) {
     if (error.response.status === 404) {

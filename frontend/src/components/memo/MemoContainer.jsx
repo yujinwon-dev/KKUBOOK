@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import { apiPutLikeMemo } from '../../api/memo';
-import currentDate from '../../utils/currentDate';
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -13,29 +12,40 @@ const Container = styled.div`
 const MemoInfo = styled.div`
   display: flex;
   .book-info {
-    width: 100%;
+    width: 90%;
+    max-width: 90%;
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
     
     .book-info-img {
       margin-right: 10px;
-      width: 10rem;
+      width: 60px;
+      min-width: 60px;
       img {
         width: 100%;
       }
     }
     .book-info-text {
+      width: 70%;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      .book-title {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     }
   }
   .like-button {
     align-self: start;
     cursor: pointer;
     width: 30px;
+    min-width: 30px;
 `;
 const MemoContnet = styled.div`
   display: flex;
@@ -80,9 +90,11 @@ function MemoContainer({ memo }) {
             <img src={book_info.img_url} alt={book_info.title} />
           </div>
           <div className="book-info-text">
-            <p>{book_info.title}</p>
+            <div className="book-title">
+              <p>{book_info.title}</p>
+            </div>
             <p>{book_info.author}</p>
-            <p>{currentDate(created_at)}</p>
+            <p>{created_at}</p>
           </div>
         </div>
         {isLiked ? (
