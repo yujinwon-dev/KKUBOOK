@@ -16,6 +16,7 @@ const settings = {
 const BookImg = styled.img`
   display: block;
   padding: 0 0.5rem 1rem 0.5rem;
+  height: 15vh;
 `;
 
 function BookList({ books }) {
