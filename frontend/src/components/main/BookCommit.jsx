@@ -71,6 +71,13 @@ function BookCommit({ values }) {
           }
           return `color-filled`;
         }}
+        titleForValue={value => {
+          if (value) {
+            const { date } = value;
+            return `책 읽은 날: ${date.getMonth() + 1}월 ${date.getDate()}일`;
+          }
+          return '꾸북 모드를 켜고 책을 읽어 보세요!';
+        }}
       />
     </CommitContainer>
   );

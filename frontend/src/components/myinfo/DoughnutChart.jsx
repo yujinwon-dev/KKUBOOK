@@ -5,16 +5,31 @@ import tw, { styled } from 'twin.macro';
 ChartJS.register(ArcElement, Tooltip, Title);
 
 const MiddleText = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 40px;
-  position: absolute;
-  top: 55%;
-  left: 0;
-  margin-top: 157px;
   line-height: 19px;
   text-align: center;
   font-size: 20px;
+  margin-top: 180px; // Samsung Galaxy S8+
   z-index: 1;
+
+  // iPhone SE
+  @media screen and (min-width: 375px) {
+    margin-top: 190px;
+  }
+
+  // Samsung Glaxy S20 Ultra
+  @media screen and (min-width: 412px) {
+    margin-top: 210px;
+  }
+
+  // tablet & web
+  @media screen and (min-width: 450px) {
+    margin-top: 250px;
+  }
 `;
 
 const GenreList = styled.ol`

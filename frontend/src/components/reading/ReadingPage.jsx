@@ -8,7 +8,7 @@ import Warning from './Warning';
 import Header from '../common/Header';
 
 const StyledReadingPage = styled.div`
-  background-color: #2a4753;
+  background-color: #7c9e80;
   min-height: 100vh;
   padding: 0 1rem;
   display: flex;
@@ -80,7 +80,7 @@ function ReadingPage({
 
   return (
     <>
-      <Header background="#2a4753" />
+      <Header background="#7c9e80" />
       <StyledReadingPage>
         <div className="time-container">
           <p>{isTimerActive ? '독서 중' : '쉬는 중'}</p>
