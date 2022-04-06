@@ -5,6 +5,7 @@ import { getBookDetail, getNaverUrl } from '../../api/main';
 import useStore from '../../stores/user';
 import { addBook } from '../../api/bookshelf';
 import useBookStore from '../../stores/book';
+import Footer from '../common/Footer';
 
 const Bar = styled.div`
   position: fixed;
@@ -60,12 +61,9 @@ function Content({ title, content }) {
 }
 
 const Buttons = styled.div`
-  position: fixed;
-  width: 100%;
-  max-width: 500px;
-  bottom: 0;
-  margin-bottom: 1rem;
+  margin: 0rem 1rem;
   display: flex;
+  justify-content: center;
 `;
 
 const Button = styled.button`
@@ -148,20 +146,22 @@ function BookDetail() {
         <Content title="출판사" content={publisher} />
         <Content title="페이지" content={page} />
       </BookInfo>
-      <Buttons>
-        <Button left onClick={() => openPortalDetail()}>
-          <p>책 상세내용 보기</p>
-        </Button>
-        <Button
-          onClick={() => {
-            addBook(Number(bookId), userId);
-            setCategory(2);
-            navigate('/bookshelf');
-          }}
-        >
-          <p>서재에 등록하기</p>
-        </Button>
-      </Buttons>
+      <Footer>
+        <Buttons>
+          <Button left onClick={() => openPortalDetail()}>
+            <p>책 상세내용 보기</p>
+          </Button>
+          <Button
+            onClick={() => {
+              addBook(Number(bookId), userId);
+              setCategory(2);
+              navigate('/bookshelf');
+            }}
+          >
+            <p>서재에 등록하기</p>
+          </Button>
+        </Buttons>
+      </Footer>
     </>
   );
 }

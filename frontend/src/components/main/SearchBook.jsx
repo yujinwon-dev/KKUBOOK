@@ -53,7 +53,7 @@ const SearchBox = styled.div`
       text-align: center;
       border: none;
       background-color: white;
-      border-top: 2px solid #71b864;
+      border-top: 1px solid #71b864;
       cursor: pointer;
     }
     .true > p {
