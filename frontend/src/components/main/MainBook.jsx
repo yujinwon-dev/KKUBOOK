@@ -38,7 +38,9 @@ const BookContainer = styled.div`
   }
 
   img {
+    display: block;
     width: 30%;
+    height: 16vh;
     margin-bottom: auto;
   }
 
