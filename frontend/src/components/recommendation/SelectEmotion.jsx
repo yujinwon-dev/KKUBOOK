@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import tw, { styled } from 'twin.macro';
 import InputBtn from '../survey/InputBtn';
 import { getFeeling, submitFeeling } from '../../api/survey';
+import useStoreFeelingBooks from '../../stores/recommend';
+import { getFeelingBooks } from '../../api/recommend';
 
 const ScrollEmotion = styled.div`
   padding-top: 0.5rem;
@@ -28,6 +30,9 @@ function SearchRecommend() {
     '💬 심심해요',
     '💊 고민이 있어요',
   ];
+  const storeFeelingBooks = useStoreFeelingBooks(
+    useCallback(state => state.setBooks),
+  );
 
   async function showDefaultFeeling() {
     const feelingIdx = await getFeeling();
@@ -40,6 +45,11 @@ function SearchRecommend() {
     showDefaultFeeling();
   }, []);
 
+  async function apiFeelingBooks() {
+    const getBooks = await getFeelingBooks();
+    return storeFeelingBooks(getBooks);
+  }
+
   function changeFeeling(newFeelingIdx) {
     const prevSelected = document.querySelector('.selected');
     prevSelected.classList.remove('selected');
@@ -47,6 +57,7 @@ function SearchRecommend() {
     const currentSelected = document.getElementById(feelingList[newFeelingIdx]);
     currentSelected.classList.add('selected');
     submitFeeling(newFeelingIdx);
+    apiFeelingBooks();
   }
 
   return (
