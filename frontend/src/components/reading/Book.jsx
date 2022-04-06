@@ -4,18 +4,28 @@ import styled from 'styled-components';
 const BookReading = styled.div`
   background-color: white;
   margin: auto;
-  height: 15vh;
+  height: 7.5rem;
   width: 100%;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
 
-  img {
-    height: 90%;
-    margin: 5px;
+  .img-box {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 10px;
+    img {
+      height: 90%;
+    }
   }
-
+  .text-box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
   button {
     margin-left: auto;
     height: 100%;
@@ -26,8 +36,10 @@ const BookReading = styled.div`
 function Book({ bookInfo, isTimerActive, setIsTimerActive }) {
   return (
     <BookReading>
-      <img src={bookInfo.img_url} alt={bookInfo.title} />
-      <div>
+      <div className="img-box">
+        <img src={bookInfo.img_url} alt={bookInfo.title} />
+      </div>
+      <div className="text-box">
         <p>{bookInfo.title}</p>
         <p>{bookInfo.author}</p>
       </div>
