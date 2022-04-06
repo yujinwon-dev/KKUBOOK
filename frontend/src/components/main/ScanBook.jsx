@@ -20,16 +20,15 @@ function ScanBook() {
   const navigate = useNavigate();
   const [findCode, setCode] = useState(null);
 
-  function searchIsbn() {
+  function searchIsbn(inputIsbn) {
     const reqData = {
-      word: `${findCode}`,
+      word: '9791168120839',
       index: 2,
     };
     apiSearchBook(
       reqData,
       response => {
-        console(response.data.bookId);
-        navigate(`/bookDetail/${response.data.bookId}`);
+        navigate(`/bookDetail/${response.data.id}`);
       },
       error => console.log(error),
     );
@@ -65,24 +64,25 @@ function ScanBook() {
               if (data) {
                 clearInterval(detectBarcode);
                 setCode(data.rawValue);
+                searchIsbn(data.rawValue);
               }
             })
             .catch(err => console.log(err));
         }, 100);
       })
       .catch(err => {
-        alert('바코드 스캔을 지원하지 않는 기기입니다');
-        navigate(-1);
+        console.log(err);
       });
   };
 
   useEffect(() => {
-    if (findCode) {
-      searchIsbn();
-    } else {
+    if (findCode == null && window.BarcodeDetector !== undefined) {
       openCam();
+    } else {
+      alert('바코드 스캔을 지원하지 않는 기기입니다');
+      navigate(-1);
     }
-  });
+  }, []);
 
   return (
     <CamContainer>

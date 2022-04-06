@@ -27,7 +27,6 @@ const memoFormat = obj => {
     memo_mark: obj.memo_mark,
     updated_at: obj.updated_at,
   };
-  console.log(styledMemo);
   return styledMemo;
 };
 

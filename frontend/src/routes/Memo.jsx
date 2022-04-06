@@ -33,6 +33,7 @@ const Container = styled.div`
   .form-check {
     display: flex;
     justify-content: end;
+    -webkit-justify-content: flex-end;
     align-items: center;
     cursor: pointer;
     margin-bottom: 1.5rem;
@@ -133,32 +134,27 @@ function Memo() {
             tabIndex={0}
           >
             {likedMemos ? (
-              <>
-                <CheckMark checked>
-                  <svg
-                    id="checkbox"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="white"
-                    strokeWidth="3"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </CheckMark>
-                <p className="check-label">좋아하는 메모</p>
-              </>
+              <CheckMark checked>
+                <svg
+                  id="checkbox"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="white"
+                  strokeWidth="3"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </CheckMark>
             ) : (
-              <>
-                <CheckMark />
-                <p className="check-label">좋아하는 메모</p>
-              </>
+              <CheckMark />
             )}
+            <p className="check-label">좋아하는 메모</p>
           </div>
           {isEmpty ? (
             <NoMemo>
