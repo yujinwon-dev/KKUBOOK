@@ -5,6 +5,11 @@ import { getBooks } from '../api/bookshelf';
 import { apiGetMemos } from '../api/memo';
 
 const useStore = create((set, get) => ({
+  // searched books
+  searchedBooks: [],
+  setSearchedBooks: searchedBooks => {
+    return set({ searchedBooks });
+  },
   // main
   mainbooks: [],
   firstCardIndex: 1,
