@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import Time from './Time';
 import Book from './Book';
 import useStore from '../../stores/bottomSheet';
 import Warning from './Warning';
 import Header from '../common/Header';
+import ReadingAlert from './ReadingAlert';
 
 const StyledReadingPage = styled.div`
   background-color: #7c9e80;
@@ -17,7 +17,7 @@ const StyledReadingPage = styled.div`
     position: fixed;
     width: 100%;
     max-width: 500px;
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,7 +75,6 @@ const Container = styled.div`
     -webkit-justify-content: flex-end;
     align-items: center;
     cursor: pointer;
-    margin-bottom: 1.5rem;
     .check-label {
       padding-left: 5px;
       color: #ffffff;
@@ -92,6 +91,12 @@ const CheckMark = styled.div`
   width: 20px;
   height: 20px;
 }
+`;
+
+const AlertList = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: start;
 `;
 
 const BookInfoCard = styled.div`
@@ -122,6 +127,27 @@ function ReadingPage({
     }
     setCurrentPage('record');
   };
+
+  const [alertList, setAlertList] = useState([]);
+  const msgList = [
+    '타이머는 2분이 지나면 사라집니다',
+    '독서가 어려우시다면 2분 동안은 손에 있는 책에 집중해보세요',
+    '어느새 독서에 빠진 자신의 모습을 발견하실 수 있을 거예요!',
+  ];
+
+  function addEleby5sec() {
+    for (let i = 0; i < 3; i += 1) {
+      setTimeout(() => {
+        alertList.push(msgList[i]);
+      }, i * 2000);
+    }
+  }
+  useEffect(() => {
+    if (time < 1) {
+      addEleby5sec();
+    }
+  }, []);
+
   return (
     <>
       <Header background="#7c9e80" />
@@ -160,6 +186,13 @@ function ReadingPage({
             <p className="check-label">시간 보기</p>
           </div>
         </Container>
+        {alertList.length ? (
+          <AlertList>
+            {alertList.map(alert => (
+              <ReadingAlert key={alert} alert={alert} time={time} />
+            ))}
+          </AlertList>
+        ) : null}
         <div className="time-container">
           <p>{isTimerActive ? '독서 중' : '쉬는 중'}</p>
           {(isTimeVisible || toggleTime) && <Time time={time} />}
