@@ -28,7 +28,18 @@ const Balloon = styled.img(({ progressRate }) => [
     w-[35px]
     my-2
   `,
-  `margin-left: ${progressRate > 5.8 ? progressRate - 5.8 : 0}%`,
+  `
+  margin-left: ${progressRate > 5.8 ? progressRate - 5.8 : 0}%;
+  animation: up-down 1.2s infinite ease-in-out alternate;
+
+  @keyframes up-down{
+    from{
+      transform: translatey(0px);
+    }
+    to{
+      transform: translatey(-4px);
+    }
+  `,
 ]);
 
 function ProgressBar({ value, totalValue, height, needBalloon }) {
