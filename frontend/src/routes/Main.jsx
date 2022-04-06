@@ -18,7 +18,7 @@ const GreenHeader = styled.header`
   ${tw`bg-main-green`}
   width: 100%;
   max-width: 500px;
-  height: 30vh;
+  height: 45vh;
   position: absolute;
 
   .logo {
@@ -26,6 +26,24 @@ const GreenHeader = styled.header`
     width: auto;
     height: 50px;
     margin: 2.5rem auto;
+  }
+`;
+
+const CommitAlert = styled.div`
+  margin: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(70px);
+  border-radius: 10px;
+  p {
+    font-size: 13px;
+  }
+  span {
+    color: white;
+    font-weight: bold;
   }
 `;
 
@@ -41,7 +59,7 @@ const StyledContent = styled.div`
   .main-title {
     color: white;
     font-size: 20px;
-    margin: 0.5rem 1.5rem;
+    margin: 1rem 1.5rem;
   }
 
   button {
@@ -114,6 +132,11 @@ function Main() {
         <img src={logo} className="logo" alt="kkubook logo" />
       </GreenHeader>
       <StyledContent>
+        <CommitAlert>
+          <p>
+            꾸북모드 시작한지 <span>25</span> 일째
+          </p>
+        </CommitAlert>
         <p className="main-title">읽고 있는 책</p>
         <Slider {...sliderSetting}>
           <Card wrapperPadding={!mainBooks.length && '1rem'}>
