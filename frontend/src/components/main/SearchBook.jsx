@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'twin.macro';
 import SearchResult from './SearchResult';
 import worryingKkubook from '../../assets/worrying-kkubook.png';
 import { apiSearchBook } from '../../api/main';
+import useBookStore from '../../stores/book';
 
 const Bar = styled.div`
   position: fixed;
@@ -52,7 +53,7 @@ const SearchBox = styled.div`
       text-align: center;
       border: none;
       background-color: white;
-      border-top: 2px solid #71b864;
+      border-top: 1px solid #71b864;
       cursor: pointer;
     }
     .true > p {
@@ -93,6 +94,34 @@ function SearchBook() {
   const [keyword, setKeyword] = useState('');
   const [books, setBooks] = useState([]);
   const [isSearch, setSearch] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(false);
+  const [bookIndex, setBookIndex] = useState(0);
+  const searchedBooks = useBookStore(state => state.searchedBooks);
+  const setSearchedBooks = useBookStore(state => state.setSearchedBooks);
+  const observer = useRef();
+  const lastBookRef = useCallback(
+    node => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          setBookIndex(prevBookIndex => prevBookIndex + 10);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [hasMoreData],
+  );
+
+  useEffect(() => {
+    const nextBookList = searchedBooks.slice(bookIndex, bookIndex + 10);
+    setBooks(prev => {
+      return [...prev, ...nextBookList];
+    });
+
+    setHasMoreData(nextBookList.length > 0);
+  }, [bookIndex]);
 
   function searchTitle() {
     const reqData = {
@@ -102,7 +131,9 @@ function SearchBook() {
     apiSearchBook(
       reqData,
       response => {
-        setBooks(response.data);
+        const { data } = response;
+        setSearchedBooks(data);
+        setBooks(data.slice(0, 10));
       },
       error => console.log(error),
     );
@@ -116,7 +147,9 @@ function SearchBook() {
     apiSearchBook(
       reqData,
       response => {
-        setBooks(response.data);
+        const { data } = response;
+        setSearchedBooks(data);
+        setBooks(data.slice(0, 10));
       },
       error => console.log(error),
     );
@@ -223,9 +256,16 @@ function SearchBook() {
         <div>
           {books.length ? (
             <SearchResults>
-              {books.map(book => (
-                <SearchResult key={book.id} book={book} />
-              ))}
+              {books.map((book, index) => {
+                if (books.length === index + 1) {
+                  return (
+                    <div ref={lastBookRef} key={book.id}>
+                      <SearchResult book={book} />
+                    </div>
+                  );
+                }
+                return <SearchResult key={book.id} book={book} />;
+              })}
             </SearchResults>
           ) : (
             <NoResult>

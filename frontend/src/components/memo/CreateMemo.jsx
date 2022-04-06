@@ -25,9 +25,6 @@ const ImageBox = styled.div`
   width: 100%;
   height: 40vh;
   margin-bottom: 1rem;
-  :hover {
-    opacity: 0.6;
-  }
 
   .image-upload {
     width: 100%;

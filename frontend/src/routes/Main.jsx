@@ -13,12 +13,13 @@ import useBottomSheetStore from '../stores/bottomSheet';
 import { getBookCommit } from '../api/main';
 import transparentKKubook from '../assets/transparent-kkubook.png';
 import logo from '../assets/kkubook-logo.png';
+import useStore from '../stores/user';
 
 const GreenHeader = styled.header`
   ${tw`bg-main-green`}
   width: 100%;
   max-width: 500px;
-  height: 30vh;
+  height: 45vh;
   position: absolute;
 
   .logo {
@@ -26,6 +27,24 @@ const GreenHeader = styled.header`
     width: auto;
     height: 50px;
     margin: 2.5rem auto;
+  }
+`;
+
+const CommitAlert = styled.div`
+  margin: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(70px);
+  border-radius: 10px;
+  p {
+    font-size: 13px;
+  }
+  span {
+    color: white;
+    font-weight: bold;
   }
 `;
 
@@ -41,7 +60,7 @@ const StyledContent = styled.div`
   .main-title {
     color: white;
     font-size: 20px;
-    margin: 0.5rem 1.5rem;
+    margin: 1rem 1.5rem;
   }
 
   button {
@@ -59,13 +78,11 @@ const StyledContent = styled.div`
     width: 40%;
     margin: 10px auto;
   }
-
-  .kakao-button {
-    width: 200px;
-  }
 `;
 
 function Main() {
+  const isKkubook = useStore(state => state.userInfo.isKkubook);
+  const kkubookDays = useStore(state => state.userInfo.kkubookDays);
   const mainBooks = useBookStore(state => state.mainbooks);
   const getMainBooks = useBookStore(state => state.getMainBooks);
   const [isLoading, setLoading] = useState(true);
@@ -108,24 +125,6 @@ function Main() {
     }
   }, []);
 
-  useEffect(() => {
-    const initKakao = () => {
-      if (window.Kakao) {
-        const kakao = window.Kakao;
-        if (!kakao.isInitialized()) {
-          kakao.init(process.env.REACT_APP_JS_KEY);
-        }
-
-        kakao.Channel.createAddChannelButton({
-          container: '#kakao-talk-channel-add-button',
-        });
-      }
-    };
-    initKakao();
-
-    return () => window.Kakao.Channel.cleanup();
-  }, []);
-
   // slider에는 padding이 들어가면 안된다.
   // slider를 감싼 요소가 fix면 slider css가 깨져서 greenHeader를 absolute로 설정
   return (
@@ -136,6 +135,13 @@ function Main() {
         <img src={logo} className="logo" alt="kkubook logo" />
       </GreenHeader>
       <StyledContent>
+        {isKkubook ? (
+          <CommitAlert>
+            <p>
+              꾸북모드 시작한지 <span>{kkubookDays}</span> 일째
+            </p>
+          </CommitAlert>
+        ) : null}
         <p className="main-title">읽고 있는 책</p>
         <Slider {...sliderSetting}>
           <Card wrapperPadding={!mainBooks.length && '1rem'}>
@@ -168,15 +174,6 @@ function Main() {
             <BookCommit values={commits} />
           </div>
         )}
-        <div className="content-wrapper">
-          <div
-            className="kakao-button"
-            id="kakao-talk-channel-add-button"
-            data-channel-public-id="_xcsqNb"
-            data-size="small"
-            data-support-multiple-densities="true"
-          />
-        </div>
       </StyledContent>
     </>
   );
