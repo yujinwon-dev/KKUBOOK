@@ -6,12 +6,12 @@ const BookContainer = styled.div`
   margin-right: 1rem;
   .book-img {
     margin-bottom: 1rem;
-    min-height: 20vh;
     display: flex;
     align-items: end;
     img {
+      display: block;
       width: 100%;
-      max-height: 100%;
+      height: 20vh;
     }
   }
   .book-info {
