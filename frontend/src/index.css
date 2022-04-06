@@ -5,7 +5,7 @@
 
 body {
   height: 100%;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -30,4 +30,5 @@ code {
   /* padding-bottom: 62px; */
   background-color: #fff;
   margin: 0 auto;
+  color: black;
 }
