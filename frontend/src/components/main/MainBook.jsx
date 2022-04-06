@@ -38,7 +38,9 @@ const BookContainer = styled.div`
   }
 
   img {
+    display: block;
     width: 30%;
+    height: 16vh;
     margin-bottom: auto;
   }
 
@@ -102,7 +104,7 @@ function MainBook({ book, index, selectBook, setCardIndex }) {
             <div className="page-info">
               <p>{Math.round((currPage / bookInfo.page) * 100)}%</p>
               <p>
-                {bookInfo.page} / {currPage} 페이지
+                {currPage} / {bookInfo.page} 페이지
               </p>
             </div>
           </div>
