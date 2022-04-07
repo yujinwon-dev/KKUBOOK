@@ -1,4 +1,4 @@
-![kkubook (6)](README.assets/kkubook (6).png)
+![kkubooLogo](README.assets/kkubooLogo.png)
 
 
 
