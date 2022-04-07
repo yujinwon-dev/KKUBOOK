@@ -189,14 +189,19 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
             setCategory(updatedProgress.bookStatus);
 
             if (currentIsKkubook) {
-              const { kkubookmode } = updatedProgress;
-              const { level, kkubook_days } = kkubookmode;
-              updateUserInfo({ level, kkubookDays: kkubook_days });
               if (currentLevel * 10 + currentKkubookDays === 99) {
                 increaseComplete();
+                updateUserInfo({
+                  isKkubook: false,
+                  level: -1,
+                  kkubookDays: -1,
+                });
                 navigate(`/congratulations/${updatedProgress.bookStatus}`);
                 return;
               }
+              const { kkubookmode } = updatedProgress;
+              const { level, kkubook_days } = kkubookmode;
+              updateUserInfo({ level, kkubookDays: kkubook_days });
             }
             if (updatedProgress.bookStatus === 0) {
               navigate('/review');
