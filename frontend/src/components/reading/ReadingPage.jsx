@@ -62,6 +62,10 @@ const StyledReadingPage = styled.div`
   .br-10 {
     border-radius: 10px;
   }
+
+  .text-black {
+    ${tw`text-black`}
+  }
 `;
 const Container = styled.div`
   display: flex;
@@ -207,14 +211,14 @@ function ReadingPage({
         <div className="button-container">
           <button
             type="button"
-            className="w-45p p-4p bg-light-gray br-10"
+            className="w-45p p-4p bg-light-gray br-10 text-black"
             onClick={() => setCurrentPage('memo')}
           >
             메모하기
           </button>
           <button
             type="button"
-            className="w-45p p-4p bg-main-green br-10"
+            className="w-45p p-4p bg-main-green br-10 text-black"
             onClick={finishReading}
           >
             독서완료

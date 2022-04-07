@@ -1,12 +1,15 @@
 import tw, { styled } from 'twin.macro';
 
 const Button = styled.button(({ isSelected }) => [
-  `background: none;
+  tw`text-black`,
+  `
+    background: none;
     border: none;
     cursor: pointer;
     font-size: 14px;
     padding: 5px;
-    border-top: 1px solid #a1a1a1;`,
+    border-top: 1px solid #a1a1a1;
+  `,
 
   isSelected && tw`text-main-green border-main-green`,
 ]);
