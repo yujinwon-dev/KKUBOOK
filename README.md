@@ -58,9 +58,16 @@
   - react-router-dom
   - twin.macro, zustand,
   - axios, chart.js, lodash, react-calender, react-confetti, react-simple-star-rating, react-slick 등
+  
 - 백엔드
-  - 
-- Kakao Login API
+  - Kakao Login API
+  - Naver Book API
+  - PyJWT
+  - Scipy
+  - Django Rest Framework
+  - MariaDB
+  - Numpy
+  - Matrix Factorization
 
 
 
