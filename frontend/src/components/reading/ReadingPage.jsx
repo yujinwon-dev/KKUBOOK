@@ -125,7 +125,7 @@ function ReadingPage({
   const finishReading = () => {
     setIsTimerActive(false);
 
-    if (time < 120) {
+    if (time < 360) {
       openBottomSheet(Warning, '독서 시간이 너무 적어요', setCurrentPage);
       return;
     }
@@ -134,16 +134,16 @@ function ReadingPage({
 
   const [alertList, setAlertList] = useState([]);
   const msgList = [
-    '타이머는 2분이 지나면 사라집니다',
-    '독서가 어려우시다면 2분 동안은 손에 있는 책에 집중해보세요',
-    '어느새 독서에 빠진 자신의 모습을 발견하실 수 있을 거예요!',
+    '타이머는 6분이 지나면 사라집니다',
+    '6분 동안은 손에 있는 책에 집중해보세요',
+    '어느새 독서에 빠진 자신의 모습을 발견할 수 있을 거예요!',
   ];
 
   function addEleby5sec() {
     for (let i = 0; i < 3; i += 1) {
       setTimeout(() => {
         alertList.push(msgList[i]);
-      }, i * 2000);
+      }, (i + 1) * 1000);
     }
   }
   useEffect(() => {

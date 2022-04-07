@@ -25,7 +25,7 @@ function Reading() {
   const book = selectedBookStore(useCallback(state => state.selectedBook, []));
 
   useEffect(() => {
-    if (time === 120) {
+    if (time === 360) {
       setIsTimeVisible(false);
     }
   }, [time]);

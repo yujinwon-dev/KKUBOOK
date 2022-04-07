@@ -5,17 +5,17 @@ const CommitAlert = styled.div`
   display: flex;
   align-items: center;
   margin: 0.5rem 1rem;
-  padding: 0.7rem;
+  padding: 0.5rem;
   padding-left: 1rem;
   ${tw`bg-light-gray`}
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(70px);
   border-radius: 10px;
   svg {
-    margin-right: 10px;
+    margin-right: 5px;
   }
   p {
-    font-size: 13px;
+    font-size: 12px;
   }
   z-index: 1;
 `;
