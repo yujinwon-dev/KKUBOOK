@@ -32,6 +32,13 @@ const useStore = create(
         set(state => ({
           userInfo: { ...state.userInfo, ...newData },
         })),
+      increaseComplete: () =>
+        set(state => ({
+          userInfo: {
+            ...state.userInfo,
+            kkubookComplete: state.userInfo.kkubookComplete + 1,
+          },
+        })),
       offKkubook: () =>
         set(state => ({
           userInfo: { ...state.userInfo, isKkubook: false },
