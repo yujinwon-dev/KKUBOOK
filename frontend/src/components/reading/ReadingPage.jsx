@@ -1,23 +1,23 @@
-import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import Time from './Time';
 import Book from './Book';
 import useStore from '../../stores/bottomSheet';
 import Warning from './Warning';
 import Header from '../common/Header';
+import ReadingAlert from './ReadingAlert';
 
 const StyledReadingPage = styled.div`
   background-color: #7c9e80;
   min-height: 100vh;
-  padding: 0 1rem;
   display: flex;
   flex-direction: column;
 
   .time-container {
+    position: fixed;
     width: 100%;
-    margin: 0px auto;
-    min-height: 75vh;
+    max-width: 500px;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,15 +25,22 @@ const StyledReadingPage = styled.div`
     ${tw`text-light-gray`}
     font-weight: lighter;
     font-size: 25px;
+    line-height: 2rem;
+    z-index: 0;
   }
 
   .button-container {
+    position: fixed;
+    bottom: 0;
     width: 100%;
+    max-width: 500px;
+    padding: 1rem;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex: 1;
+    z-index: 1;
   }
 
   .w-45p {
@@ -60,6 +67,50 @@ const StyledReadingPage = styled.div`
     ${tw`text-black`}
   }
 `;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-right: 1rem;
+  padding-top: 4rem;
+  z-index: 1;
+  .form-check {
+    display: flex;
+    justify-content: end;
+    -webkit-justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    .check-label {
+      padding-left: 5px;
+      color: #ffffff;
+    }
+    #checkbox {
+      background-color: #8dcd84;
+      border-radius: 3px;
+    }
+  }
+`;
+const CheckMark = styled.div`
+  border: ${props => (props.checked ? '' : '1px solid #ffffff')};
+  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+}
+`;
+
+const AlertList = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: start;
+`;
+
+const BookInfoCard = styled.div`
+  padding: 1rem;
+  position: fixed;
+  bottom: 4rem;
+  width: 100%;
+  max-width: 500px;
+  z-index: 1;
+`;
 
 function ReadingPage({
   time,
@@ -69,8 +120,8 @@ function ReadingPage({
   book,
   setCurrentPage,
 }) {
+  const [toggleTime, setToggleTime] = useState(false);
   const openBottomSheet = useStore(useCallback(state => state.openSheet));
-  const navigate = useNavigate();
   const finishReading = () => {
     setIsTimerActive(false);
 
@@ -78,25 +129,85 @@ function ReadingPage({
       openBottomSheet(Warning, '독서 시간이 너무 적어요', setCurrentPage);
       return;
     }
-
     setCurrentPage('record');
   };
+
+  const [alertList, setAlertList] = useState([]);
+  const msgList = [
+    '타이머는 2분이 지나면 사라집니다',
+    '독서가 어려우시다면 2분 동안은 손에 있는 책에 집중해보세요',
+    '어느새 독서에 빠진 자신의 모습을 발견하실 수 있을 거예요!',
+  ];
+
+  function addEleby5sec() {
+    for (let i = 0; i < 3; i += 1) {
+      setTimeout(() => {
+        alertList.push(msgList[i]);
+      }, i * 2000);
+    }
+  }
+  useEffect(() => {
+    if (time < 1) {
+      addEleby5sec();
+    }
+  }, []);
 
   return (
     <>
       <Header background="#7c9e80" />
       <StyledReadingPage>
+        <Container>
+          <div
+            className="form-check"
+            role="button"
+            onClick={() => {
+              setToggleTime(!toggleTime);
+            }}
+            onKeyDown={() => ''}
+            tabIndex={0}
+          >
+            {toggleTime ? (
+              <CheckMark checked>
+                <svg
+                  id="checkbox"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="white"
+                  strokeWidth="3"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </CheckMark>
+            ) : (
+              <CheckMark />
+            )}
+            <p className="check-label">시간 보기</p>
+          </div>
+        </Container>
+        {alertList.length ? (
+          <AlertList>
+            {alertList.map(alert => (
+              <ReadingAlert key={alert} alert={alert} time={time} />
+            ))}
+          </AlertList>
+        ) : null}
         <div className="time-container">
           <p>{isTimerActive ? '독서 중' : '쉬는 중'}</p>
-          {isTimeVisible && <Time time={time} />}
+          {(isTimeVisible || toggleTime) && <Time time={time} />}
         </div>
-
-        <Book
-          bookInfo={book.bookInfo}
-          isTimerActive={isTimerActive}
-          setIsTimerActive={setIsTimerActive}
-        />
-
+        <BookInfoCard>
+          <Book
+            bookInfo={book.bookInfo}
+            isTimerActive={isTimerActive}
+            setIsTimerActive={setIsTimerActive}
+          />
+        </BookInfoCard>
         <div className="button-container">
           <button
             type="button"
