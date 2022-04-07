@@ -1,11 +1,11 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
-import Time from './Time';
 import Book from './Book';
 import useStore from '../../stores/bottomSheet';
 import Warning from './Warning';
 import Header from '../common/Header';
 import ReadingAlert from './ReadingAlert';
+import formatTime from '../../utils/formatTime';
 
 const StyledReadingPage = styled.div`
   background-color: #7c9e80;
@@ -112,20 +112,32 @@ const BookInfoCard = styled.div`
   z-index: 1;
 `;
 
+const StyledTime = styled.p`
+  ${tw`text-light-gray`}
+  font-size: 20px;
+`;
+
+const msgList = [
+  '타이머는 6분이 지나면 사라집니다',
+  '6분 동안은 손에 있는 책에 집중해보세요',
+  '어느새 독서에 빠진 자신의 모습을 발견할 수 있을 거예요!',
+];
+
 function ReadingPage({
   time,
   isTimerActive,
   setIsTimerActive,
   isTimeVisible,
+  setIsTimeVisible,
   book,
   setCurrentPage,
+  showToggleBtn,
 }) {
-  const [toggleTime, setToggleTime] = useState(false);
   const openBottomSheet = useStore(useCallback(state => state.openSheet));
   const finishReading = () => {
     setIsTimerActive(false);
 
-    if (time < 120) {
+    if (time < 360) {
       openBottomSheet(Warning, '독서 시간이 너무 적어요', setCurrentPage);
       return;
     }
@@ -133,17 +145,12 @@ function ReadingPage({
   };
 
   const [alertList, setAlertList] = useState([]);
-  const msgList = [
-    '타이머는 2분이 지나면 사라집니다',
-    '독서가 어려우시다면 2분 동안은 손에 있는 책에 집중해보세요',
-    '어느새 독서에 빠진 자신의 모습을 발견하실 수 있을 거예요!',
-  ];
 
   function addEleby5sec() {
     for (let i = 0; i < 3; i += 1) {
       setTimeout(() => {
         alertList.push(msgList[i]);
-      }, i * 2000);
+      }, (i + 1) * 1000);
     }
   }
   useEffect(() => {
@@ -157,38 +164,40 @@ function ReadingPage({
       <Header background="#7c9e80" />
       <StyledReadingPage>
         <Container>
-          <div
-            className="form-check"
-            role="button"
-            onClick={() => {
-              setToggleTime(!toggleTime);
-            }}
-            onKeyDown={() => ''}
-            tabIndex={0}
-          >
-            {toggleTime ? (
-              <CheckMark checked>
-                <svg
-                  id="checkbox"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="white"
-                  strokeWidth="3"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </CheckMark>
-            ) : (
-              <CheckMark />
-            )}
-            <p className="check-label">시간 보기</p>
-          </div>
+          {showToggleBtn && (
+            <div
+              className="form-check"
+              role="button"
+              onClick={() => {
+                setIsTimeVisible(isTimeVisible => !isTimeVisible);
+              }}
+              onKeyDown={() => ''}
+              tabIndex={0}
+            >
+              {isTimeVisible ? (
+                <CheckMark checked>
+                  <svg
+                    id="checkbox"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="white"
+                    strokeWidth="3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </CheckMark>
+              ) : (
+                <CheckMark />
+              )}
+              <p className="check-label">시간 보기</p>
+            </div>
+          )}
         </Container>
         {alertList.length ? (
           <AlertList>
@@ -199,7 +208,7 @@ function ReadingPage({
         ) : null}
         <div className="time-container">
           <p>{isTimerActive ? '독서 중' : '쉬는 중'}</p>
-          {(isTimeVisible || toggleTime) && <Time time={time} />}
+          {isTimeVisible && <StyledTime>{formatTime(time)}</StyledTime>}
         </div>
         <BookInfoCard>
           <Book
