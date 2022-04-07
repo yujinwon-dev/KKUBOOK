@@ -86,11 +86,14 @@
 
 ### Backend
 
+- Kakao Login API
+- Naver Book API
+- PyJWT
+- Scipy
 - Django Rest Framework
 - MariaDB
-- AWS
-- NGINX
-- Kakao Login API
+- Numpy
+- Matrix Factorization
 
 <br/>
 
@@ -98,13 +101,39 @@
 
 ![꾸북아키텍쳐](README.assets/꾸북아키텍쳐.PNG)
 
-<br/>
+</br>
 
-# 프로젝트 일정
+### 설치 및 실행
+
+- Front-End
+
+  ```bash
+  cd frontend
+  npm install
+  npm start
+  ```
+
+- Back-End
+
+  ```bash
+  cd backend
+  python -m venv venv
+  source venv/Scripts/activate
+  pip install -r requirements.txt
+  ```
 
 <br/>
 
 # 팀 소개
 
-- 프론트: 원유진, 최승연, 한우리
-- 백엔드: 백민아, 이소현, 최시열
+💡 백민아: 백엔드 개발, 추천 알고리즘
+
+🎊 원유진: 프론트 개발, 프로토타이핑
+
+🐱 이소현: 백엔드 개발, 추천 알고리즘
+
+👑 최승연: 팀장, 프론트 개발, 프로토타이핑
+
+🛠 최시열: 백엔드 개발, 추천 알고리즘, 배포
+
+⏰ 한우리: 프론트 개발, 프로토타이핑
