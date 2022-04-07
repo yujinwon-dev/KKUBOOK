@@ -21,12 +21,14 @@ function Reading() {
   const [currentPage, setCurrentPage] = useState('reading');
   const [isTimerActive, setIsTimerActive] = useState(true); // 읽는 중 vs 쉬는 중
   const [isTimeVisible, setIsTimeVisible] = useState(true);
+  const [showToggleBtn, setShowToggleBtn] = useState(false);
   const [time, setTime] = useState(0);
   const book = selectedBookStore(useCallback(state => state.selectedBook, []));
 
   useEffect(() => {
     if (time === 360) {
       setIsTimeVisible(false);
+      setShowToggleBtn(true);
     }
   }, [time]);
 
@@ -57,6 +59,7 @@ function Reading() {
         isTimeVisible={isTimeVisible}
         setIsTimeVisible={setIsTimeVisible}
         setCurrentPage={setCurrentPage}
+        showToggleBtn={showToggleBtn}
       />
     ),
     record: (
