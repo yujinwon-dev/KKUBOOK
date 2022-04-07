@@ -195,6 +195,7 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               if (currentLevel * 10 + currentKkubookDays === 99) {
                 increaseComplete();
                 navigate(`/congratulations/${updatedProgress.bookStatus}`);
+                return;
               }
             }
             if (updatedProgress.bookStatus === 0) {
