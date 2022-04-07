@@ -11,7 +11,6 @@ const Body = styled.div`
     color: #848282;
   }
 `;
-
 const ListEle = styled.div`
   padding: 1rem;
 `;
