@@ -38,9 +38,14 @@ const StyledRecordPage = styled.div`
   .title {
     font-size: 12px;
     margin-bottom: 5px;
+    ${tw`text-black`}
   }
 
   .page {
+    ${tw`text-black`}
+  }
+
+  .curr-page {
     font-size: 20px;
   }
 
@@ -52,7 +57,7 @@ const StyledRecordPage = styled.div`
     height: 3rem;
     bottom: 15px;
     border-radius: 10px;
-    ${tw`bg-main-green`}
+    ${tw`bg-main-green text-black`}
   }
 `;
 
@@ -113,7 +118,7 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="#000000"
               strokeWidth={2}
               width="55px"
               height="55px"
@@ -142,7 +147,7 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="#000000"
               strokeWidth={2}
               width="55px"
               height="55px"
@@ -155,8 +160,8 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
             </svg>
             <div className="record">
               <p className="title">읽은 페이지</p>
-              <p>
-                <span className="page">P. {currPage}</span> / {totalPage}
+              <p className="page">
+                <span className="curr-page">P. {currPage}</span> / {totalPage}
               </p>
               {stopReading && <p>그만 읽을래요</p>}
             </div>
@@ -166,6 +171,8 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
           type="button"
           className="save-button"
           onClick={async () => {
+            await commit(book.bookId, startDateTime);
+
             const updatedProgress = await recordProgress(
               book.id,
               book.bookId,
@@ -174,7 +181,6 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               totalPage === currPage,
               stopReading,
             );
-            commit(book.bookId, startDateTime);
 
             if (stopReading) {
               openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
