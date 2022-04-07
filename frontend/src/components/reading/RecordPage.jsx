@@ -71,7 +71,10 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
   const { userId, isKkubook, kkubookDays, level } = useUserStore(
     state => state.userInfo,
   );
-  const { updateKkubookDays } = useUserStore();
+  const currentIsKkubook = isKkubook;
+  const currentLevel = level;
+  const currentKkubookDays = kkubookDays;
+  const { updateUserInfo, increaseComplete } = useUserStore();
   const setCategory = useBookStore(state => state.setCategory);
   const submitPage = submittedPage => {
     if (submittedPage === 'stop') {
@@ -185,9 +188,12 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
 
             setCategory(updatedProgress.bookStatus);
 
-            if (isKkubook) {
-              updateKkubookDays();
-              if (level * 10 + kkubookDays === 99) {
+            if (currentIsKkubook) {
+              const { kkubookmode } = updatedProgress;
+              const { level, kkubook_days } = kkubookmode;
+              updateUserInfo({ level, kkubookDays: kkubook_days });
+              if (currentLevel * 10 + currentKkubookDays === 99) {
+                increaseComplete();
                 navigate(`/congratulations/${updatedProgress.bookStatus}`);
               }
             }

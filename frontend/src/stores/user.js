@@ -32,11 +32,11 @@ const useStore = create(
         set(state => ({
           userInfo: { ...state.userInfo, ...newData },
         })),
-      updateKkubookDays: () =>
+      increaseComplete: () =>
         set(state => ({
           userInfo: {
             ...state.userInfo,
-            kkubookDays: state.userInfo.kkubookDays + 1,
+            kkubookComplete: state.userInfo.kkubookComplete + 1,
           },
         })),
       offKkubook: () =>
