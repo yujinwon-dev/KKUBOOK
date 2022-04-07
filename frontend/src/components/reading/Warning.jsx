@@ -39,7 +39,7 @@ const WarningSheet = styled.div`
   }
 
   .back {
-    ${tw`bg-light-gray`}
+    ${tw`bg-light-gray text-black`}
   }
 `;
 
