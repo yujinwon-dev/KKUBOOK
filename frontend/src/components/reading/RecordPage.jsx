@@ -168,6 +168,8 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
           type="button"
           className="save-button"
           onClick={async () => {
+            await commit(book.bookId, startDateTime);
+
             const updatedProgress = await recordProgress(
               book.id,
               book.bookId,
@@ -176,7 +178,6 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               totalPage === currPage,
               stopReading,
             );
-            commit(book.bookId, startDateTime);
 
             if (stopReading) {
               openBottomSheet(GiveUpReading, '이번 책이 힘드셨나요?');
