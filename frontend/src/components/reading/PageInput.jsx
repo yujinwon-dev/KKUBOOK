@@ -45,6 +45,9 @@ const StyledPageInput = styled.div`
     z-index: 4;
     top: -90px;
     right: 10px;
+    p {
+      color: black;
+    }
   }
 
   .option-button {
@@ -64,6 +67,7 @@ const StyledPageInput = styled.div`
 
   .button-content {
     display: flex;
+    align-items: center;
   }
 
   .mt-10 {
@@ -113,6 +117,7 @@ function PageInput() {
               strokeWidth={2}
               width={20}
               height={20}
+              color="black"
             >
               <path
                 strokeLinecap="round"
@@ -138,6 +143,7 @@ function PageInput() {
               strokeWidth={2}
               width={20}
               height={20}
+              color="black"
             >
               <path
                 strokeLinecap="round"
