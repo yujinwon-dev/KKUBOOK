@@ -82,7 +82,7 @@ const StyledContent = styled.div`
 `;
 
 function Main() {
-  const isKkubook = useStore(state => state.userInfo.isKkubook);
+  const { level, isKkubook } = useStore(state => state.userInfo);
   const kkubookDays = useStore(state => state.userInfo.kkubookDays);
   const mainBooks = useBookStore(state => state.mainbooks);
   const getMainBooks = useBookStore(state => state.getMainBooks);
@@ -139,7 +139,7 @@ function Main() {
         {isKkubook ? (
           <CommitAlert>
             <p>
-              꾸북모드 시작한지 <span>{kkubookDays}</span> 일째
+              꾸북모드 시작한지 <span>{level * 10 + kkubookDays}</span> 일째
             </p>
           </CommitAlert>
         ) : null}
