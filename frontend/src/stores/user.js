@@ -32,13 +32,6 @@ const useStore = create(
         set(state => ({
           userInfo: { ...state.userInfo, ...newData },
         })),
-      updateKkubookDays: () =>
-        set(state => ({
-          userInfo: {
-            ...state.userInfo,
-            kkubookDays: state.userInfo.kkubookDays + 1,
-          },
-        })),
       offKkubook: () =>
         set(state => ({
           userInfo: { ...state.userInfo, isKkubook: false },
