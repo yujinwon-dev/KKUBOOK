@@ -460,4 +460,4 @@ WantedBy=multi-user.target
 
 # [ 🔥 배포 아키텍쳐 ]
 
-![](C:\Users\multicampus\Desktop\꾸북아키텍쳐.PNG)
+![꾸북아키텍쳐](deploy.assets/꾸북아키텍쳐.PNG)
