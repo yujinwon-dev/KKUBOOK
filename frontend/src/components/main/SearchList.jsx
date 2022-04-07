@@ -7,6 +7,9 @@ const Body = styled.div`
   flex-direction: column;
   align-items: left;
   padding: 1rem;
+  .preparing {
+    color: #848282;
+  }
 `;
 
 const ListEle = styled.div`
@@ -28,12 +31,15 @@ function SearchList() {
         <p>검색해서 등록하기</p>
       </ListEle>
       <ListEle
-        onClick={() => {
-          onDismiss();
-          navigate('/scanbook');
-        }}
+        className="preparing"
+        // onClick={() => {
+        //   onDismiss();
+        //   navigate('/scanbook');
+        // }}
       >
-        <p>바코드로 등록하기</p>
+        <p>
+          바코드로 등록하기 <span>(준비중)</span>
+        </p>
       </ListEle>
       <ListEle
         onClick={() => {
