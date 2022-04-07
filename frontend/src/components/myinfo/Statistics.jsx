@@ -10,7 +10,7 @@ import EmptyMessage from './EmptyMessage';
 const StatisticBox = styled.div`
   ${tw`px-page-x`}
   background: none;
-  padding-bottom: 65px;
+  padding-bottom: 5rem;
 
   &:before {
     content: '';

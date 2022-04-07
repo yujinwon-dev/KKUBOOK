@@ -11,6 +11,7 @@ import Book from '../components/bookshelf/Book';
 const BookshelfPage = styled.div`
   padding: 0 1rem 4rem;
   margin: 0px auto;
+  padding-bottom: 5rem;
 
   header {
     font-size: 30px;

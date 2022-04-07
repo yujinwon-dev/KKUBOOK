@@ -52,6 +52,7 @@ const StyledContent = styled.div`
   position: relative;
   top: 16vh;
   overflow: auto;
+  padding-bottom: 5rem;
 
   .content-wrapper {
     padding: 0 1rem;
