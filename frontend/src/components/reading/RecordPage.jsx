@@ -59,6 +59,10 @@ const StyledRecordPage = styled.div`
     border-radius: 10px;
     ${tw`bg-main-green text-black`}
   }
+
+  .stop-title {
+    color: black;
+  }
 `;
 
 function RecordPage({ time, book, setCurrentPage, startDateTime }) {
@@ -163,7 +167,7 @@ function RecordPage({ time, book, setCurrentPage, startDateTime }) {
               <p className="page">
                 <span className="curr-page">P. {currPage}</span> / {totalPage}
               </p>
-              {stopReading && <p>그만 읽을래요</p>}
+              {stopReading && <p className="stop-title">그만 읽을래요</p>}
             </div>
           </button>
         </div>
