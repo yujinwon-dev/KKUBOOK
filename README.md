@@ -1,6 +1,6 @@
-![kkubooLogo](README.assets/kkubooLogo.png)
-
 # 독서 습관 형성 서비스 :turtle: 꾸북 :turtle:
+<p align="center"><img src="README.assets/kkubooLogo.png"></p>
+
 
 # 목차
 
@@ -22,8 +22,9 @@
 
 # 프로젝트 소개
 
-  <p align="center">
+<center>
 <a href="README.assets/와이어프레임.pdf">와이어 프레임</a>	·	<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRrv6z1Tr4RNiDNgoKcM3Y3N34dwX5X3SfCxAPgqhzsGE2RDX9beJwbnKCvCYztrJlsnK6HUGnv_u0C/pubhtml?gid=1305377450&single=true">기술명세서</a>	·	<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRrv6z1Tr4RNiDNgoKcM3Y3N34dwX5X3SfCxAPgqhzsGE2RDX9beJwbnKCvCYztrJlsnK6HUGnv_u0C/pubhtml?gid=126235209&single=true">API문서</a>
+</center>  
 
 
 <br/>
@@ -53,24 +54,40 @@
 #### [일반모드]
 
 1. 초기 설문 및 사용자가 매긴 책 평점을 바탕으로 책을 추천해 줍니다.
+  <img src="README.assets/일반1-1.gif"  width="200" />
+  <img src="README.assets/일반1.gif"  width="200" />
+  
 2. 제목, 저자 검색, 바코드로 책을 찾아 책장에 등록하고 관리할 수 있습니다.
+  <img src="README.assets/일반2.gif"  width="200" />
+
 3. 독서 타이머로 책 읽는 시간, 어디까지 읽었는지 페이지를 기록할 수 있습니다.
+  <img src="README.assets/일반3.gif"  width="200" />
+
 4. 책을 읽으면서 사진과 글로 메모를 작성할 수 있습니다.
+  
+    <img src="README.assets/일반4.gif"  width="200" />
+
 5. 독서 기록을 남긴 날은 커밋이 이루어지고 약 4개월치 커밋 기록을 한 눈에 확인할 수 있습니다.
+  
+    <img src="README.assets/일반5.jpg"  width="200" />
+
 6. 월별 독서 통계(장르, 권)을 제공합니다.
+
+    <img src="README.assets/일반6.gif"  width="200" />
 
 </br>
 
 #### [꾸북모드]
 
 1. 정해진 시간에 오늘 독서를 했는지 확인하는 리마인드 알림을 전송합니다.
+  <img src="README.assets/꾸북1.jpg"  width="200" />
 2. 레벨 1부터 시작해 10일 동안 책을 읽으면 레벨업합니다. 총 100일 동안 레벨 10까지 레벨업 할 수 있습니다.
+
+    <img src="README.assets/꾸북2.gif"  width="200" />
 3. 100일 동안 챌린지를 완료할 경우 꾸북 뱃지를 수여합니다.
+
+    <img src="README.assets/꾸북3.gif"  width="200" />
 4. 만약 100일동안 누적 10일 이상 책을 읽지 않으면 꾸북모드는 자동으로 종료됩니다.
-
-</br>
-
-# 사용 방법
 
 </br>
 
