@@ -23,7 +23,8 @@
 # 프로젝트 소개
 
   <p align="center">
-<a href="README.assets/와이어프레임.pdf">와이어 프레임</a>	·	<a href="README.assets/ERD.pdf">ERD</a>	·	<a href="README.assets/기술명세서.pdf">기술명세서</a>	·	<a href="README.assets/API문서.pdf">API문서</a>
+<a href="README.assets/와이어프레임.pdf">와이어 프레임</a>	·	<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRrv6z1Tr4RNiDNgoKcM3Y3N34dwX5X3SfCxAPgqhzsGE2RDX9beJwbnKCvCYztrJlsnK6HUGnv_u0C/pubhtml?gid=1305377450&single=true">기술명세서</a>	·	<a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRrv6z1Tr4RNiDNgoKcM3Y3N34dwX5X3SfCxAPgqhzsGE2RDX9beJwbnKCvCYztrJlsnK6HUGnv_u0C/pubhtml?gid=126235209&single=true">API문서</a>
+
 
 <br/>
 
@@ -51,7 +52,7 @@
 
 #### [일반모드]
 
-1. 초기 설문 및 사용자가 메긴 책 평점을 바탕으로 책을 추천해 줍니다.
+1. 초기 설문 및 사용자가 매긴 책 평점을 바탕으로 책을 추천해 줍니다.
 2. 제목, 저자 검색, 바코드로 책을 찾아 책장에 등록하고 관리할 수 있습니다.
 3. 독서 타이머로 책 읽는 시간, 어디까지 읽었는지 페이지를 기록할 수 있습니다.
 4. 책을 읽으면서 사진과 글로 메모를 작성할 수 있습니다.
@@ -102,6 +103,12 @@
 # 프로젝트 구조
 
 ![꾸북아키텍쳐](README.assets/꾸북아키텍쳐.PNG)
+
+</br>
+
+### ERD
+
+![image-20220408101626092](README.assets/image-20220408101626092.png)
 
 </br>
 
