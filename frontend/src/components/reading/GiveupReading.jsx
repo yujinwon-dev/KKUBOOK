@@ -37,6 +37,7 @@ const GiveUpSheet = styled.div`
 
   .go-home {
     ${tw`bg-light-gray`}
+    color: black;
   }
 
   .go-recommendation {
