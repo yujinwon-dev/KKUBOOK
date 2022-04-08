@@ -54,7 +54,7 @@
 #### [일반모드]
 
 1. 초기 설문 및 사용자가 매긴 책 평점을 바탕으로 책을 추천해 줍니다.
-  <img src="README.assets/일반1-1.gif"  width="200" />
+  <img src="README.assets/일반1-1.gif"  style="width:200px" />
   <img src="README.assets/일반1.gif"  width="200" />
   
 2. 제목, 저자 검색, 바코드로 책을 찾아 책장에 등록하고 관리할 수 있습니다.
