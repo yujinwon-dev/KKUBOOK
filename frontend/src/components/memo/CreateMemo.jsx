@@ -7,7 +7,7 @@ import { selectedBookStore } from '../../stores/book';
 
 const BarButton = styled.button`
   font-size: 17px;
-  width: 3rem;
+  width: 4rem;
   color: #848282;
   border: none;
   background-color: #ffffff;
