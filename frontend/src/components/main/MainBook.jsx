@@ -150,6 +150,7 @@ function MainBook({ book, index, selectBook, setCardIndex }) {
           type="button"
           onClick={() => {
             setCardIndex(index + 1);
+            selectBook(book);
             navigate('/creatememo', {
               state: { id: `${bookId}`, title: `${bookInfo.title}` },
             });
