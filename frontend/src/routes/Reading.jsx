@@ -49,6 +49,18 @@ function Reading() {
     };
   }, [isTimerActive]);
 
+  useEffect(() => {
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.hidden) {
+          setIsTimerActive(false);
+        }
+      },
+      false,
+    );
+  }, []);
+
   const getPage = {
     reading: (
       <ReadingPage
