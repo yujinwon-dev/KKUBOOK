@@ -24,6 +24,7 @@ const StyledHeader = styled.header(({ background }) => [
 
   .right-side {
     margin-left: auto;
+    min-width: 36px;
   }
 
   .m-10 {
