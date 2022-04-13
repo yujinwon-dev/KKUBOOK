@@ -4,7 +4,7 @@ import buttonImage from '../../assets/button-image.png';
 
 const Info = styled.article`
   ${tw`flex flex-col justify-center items-center bg-light-gray`}
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   width: 75%;
   padding: 1.5rem 0.5rem;

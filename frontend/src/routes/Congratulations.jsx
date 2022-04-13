@@ -5,13 +5,14 @@ import happyKkubook from '../assets/happy-kkubook.png';
 import CongratsInfo from '../components/reading/CongratsInfo';
 
 const Page = styled.div`
-  ${tw`flex flex-col justify-center items-center`}
+  ${tw`flex flex-col items-center`}
   height: 100vh;
 `;
 
 const KkubookImg = styled.img`
   ${tw`block w-[150px]`}
   height: auto;
+  margin-top: 9.5rem;
   margin-bottom: 1.5rem;
 `;
 
